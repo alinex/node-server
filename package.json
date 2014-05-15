@@ -1,10 +1,15 @@
 {
   "name": "alinex-server",
   "version": "0.0.0",
-  "description": "",
+  "description": "Web server platform for attachable apps.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
-  "keywords": [],
+  "keywords": [
+    "server",
+    "webserver",
+    "http",
+    "https"
+  ],
   "homepage": "http://alinex.github.io/node-server/",
   "repository": {
     "type": "git",
@@ -26,10 +31,14 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "debug": "0.8.x",
+    "express": "4.x",
+    "alinex-error": "0.2.x"
+  },
   "devDependencies": {
     "alinex-make": "0.2.x",
-    "coveralls": "2.x"
+    "chai": "1.x"
   },
   "optionalDependencies": {},
   "engines": {

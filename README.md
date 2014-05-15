@@ -1,11 +1,11 @@
-Package: alinex-server
+Alinex web server
 =================================================
 
 [![Build Status] (https://travis-ci.org/alinex/node-server.svg?branch=master)](https://travis-ci.org/alinex/node-server) 
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
 
-Description comes here...
+This package provides a web server platform for attachable modules.
 
 
 Install
