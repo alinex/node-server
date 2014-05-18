@@ -22,13 +22,18 @@ errorHandler = require 'alinex-error'
 # include server modules
 express = require("express")
 
+# Root directory of the core application
+GLOBAL.ROOT_DIR = path.dirname __dirname
+
 # Read configuration
 # -------------------------------------------------
-config = yaml.safeLoad fs.readFileSync '/home/ixti/example.yml', 'utf8'
-fs.readFile '/home/ixti/example.yml', 'utf8', (err, data) ->
+# put into config class
+#config = yaml.safeLoad fs.readFileSync '/home/ixti/example.yml', 'utf8'
+# read src and local config
+fs.readFile 'config.yml', 'utf8', (err, data) ->
   throw err if err
   config = yaml.safeLoad data
-
+# merge configs
 
 # Initialize server
 # -------------------------------------------------
