@@ -11,7 +11,22 @@ This package provides a web server platform for attachable modules.
 Install
 -------------------------------------------------
 
+The easiest way is to let npm add the module directly:
+
+    > npm install alinex-server --save
+
 [![NPM](https://nodei.co/npm/alinex-server.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-server/)
+
+
+Usage
+-------------------------------------------------
+
+The usage is very simple, you only have to load the server and start it:
+
+    var server = require('alinex-server');
+    server.start();
+
+All configuration is done using a `server.yml` configuration file in... 
 
 
 License

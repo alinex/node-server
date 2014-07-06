@@ -15,33 +15,23 @@
 # include base modules
 fs = require 'fs'
 path = require 'path'
-cluster = require 'cluster'
-yaml = require 'js-yaml'
 debug = require('debug')('server:startup')
 errorHandler = require 'alinex-error'
+cluster = require 'cluster'
+config = require './config'
 # include server modules
-express = require("express")
+express = require 'express'
 
 # Root directory of the core application
 GLOBAL.ROOT_DIR = path.dirname __dirname
 
-# Read configuration
-# -------------------------------------------------
-# put into config class
-#config = yaml.safeLoad fs.readFileSync '/home/ixti/example.yml', 'utf8'
-# read src and local config
-fs.readFile 'config.yml', 'utf8', (err, data) ->
-  throw err if err
-  config = yaml.safeLoad data
-# merge configs
 
 # Initialize server
 # -------------------------------------------------
-app = express()
-app.get "/", (req, res) ->
-  res.send "hello world"
-  return
+config.load (config) ->
+  app = express()
+  app.get "/", (req, res) ->
+    res.send "hello world"
 
-app.listen 3000
-
-console.log 'done'
+  server = app.listen 3000, ->
+    console.log "Listening on port #{server.address().port}"

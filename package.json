@@ -32,10 +32,12 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "alinex-error": "0.2.x",
+    "alinex-util": "^0.1.0",
     "debug": "0.8.x",
     "express": "4.x",
-    "alinex-error": "0.2.x",
-    "js-yaml": "3.x"
+    "js-yaml": "3.x",
+    "async": "~0.9.0"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
