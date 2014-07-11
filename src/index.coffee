@@ -17,7 +17,7 @@ fs = require 'fs'
 path = require 'path'
 debug = require('debug')('server:startup')
 errorHandler = require 'alinex-error'
-config = require 'alinex-config'
+Config = require 'alinex-config'
 cluster = require 'cluster'
 # include server modules
 express = require 'express'
@@ -28,10 +28,11 @@ GLOBAL.ROOT_DIR = path.dirname __dirname
 
 # Initialize server
 # -------------------------------------------------
-config.load (config) ->
+config = new Config 'server', ->
   app = express()
   app.get "/", (req, res) ->
     res.send "hello world"
 
-  server = app.listen 3000, ->
-    console.log "Listening on port #{server.address().port}"
+  if config.http?.port?
+    server = app.listen config.http.port, ->
+      console.log "Listening on port #{server.address().port}"
