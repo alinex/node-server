@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "alinex-error": "0.2.x",
-    "alinex-util": "^0.1.0",
+    "alinex-util": "0.1.x",
     "debug": "0.8.x",
     "express": "4.x",
-    "js-yaml": "3.x",
-    "async": "~0.9.0"
+    "async": "0.9.x",
+    "alinex-config": "0.1.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",

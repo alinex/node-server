@@ -17,8 +17,8 @@ fs = require 'fs'
 path = require 'path'
 debug = require('debug')('server:startup')
 errorHandler = require 'alinex-error'
+config = require 'alinex-config'
 cluster = require 'cluster'
-config = require './config'
 # include server modules
 express = require 'express'
 
