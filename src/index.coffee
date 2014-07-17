@@ -22,8 +22,9 @@ cluster = require 'cluster'
 # include server modules
 express = require 'express'
 
-# Root directory of the core application
-GLOBAL.ROOT_DIR = path.dirname __dirname
+
+module.exports.init = (cb = ->) ->
+  cb()
 
 
 # Initialize server
@@ -36,3 +37,4 @@ config = new Config 'server', ->
   if config.http?.port?
     server = app.listen config.http.port, ->
       console.log "Listening on port #{server.address().port}"
+

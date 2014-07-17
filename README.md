@@ -29,6 +29,15 @@ The usage is very simple, you only have to load the server and start it:
 All configuration is done using a `server.yml` configuration file in... 
 
 
+Configuration
+-------------------------------------------------
+
+This is possible with a `config.yml` (also in other formats) like described
+under [alinex-cionfig](http://alinex.github.io/node-config).
+
+For more information to the concrete values see the inline help in this file.
+
+
 License
 -------------------------------------------------
 
