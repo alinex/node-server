@@ -34,10 +34,10 @@
   "dependencies": {
     "alinex-error": "0.2.x",
     "alinex-util": "0.1.x",
-    "debug": "0.9.x || 0.8.x",
+    "debug": "1.x || 0.9.x || 0.8.x",
     "express": "4.x",
     "async": "0.9.x",
-    "alinex-config": "0.1.x"
+    "alinex-config": "0.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
