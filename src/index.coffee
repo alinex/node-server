@@ -22,19 +22,56 @@ cluster = require 'cluster'
 # include server modules
 express = require 'express'
 
-
-module.exports.init = (cb = ->) ->
-  cb()
-
-
-# Initialize server
+# Server class
 # -------------------------------------------------
-config = new Config 'server', ->
-  app = express()
-  app.get "/", (req, res) ->
-    res.send "hello world"
+class Server extends events.EventEmitter
+  # ### Check the server configuration
+  # This method is meant to be used as check in [alinex-config](https://alinex.github.io/node-config)
+  @configCheck = (name, config, cb) ->
+    cb()
 
-  if config.http?.port?
-    server = app.listen config.http.port, ->
-      console.log "Listening on port #{server.address().port}"
+  # ### Create instance
+  constructor: (@config) ->
+    unless config
+      throw new Error "Could not initialize server without configuration."
 
+    if cb
+      @on 'ready', cb
+      @on 'error', cb
+    @app = express()
+    #    !!! TEST CODE
+    @app.get "/", (req, res) ->
+      res.send "hello world"
+    #    !!! TEST END
+
+  # ### Start the server
+  start: (cb) ->
+    # support callback through event wrapper
+    if cb
+      @on 'error', (err) ->
+        cb err
+        cb = ->
+      @on 'started', ->
+        cb()
+        cb = ->
+    # 
+    if config.http?.port?
+      @server = app.listen config.http.port, (err) ->
+        if err
+          @emit 'error', err
+        else
+          @emit 'started'
+
+  # ### Start the server
+  stop: (cb) ->
+    # support callback through event wrapper
+    if cb
+      @on 'error', (err) ->
+        cb err
+        cb = ->
+      @on 'stopped', ->
+        cb()
+        cb = ->
+
+
+module.exports = Config
