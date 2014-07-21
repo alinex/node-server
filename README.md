@@ -7,6 +7,14 @@ Alinex web server
 
 This package provides a web server platform for attachable modules.
 
+- full configurable
+- supports also ssl
+- single server cluster support
+- easy api
+
+It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
+following the code standards defined there.
+
 
 Install
 -------------------------------------------------
@@ -21,12 +29,30 @@ The easiest way is to let npm add the module directly:
 Usage
 -------------------------------------------------
 
-The usage is very simple, you only have to load the server and start it:
+The usage is very simple, you have to load the server class first:
 
-    var server = require('alinex-server');
-    server.start();
+    var Server = require('alinex-server');
 
-All configuration is done using a `server.yml` configuration file in... 
+The easiest way to configure is to use the 
+[alinex-config](http://alinex.github.io/node-config) module. The following lines
+will setup the config class and add the check routines:
+
+    var Config = require('alinex-config');
+    Config.addCheck(Server.configCheck);
+    config = new Config('server');
+
+Now you may start the server, after the configuration is loaded:
+
+    server = new Server(config);
+    config.on 'ready', server.start(); 
+
+### Events
+
+The following events are supported:
+
+- `error` - then something fails
+- `start` - then the server has started
+- `stop` - then the server has stopped
 
 
 Configuration

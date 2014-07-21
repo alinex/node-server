@@ -19,30 +19,26 @@ debug = require('debug')('server:startup')
 errorHandler = require 'alinex-error'
 Config = require 'alinex-config'
 cluster = require 'cluster'
+EventEmitter = require('events').EventEmitter
 # include server modules
 express = require 'express'
 
 # Server class
 # -------------------------------------------------
-class Server extends events.EventEmitter
+class Server extends EventEmitter
   # ### Check the server configuration
-  # This method is meant to be used as check in [alinex-config](https://alinex.github.io/node-config)
+  # This method is meant to be used as check in [alinex-config](http://alinex.github.io/node-config)
   @configCheck = (name, config, cb) ->
+    console.log '!!! configCheck not implemented !!!'
     cb()
 
   # ### Create instance
+  # This will only store the reference to the configuration object. This may be
+  # an [alinex-config](http://alinex.github.io/node-config) object or a normal 
+  # object.
   constructor: (@config) ->
     unless config
       throw new Error "Could not initialize server without configuration."
-
-    if cb
-      @on 'ready', cb
-      @on 'error', cb
-    @app = express()
-    #    !!! TEST CODE
-    @app.get "/", (req, res) ->
-      res.send "hello world"
-    #    !!! TEST END
 
   # ### Start the server
   start: (cb) ->
@@ -51,16 +47,21 @@ class Server extends events.EventEmitter
       @on 'error', (err) ->
         cb err
         cb = ->
-      @on 'started', ->
+      @on 'start', ->
         cb()
         cb = ->
     # 
+    @app = express()
+    #    !!! TEST CODE
+    @app.get "/", (req, res) ->
+      res.send "hello world"
+    #    !!! TEST END
     if config.http?.port?
       @server = app.listen config.http.port, (err) ->
         if err
           @emit 'error', err
         else
-          @emit 'started'
+          @emit 'start'
 
   # ### Start the server
   stop: (cb) ->
@@ -69,7 +70,7 @@ class Server extends events.EventEmitter
       @on 'error', (err) ->
         cb err
         cb = ->
-      @on 'stopped', ->
+      @on 'stopp', ->
         cb()
         cb = ->
 
