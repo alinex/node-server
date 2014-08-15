@@ -32,7 +32,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-error": "0.2.x",
+    "alinex-error": "0.3.x",
     "alinex-util": "0.1.x",
     "debug": "1.x || 0.9.x || 0.8.x",
     "express": "4.x",
