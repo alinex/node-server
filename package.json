@@ -32,7 +32,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-error": "0.3.x",
+    "alinex-error": "0.2.x",
     "alinex-util": "0.1.x",
     "debug": "0.8.0 - 2.x",
     "express": "4.x",
@@ -40,7 +40,7 @@
     "alinex-config": "0.x"
   },
   "devDependencies": {
-    "alinex-make": "0.3.x",
+    "alinex-make": "0.4.x",
     "chai": "1.x"
   },
   "optionalDependencies": {},
