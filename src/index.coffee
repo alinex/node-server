@@ -16,52 +16,59 @@
 fs = require 'fs'
 path = require 'path'
 debug = require('debug')('server:startup')
-errorHandler = require 'alinex-error'
-Config = require 'alinex-config'
 cluster = require 'cluster'
 EventEmitter = require('events').EventEmitter
+# alinex modules
+errorHandler = require 'alinex-error'
+Config = require 'alinex-config'
 # include server modules
 express = require 'express'
 
 # Server class
 # -------------------------------------------------
 class Server extends EventEmitter
-  # ### Check the server configuration
-  # This method is meant to be used as check in [alinex-config](http://alinex.github.io/node-config)
-  @configCheck = (name, config, cb) ->
-    console.log '!!! configCheck not implemented !!!'
-    cb()
 
   # ### Create instance
   # This will only store the reference to the configuration object. This may be
-  # an [alinex-config](http://alinex.github.io/node-config) object or a normal 
+  # an [alinex-config](http://alinex.github.io/node-config) object or a normal
   # object.
-  constructor: (@config) ->
-    unless config
-      throw new Error "Could not initialize server without configuration."
+  constructor: (@name = 'server') ->
+    @config = Config.instance name
+    @config.setCheck
+      title: "Webserver configuration"
+      description: "the configuration for the webserver"
+      type: 'object'
+      entries:
+        port:
+          title: "Http Port"
+          description: "the port to listen"
+          type: 'integer'
+    @config.load cb
 
   # ### Start the server
   start: (cb) ->
-    # support callback through event wrapper
-    if cb
-      @on 'error', (err) ->
-        cb err
-        cb = ->
-      @on 'start', ->
-        cb()
-        cb = ->
-    # 
-    @app = express()
-    #    !!! TEST CODE
-    @app.get "/", (req, res) ->
-      res.send "hello world"
-    #    !!! TEST END
-    if config.http?.port?
-      @server = app.listen config.http.port, (err) ->
-        if err
-          @emit 'error', err
-        else
-          @emit 'start'
+    @config.load (err, config) ->
+      return @emit 'error', err if err
+      # support callback through event wrapper
+      if cb
+        @on 'error', (err) ->
+          cb err
+          cb = ->
+        @on 'start', ->
+          cb()
+          cb = ->
+      #
+      @app = express()
+      #    !!! TEST CODE
+      @app.get "/", (req, res) ->
+        res.send "hello world"
+      #    !!! TEST END
+      if config.http?.port?
+        @server = app.listen config.http.port, (err) ->
+          if err
+            @emit 'error', err
+          else
+            @emit 'start'
 
   # ### Start the server
   stop: (cb) ->

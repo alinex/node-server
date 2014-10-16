@@ -1,7 +1,7 @@
 Alinex web server
 =================================================
 
-[![Build Status] (https://travis-ci.org/alinex/node-server.svg?branch=master)](https://travis-ci.org/alinex/node-server) 
+[![Build Status] (https://travis-ci.org/alinex/node-server.svg?branch=master)](https://travis-ci.org/alinex/node-server)
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
 
@@ -33,18 +33,12 @@ The usage is very simple, you have to load the server class first:
 
     var Server = require('alinex-server');
 
-The easiest way to configure is to use the 
-[alinex-config](http://alinex.github.io/node-config) module. The following lines
-will setup the config class and add the check routines:
+The configuration is done using [alinex-config](http://alinex.github.io/node-config)
+module. Therefore you may specify the config name to use on start or `server`
+is used.
 
-    var Config = require('alinex-config');
-    Config.addCheck(Server.configCheck);
-    config = new Config('server');
-
-Now you may start the server, after the configuration is loaded:
-
-    server = new Server(config);
-    config.on 'ready', server.start(); 
+    server = new Server('rest-server');
+    server.start();
 
 ### Events
 
@@ -58,10 +52,10 @@ The following events are supported:
 Configuration
 -------------------------------------------------
 
-This is possible with a `config.yml` (also in other formats) like described
-under [alinex-cionfig](http://alinex.github.io/node-config).
+This is possible with a `server.yml` or `given-name.yml` (also in other formats)
+like described under [alinex-cionfig](http://alinex.github.io/node-config).
 
-For more information to the concrete values see the inline help in this file.
+For more information to the concrete values see the example config file.
 
 
 License
