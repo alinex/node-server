@@ -48,6 +48,11 @@ The following events are supported:
 - `start` - then the server has started
 - `stop` - then the server has stopped
 
+### API
+
+- `start` - start the web server
+- `stop` - stop the webserver
+
 
 Configuration
 -------------------------------------------------

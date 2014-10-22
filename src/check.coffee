@@ -21,8 +21,6 @@ EventEmitter = require('events').EventEmitter
 # alinex modules
 errorHandler = require 'alinex-error'
 Config = require 'alinex-config'
-# internal helpers
-check = require './check'
 # include server modules
 express = require 'express'
 
@@ -37,12 +35,24 @@ class Server extends EventEmitter
   constructor: (@name = 'server') ->
     debug "create server #{@name}"
     @config = Config.instance name
-    @config.setCheck check.server
+    @config.setCheck
+      title: "Webserver configuration"
+      description: "the configuration for the webserver"
+      type: 'object'
+      allowedKeys: true
+      entries:
+        host:
+          default: '127.0.0.1'
+        port:
+          title: "Http Port"
+          description: "the port to listen"
+          type: 'integer'
     @config.load()
 
   # ### Start the server
   start: (cb) ->
     @config.load (err, config) =>
+      console.log err
       return @emit 'error', err if err
       # support callback through event wrapper
       if cb

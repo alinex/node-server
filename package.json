@@ -41,7 +41,8 @@
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
-    "chai": "1.x"
+    "chai": "1.x",
+    "request": "2.x"
   },
   "optionalDependencies": {},
   "engines": {
