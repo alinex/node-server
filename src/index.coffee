@@ -47,9 +47,11 @@ class Server extends EventEmitter
       # support callback through event wrapper
       if cb
         @on 'error', (err) ->
+          debug "Error: #{err}"
           cb err
           cb = ->
         @on 'start', ->
+          debug "listening on http://localhost:#{config.port}"
           cb()
           cb = ->
       #
@@ -73,9 +75,11 @@ class Server extends EventEmitter
     # support callback through event wrapper
     if cb
       @on 'error', (err) ->
+        debug "Error: #{err}"
         cb err
         cb = ->
       @on 'stop', ->
+        debug "server stopped"
         cb()
         cb = ->
     # stop server
