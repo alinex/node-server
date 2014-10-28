@@ -50,17 +50,26 @@ class Server extends EventEmitter
           debug "Error: #{err}"
           cb err
           cb = ->
-        @on 'start', ->
-          debug "listening on http://localhost:#{config.port}"
+        @on 'start', =>
+          config = @config.data
+          debug "listening on http://localhost:#{config.http.port}"
           cb()
           cb = ->
       #
       debug "start server #{@name}"
       @app = express()
-
+      if config.
+        @app.enable 'trust proxy'
       #    !!! TEST CODE
+#      @app.use express.vhost 'hostname1.com', require('/path/to/hostname1').app
+      @app.use '/public', express.static 'public'
       @app.get "/", (req, res) ->
-        res.send "hello world"
+        res.send "Alinex Server is working!"
+      @app.use (req, res, next) ->
+        res.send 404, 'Sorry cant find that!'
+      @app.use (err, req, res, next) ->
+        console.error err
+        res.send 500, 'Something broke!'
       #    !!! TEST END
 
       if config.http?.port?

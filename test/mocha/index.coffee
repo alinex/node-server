@@ -23,7 +23,7 @@ describe "Webserver", ->
         url: 'http://localhost:3080/'
       , (err, response, body) =>
         expect(err).to.not.exist
-        expect(body).to.equal 'hello world'
+        expect(body).to.equal 'Alinex Server is working!'
         server.stop (err) ->
           expect(err).to.not.exist
           done()

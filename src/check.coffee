@@ -14,3 +14,8 @@ server =
       description: "the port to listen"
       type: 'integer'
       default: 23174
+    proxy:
+      title: "Enable proxy forwarding"
+      description: "the flag that enables that the X-Forwarded headers will be trusted"
+      type: 'boolean'
+      default: false
