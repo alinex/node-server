@@ -55,9 +55,10 @@ class Server extends EventEmitter
           debug "listening on http://localhost:#{config.http.port}"
           cb()
           cb = ->
-      #
+      # start the server
       debug "start server #{@name}"
       @app = express()
+      http.globalAgent.maxSockets = 500 # set this high, if you use httpClient or request anywhere (defaults to 5)
       if config.
         @app.enable 'trust proxy'
       #    !!! TEST CODE
@@ -75,7 +76,11 @@ class Server extends EventEmitter
       if config.http?.port?
         @server = @app.listen config.http.port, (err) =>
           if err
-            @emit 'error', err
+            if e.code is 'EADDRINUSE'
+              console.log chalk.bold.red 'Failed to bind to port - address already in use '
+              process.exit(1);
+            else
+              @emit 'error', err
           else
             @emit 'start'
 
