@@ -2,6 +2,7 @@ chai = require 'chai'
 expect = chai.expect
 path = require 'path'
 request = require 'request'
+
 # Root directory of the core application
 GLOBAL.ROOT_DIR = path.dirname path.dirname __dirname
 
@@ -14,8 +15,22 @@ Server = require '../../lib/index'
 
 describe "Webserver", ->
 
-  it "should deliver page", (done) ->
+  it "should work with normal express", (done) ->
     @timeout 10000
+    express = require('express');
+    app = express()
+    app.get '/', (req, res) ->
+      res.send 'hello world'
+    app.listen 3000
+    request
+      url: 'http://localhost:3000/'
+    , (err, response, body) =>
+      expect(err).to.not.exist
+      expect(body).to.equal 'hello world'
+      done()
+
+  it.only "should deliver page", (done) ->
+
     server = new Server('test-server');
     server.start (err) ->
       expect(err).to.not.exist
@@ -23,7 +38,7 @@ describe "Webserver", ->
         url: 'http://localhost:3080/'
       , (err, response, body) =>
         expect(err).to.not.exist
-        expect(body).to.equal 'Alinex Server is working!'
+        expect(body).to.equal 'hello world'
         server.stop (err) ->
           expect(err).to.not.exist
           done()

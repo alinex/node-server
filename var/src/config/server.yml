@@ -1,92 +1,44 @@
 # Configuration for production server
 # =================================================
 
-# HTTP Server
-# -------------------------------------------------
-# This will configure the HTTP server. Remove the complete section to disable
-# completely.
-#
-# `host` will be used from all the IP based server processes like HTTP,
-# HTTPS... to connect to. It may be an IP-address or a domain name and will
-# be also used to redirect the user to the fully qualified name if given.
-# Defaults to 127.0.0.1.
-#
-# For the `port` read the above documentation about privileged ports. Keep
-# in mind to to use different ports for different services like HTTP and
-# HTTPS. Defaults to port 3000.
-#
-# The `redirect` setting can be given a full URL or `ssl` to redirect to the
-# corresponding SSL server defined below.
-#
-# To disable the http server overwrite this block with `http: false`.
-http:
-  host: 127.0.0.1
-  port: 80
-  redirect: ssl
 
-# HTTPS Server
+# Server listening
 # -------------------------------------------------
-# This will configure the SSL server. Remove the complete section to disable
-# completely.
-#
-# `host` will be used from all the IP based server processes like HTTP,
-# HTTPS... to connect to. It may be an IP-address or a domain name and will
-# be also used to redirect the user to the fully qualified name if given.
-# Defaults to 127.0.0.1.
-#
-# For the `port` read the above documentation about privileged ports. Keep
-# in mind to to use different ports for different services like HTTP and
-# HTTPS. Derfaults to port 3001.
-#
-# `key`, `cert` and `ca` keys are used to insert the SSL certificate data.
-#
-# To disable the http server overwrite this block with `http: false`.
-https:
-  host: 127.0.0.1
-  port: 443
-  key: server.key
-  cert: server.crt
-  ca: server.crt
 
-# Application
-# -------------------------------------------------
-# The Apache like access log will be stored in the given stream. It may be
-# configured with a direct stream or a rotating stream.
+# ### Ports
 #
-# To only allow access from specific clients use this list of IPs. If
-# `restrictIP` list is empty, no restriction will be set.
+# Set the port the server is listening on.
 #
-# Use the flag `compileStylus` to specify whether the stylus compilation
-# should be done automatically if the stylus file is changed. This may
-# interfere with the automatic compilation using `cake devel` or `cake debug`.
+# To use a privileged port below 1024 you have to bind it using root privileges.
+# This may be critical.
+# The following three methods are possible to do this securely:
 #
-# The `static` URL will be used to access static files. If given `/static`
-# it will deliver them directly or if a full URL is given it will be retrieved
-# from the defined server or CDN.
+# 1.  Use sudo to start the server and it will change back to the normal user
+#     after port binding.
 #
-# The secret is used to hash the session with HMAC. The session is then
-# protected against session hijacking by checking the fingerprint against the
-# hash with the secret.
+# 2.  Start as root user but use the uid/gid setting below to change after
+#     port binding
 #
-# The session expiration is set in seconds.
-app:
-  accessLog:
-    rotator:
-      path: log
-      name: access-$PID
-      size: 1g
-      freq: 1d
-      retention: 7
-  restrictIP: []
-  compileStylus: false
-  static: /static
-  secret: R4FCaOCutWGN.GfVym9ag3yyPM
-  session:
-    expire: 3600
+# 3.  Use ip-tables to forward to an unprivileged port:
+#     `sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000`
+#
+# 4.  Use Nginx reverse-proxy on port 80 this helps also if you may run other
+#     things on port 80, too.
+#
+# Keep in mind to use different ports for different services like HTTP and
+# HTTPS. Defaults to port 23174 if not set.
+port: 80
+
+# This will configure the server to use SSL. Remove the complete section to
+# use normal http.
+#ssl:
+#  key: server.key
+#  cert: server.crt
+#  ca: server.crt
 
 # Debugging settings
 # -------------------------------------------------
 # To enable debugging set this to some possible and free ports.
-debug: false
+#debug: false
 #  port: 5858
 #  inspectorPort: 3009

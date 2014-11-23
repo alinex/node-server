@@ -1,6 +1,6 @@
 # Check definitions
 # =================================================
-# This contains different check definitions for the
+# This contains check definitions for the
 # [alinex-validator](http://alinex.github.io/node-validator).
 
 server =
@@ -11,7 +11,7 @@ server =
   entries:
     port:
       title: "Http Port"
-      description: "the port to listen"
+      description: "the port to listen on"
       type: 'integer'
       default: 23174
     proxy:

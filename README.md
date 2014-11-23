@@ -54,6 +54,81 @@ The following events are supported:
 - `stop` - stop the webserver
 
 
+New API Ideas
+-------------------------------------------------
+
+The alinex server is a simple container for express applications. The express
+framework integrates perfectly and can be fully used. Also subapplications can
+be done easy the express way.
+The main part the server adds is the configurability through alinex-config and
+an easier handling.
+
+    # load modules
+    Server = require 'alinex-server'
+    Config = require 'alinex-config'
+    express = require 'express'
+    # load setup
+    httpConf = new Config 'http'
+    httpConf.load()
+    httpsConf = new Config 'https'
+    httpsConf.load()
+    # define routes
+    app = express()
+    app.use ...
+    # include subserver
+    rest = express()
+    rest.use ...
+    app.use '/rest', rest
+    # init server
+    # -> default routes like 404 will be added to app automatically
+    http = new Server httpConf, app
+    https = new Server httpsConf, app
+    # start and stop servers
+    http.start()
+    https.start()
+    http.stop()
+    http.restart()
+
+    # load modules
+    Server = require 'alinex-server'
+    express = require 'express'
+    # define routes
+    app = express()
+    app.use ...
+    # include subserver
+    rest = express()
+    rest.use ...
+    app.use '/rest', rest
+    # init server
+    # -> default routes like 404 will be added to app automatically
+    http = new Server 'http'
+    http.init app
+    https = new Server 'https'
+    https.init app
+    # start and stop servers
+    http.start()
+    https.start()
+    http.stop()
+    http.restart()
+
+Additional server properties:
+
+    server.configClass # configuration class
+    server.config # configuration data
+    server.app # express app
+    server.server # running server instance
+
+### Events
+
+The following events are supported:
+
+- `error` - then something fails
+- `start` - then the server has started
+- `stop` - then the server has stopped
+
+You may also listen to the events from the underlying technologies.
+
+
 Configuration
 -------------------------------------------------
 
