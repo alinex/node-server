@@ -37,7 +37,7 @@ The configuration is done using [alinex-config](http://alinex.github.io/node-con
 module. Therefore you may specify the config name to use on start or `server`
 is used.
 
-    server = new Server('rest-server');
+    server = new Server('rest-server', app);
     server.start();
 
 ### Events
@@ -45,10 +45,19 @@ is used.
 The following events are supported:
 
 - `error` - then something fails
+- `init` - after initialization is done
 - `start` - then the server has started
 - `stop` - then the server has stopped
 
-### API
+### Properties
+
+- `config` (object) - configuration data
+- `configClass` (Config) - if an alinex-config instance is given or the config loaded
+- `init` (boolean) - flag set to true if server is fully initialized
+- `app` (Express) - application runing as main
+- `server` (Server) - node network server instance
+
+### Methods
 
 - `start` - start the web server
 - `stop` - stop the webserver
@@ -65,13 +74,31 @@ an easier handling.
 
     # load modules
     Server = require 'alinex-server'
+    express = require 'express'
+    # define routes
+    app = express()
+    app.use ...
+    # include subserver
+    rest = express()
+    rest.use ...
+    app.use '/rest', rest
+    # init server
+    # -> default routes like 404 will be added to app automatically
+    http = new Server 'http', app
+    https = new Server 'https', app
+    # start and stop servers
+    http.start()
+    https.start()
+    http.stop()
+    http.restart()
+
+    # load modules
+    Server = require 'alinex-server'
     Config = require 'alinex-config'
     express = require 'express'
     # load setup
     httpConf = new Config 'http'
     httpConf.load()
-    httpsConf = new Config 'https'
-    httpsConf.load()
     # define routes
     app = express()
     app.use ...
@@ -82,32 +109,8 @@ an easier handling.
     # init server
     # -> default routes like 404 will be added to app automatically
     http = new Server httpConf, app
-    https = new Server httpsConf, app
     # start and stop servers
     http.start()
-    https.start()
-    http.stop()
-    http.restart()
-
-    # load modules
-    Server = require 'alinex-server'
-    express = require 'express'
-    # define routes
-    app = express()
-    app.use ...
-    # include subserver
-    rest = express()
-    rest.use ...
-    app.use '/rest', rest
-    # init server
-    # -> default routes like 404 will be added to app automatically
-    http = new Server 'http'
-    http.init app
-    https = new Server 'https'
-    https.init app
-    # start and stop servers
-    http.start()
-    https.start()
     http.stop()
     http.restart()
 
@@ -117,16 +120,6 @@ Additional server properties:
     server.config # configuration data
     server.app # express app
     server.server # running server instance
-
-### Events
-
-The following events are supported:
-
-- `error` - then something fails
-- `start` - then the server has started
-- `stop` - then the server has stopped
-
-You may also listen to the events from the underlying technologies.
 
 
 Configuration

@@ -1,6 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 path = require 'path'
+express = require('express');
 request = require 'request'
 
 # Root directory of the core application
@@ -17,7 +18,6 @@ describe "Webserver", ->
 
   it "should work with normal express", (done) ->
     @timeout 10000
-    express = require('express');
     app = express()
     app.get '/', (req, res) ->
       res.send 'hello world'
@@ -31,7 +31,10 @@ describe "Webserver", ->
 
   it.only "should deliver page", (done) ->
 
-    server = new Server('test-server');
+    app = express()
+    app.get '/', (req, res) ->
+      res.send 'hello world'
+    server = new Server 'test-server', app
     server.start (err) ->
       expect(err).to.not.exist
       request
