@@ -5,7 +5,9 @@ Alinex web server
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
 
-This package provides a web server platform for attachable modules.
+The alinex server is a simple container for express applications. The express
+framework integrates perfectly and can be fully used. Also subapplications can
+be done easy the express way.
 
 - full configurable
 - supports also ssl
@@ -40,6 +42,10 @@ is used.
     server = new Server('rest-server', app);
     server.start();
 
+
+API
+-------------------------------------------------
+
 ### Events
 
 The following events are supported:
@@ -66,11 +72,6 @@ The following events are supported:
 New API Ideas
 -------------------------------------------------
 
-The alinex server is a simple container for express applications. The express
-framework integrates perfectly and can be fully used. Also subapplications can
-be done easy the express way.
-The main part the server adds is the configurability through alinex-config and
-an easier handling.
 
     # load modules
     Server = require 'alinex-server'
