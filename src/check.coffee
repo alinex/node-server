@@ -3,7 +3,7 @@
 # This contains check definitions for the
 # [alinex-validator](http://alinex.github.io/node-validator).
 
-server =
+module.exports =
   title: "Webserver configuration"
   description: "the configuration for the webserver"
   type: 'object'
@@ -14,7 +14,7 @@ server =
       description: "the port to listen on"
       type: 'integer'
       default: 23174
-    proxy:
+    trustProxy:
       title: "Enable proxy forwarding"
       description: "the flag that enables that the X-Forwarded headers will be trusted"
       type: 'boolean'

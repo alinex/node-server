@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
+    "alinex-validator": "0.3.x",
     "chai": "1.x",
     "request": "2.x"
   },

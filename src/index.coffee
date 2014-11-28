@@ -31,7 +31,7 @@ class Server extends EventEmitter
   # configuration to load or the configuration structure itself.
   # The configuration loading will start, after finished an `init` event is
   # thrown and the `init` flag is set.
-  constructor: (@config = 'server', @pp) ->
+  constructor: (@config = 'server', app) ->
     debug "create new server instance"
     # set config from different values
     if typeof @config is 'string'
@@ -67,10 +67,7 @@ class Server extends EventEmitter
   start: (cb, loaded = false) ->
     # wait till configuration is loaded
     unless @init and loaded
-      return @once 'init' ->
-        return @start cb, true unless err
-        @emit 'error', err
-        cb err if cb
+      return @once 'init', => @start cb, true
     # support callback through event wrapper
     if cb
       @on 'error', (err) ->

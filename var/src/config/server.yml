@@ -5,7 +5,7 @@
 # Server listening
 # -------------------------------------------------
 
-# ### Ports
+# ### Port
 #
 # Set the port the server is listening on.
 #
@@ -28,6 +28,16 @@
 # Keep in mind to use different ports for different services like HTTP and
 # HTTPS. Defaults to port 23174 if not set.
 port: 80
+
+# ### trust proxy
+# Indicate that the app is sitting behind a front-facing proxy, and the X-Forwarded-*
+# headers may be trusted for determining the connection and the IP address of
+# the client. It must, however, be noted that, the X-Forwarded-* headers are
+# easily spoofed and the detected IP addresses are unreliable.
+trustProxy: false
+
+
+
 
 # This will configure the server to use SSL. Remove the complete section to
 # use normal http.

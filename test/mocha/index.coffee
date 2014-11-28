@@ -13,36 +13,46 @@ Config = require 'alinex-config'
 Config.search = [ 'test/data/config' ]
 
 Server = require '../../lib/index'
+check = require '../../lib/check'
+validator = require 'alinex-validator'
 
 describe "Webserver", ->
 
-  it "should work with normal express", (done) ->
-    @timeout 10000
-    app = express()
-    app.get '/', (req, res) ->
-      res.send 'hello world'
-    app.listen 3000
-    request
-      url: 'http://localhost:3000/'
-    , (err, response, body) =>
-      expect(err).to.not.exist
-      expect(body).to.equal 'hello world'
-      done()
+  describe "configuration", ->
 
-  it.only "should deliver page", (done) ->
+    it "should has correct validator rules", ->
+      validator.selfcheck 'check.server', check
 
-    app = express()
-    app.get '/', (req, res) ->
-      res.send 'hello world'
-    server = new Server 'test-server', app
-    server.start (err) ->
-      expect(err).to.not.exist
+  describe "express", ->
+
+    it "should work with normal express", (done) ->
+      @timeout 10000
+      app = express()
+      app.get '/', (req, res) ->
+        res.send 'hello world'
+      app.listen 3000
       request
-        url: 'http://localhost:3080/'
+        url: 'http://localhost:3000/'
       , (err, response, body) =>
         expect(err).to.not.exist
         expect(body).to.equal 'hello world'
-        server.stop (err) ->
+        done()
+
+  describe "simple server", ->
+
+    it "should deliver page", (done) ->
+      app = express()
+      app.get '/', (req, res) ->
+        res.send 'hello world'
+      server = new Server 'test-server', app
+      server.start (err) ->
+        expect(err).to.not.exist
+        request
+          url: 'http://localhost:3080/'
+        , (err, response, body) =>
           expect(err).to.not.exist
-          done()
+          expect(body).to.equal 'hello world'
+          server.stop (err) ->
+            expect(err).to.not.exist
+            done()
 
