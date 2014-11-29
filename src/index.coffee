@@ -36,7 +36,7 @@ class Server extends EventEmitter
     # set config from different values
     if typeof @config is 'string'
       @config = Config.instance @config
-      @config.setCheck check.server
+      @config.setCheck check
     if @config instanceof Config
       @configClass = @config
       @config = @config.data
@@ -54,11 +54,34 @@ class Server extends EventEmitter
   _init: (app) ->
     # setup app
     @app = express()
+    @app.disable 'x-powered-by'
+    if @config.trustProxy
+      @app.enable 'trust proxy'
+    # ip restriction
+    if @config.restrictIP? and @config.restrictIP.length
+      ips = new RegExp @config.restrictIP.join '|'
+      @app.all '/', (req, res, next) ->
+        if not req.ip.match ips
+          logger.warn 'The IP %s is not allowed.', req.ip
+          err = new Error "Your IP (#{req.ip}) is not allowed."
+          err.status = 403
+          return next err
+        next()
     # use given rules
     @app.use app
-    # set fallback rules
+    # default homepage
     @app.get '/', (req, res) ->
       res.send 'Alinex Server running!'
+    # file not found error
+    @app.use (req, res, next) ->
+      err = new Error "Resource not found!"
+      err.status = 404
+      next err
+    # handling errors
+    @app.use (err, req, res, next) ->
+      err.status ?= 500
+      res.status err.status
+      res.send err.message
     # initialization done
     @init = true
     @emit 'init'

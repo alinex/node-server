@@ -23,7 +23,7 @@ Install
 
 The easiest way is to let npm add the module directly:
 
-    > npm install alinex-server --save
+    > npm install alinex-server express --save
 
 [![NPM](https://nodei.co/npm/alinex-server.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-server/)
 
@@ -31,16 +31,49 @@ The easiest way is to let npm add the module directly:
 Usage
 -------------------------------------------------
 
-The usage is very simple, you have to load the server class first:
+The usage is very simple, you have to load the server modules first:
 
     var Server = require('alinex-server');
+    var express = require('express');
 
-The configuration is done using [alinex-config](http://alinex.github.io/node-config)
+Because it depends on express.js you may define your app in the standard manner
+adding routes...
+
+    var app = express();
+    app.get('/', function (req, res) {
+      // do something
+      res.send('...the rsponse body...');
+    });
+    app.use(...);
+
+You can also use subapps if you want:
+
+    var rest = express();
+    rest.get('/', function (req, res) {
+        // do something
+    });
+    app.use('/rest', rest);
+
+That adds the defined routes under `/rest/...`.
+
+Now you may instantiate a server with the root app. The configuration is done
+using [alinex-config](http://alinex.github.io/node-config)
 module. Therefore you may specify the config name to use on start or `server`
 is used.
 
     server = new Server('rest-server', app);
+
+Now the server may be started and stopped on demand:
+
     server.start();
+    server.stop();
+
+Both methods also supports events and callbacks if needed. The setup will remain.
+
+### SSL server
+
+The use as ssl server is as easy as a normal webserver. All you need to do is set
+it to ssl with the corresponding port and certificates in the configuration file.
 
 
 API
@@ -67,60 +100,6 @@ The following events are supported:
 
 - `start` - start the web server
 - `stop` - stop the webserver
-
-
-New API Ideas
--------------------------------------------------
-
-
-    # load modules
-    Server = require 'alinex-server'
-    express = require 'express'
-    # define routes
-    app = express()
-    app.use ...
-    # include subserver
-    rest = express()
-    rest.use ...
-    app.use '/rest', rest
-    # init server
-    # -> default routes like 404 will be added to app automatically
-    http = new Server 'http', app
-    https = new Server 'https', app
-    # start and stop servers
-    http.start()
-    https.start()
-    http.stop()
-    http.restart()
-
-    # load modules
-    Server = require 'alinex-server'
-    Config = require 'alinex-config'
-    express = require 'express'
-    # load setup
-    httpConf = new Config 'http'
-    httpConf.load()
-    # define routes
-    app = express()
-    app.use ...
-    # include subserver
-    rest = express()
-    rest.use ...
-    app.use '/rest', rest
-    # init server
-    # -> default routes like 404 will be added to app automatically
-    http = new Server httpConf, app
-    # start and stop servers
-    http.start()
-    http.stop()
-    http.restart()
-
-Additional server properties:
-
-    server.configClass # configuration class
-    server.config # configuration data
-    server.app # express app
-    server.server # running server instance
 
 
 Configuration

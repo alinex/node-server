@@ -13,7 +13,7 @@
 # This may be critical.
 # The following three methods are possible to do this securely:
 #
-# 1.  Use sudo to start the server and it will change back to the normal user
+# 1.  Use sudo to start the server and change back to the normal user
 #     after port binding.
 #
 # 2.  Start as root user but use the uid/gid setting below to change after
@@ -37,7 +37,37 @@ port: 80
 trustProxy: false
 
 
+# Access restrictions
+# -------------------------------------------------
+# The following restrictions are possible:
+#
+# - `ip` give an ip address or list of addresses
 
+# ### Whitelist
+# To only allow access from specific clients they have to be listed here:
+#allow:
+#  ip:
+
+# ### Blacklist
+# To disallow access from specific clients list them here:
+#disallow:
+#  ip:
+
+
+# Session handling
+# -------------------------------------------------
+#session:
+  # The secret is used to hash the session with HMAC. The session is then
+  # protected against session hijacking by checking the fingerprint against the
+  # hash with the secret.
+  #secret: R4FCaOCutWGN.GfVym9ag3yyPM
+  # After the following time of inactivity (no server request) the session will
+  # be outdated.
+  #expire: 3600s
+
+
+# Secure settings
+# -------------------------------------------------
 
 # This will configure the server to use SSL. Remove the complete section to
 # use normal http.
