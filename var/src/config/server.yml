@@ -36,6 +36,12 @@ port: 80
 # easily spoofed and the detected IP addresses are unreliable.
 trustProxy: false
 
+# ### Server nodes
+# If set this will define how much nodes to start. 0 means no cluster support
+# running with one process. 1 means cluster support running with one forked node
+# which will be restarted from the master on kill. And higher values mean more
+# nodes but not more will be used than the number of cpu cores.
+#nodes: 0
 
 # Access restrictions
 # -------------------------------------------------

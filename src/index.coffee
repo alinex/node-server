@@ -15,11 +15,18 @@
 # include base modules
 debug = require('debug')('server')
 EventEmitter = require('events').EventEmitter
+cluster = require 'cluster'
 express = require 'express'
 # alinex modules
 Config = require 'alinex-config'
 # internal helpers
 check = require './check'
+
+# Forked server node
+# -------------------------------------------------
+unless cluster.isMaster
+  # start server
+  throw new Error "sorry, cluster support not implemented!"
 
 # Server class
 # -------------------------------------------------
