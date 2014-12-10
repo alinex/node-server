@@ -20,7 +20,7 @@ express = require 'express'
 # alinex modules
 Config = require 'alinex-config'
 # internal helpers
-check = require './check'
+configcheck = require './configcheck'
 
 # Forked server node
 # -------------------------------------------------
@@ -43,12 +43,12 @@ class Server extends EventEmitter
     # set config from different values
     if typeof @config is 'string'
       @config = Config.instance @config
-      @config.setCheck check
+      @config.setCheck configcheck
     if @config instanceof Config
       @configClass = @config
-      @config = @config.data
+      @config = @configClass.data
       @name = @configClass.name
-    @init = false # status set to true after initializing
+    @initDone = false # status set to true after initializing
     # set init status if configuration is loaded
     unless @configClass?
       @_init app
@@ -90,13 +90,13 @@ class Server extends EventEmitter
       res.status err.status
       res.send err.message
     # initialization done
-    @init = true
+    @initDone = true
     @emit 'init'
 
   # ### Start the server
   start: (cb, loaded = false) ->
     # wait till configuration is loaded
-    unless @init and loaded
+    unless @initDone and loaded
       return @once 'init', => @start cb, true
     # support callback through event wrapper
     if cb
