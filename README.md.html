@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-server/README.md", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#alinex%20web%20server">Alinex web server</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#ssl%20server">SSL server</a>
+      </div>
+      <div class="heading h2">
+        <a href="#api">API</a>
+      </div>
+      <div class="heading h3">
+        <a href="#events">Events</a>
+      </div>
+      <div class="heading h3">
+        <a href="#properties">Properties</a>
+      </div>
+      <div class="heading h3">
+        <a href="#methods">Methods</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="alinex%20web%20server">
+  <h1>
+    <a href="#alinex%20web%20server" name="alinex%20web%20server" class="pilcrow">&#182;</a>
+    Alinex web server
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-server"><img src="https://travis-ci.org/alinex/node-server.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-server?branch=master"><img src="https://coveralls.io/repos/alinex/node-server/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-server"><img src="https://gemnasium.com/alinex/node-server.png" alt="Dependency Status" title="" /></a></p>
+
+<p>The alinex server is a simple container for express applications. The express
+framework integrates perfectly and can be fully used. Also subapplications can
+be done easy the express way.</p>
+
+<ul>
+<li>full configurable</li>
+<li>supports also ssl</li>
+<li>single server cluster support</li>
+<li>easy api</li>
+</ul>
+
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+following the code standards defined there.</p>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p>The easiest way is to let npm add the module directly:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">server</span> <span class="nx">express</span> <span class="o">--</span><span class="nx">save</span>
+</code></pre></div>
+
+
+
+<p><a href="https://nodei.co/npm/alinex-server/"><img src="https://nodei.co/npm/alinex-server.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>The usage is very simple, you have to load the server modules first:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">Server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-server&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>Because it depends on express.js you may define your app in the standard manner
+adding routes...</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;...the rsponse body...&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(...);</span>
+</code></pre></div>
+
+
+
+<p>You can also use subapps if you want:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">rest</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">rest</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">});</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/rest&#39;</span><span class="p">,</span> <span class="nx">rest</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>That adds the defined routes under <code>/rest/...</code>.</p>
+
+<p>Now you may instantiate a server with the root app. The configuration is done
+using <a href="http://alinex.github.io/node-config">alinex-config</a>
+module. Therefore you may specify the config name to use on start or <code>server</code>
+is used.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s1">&#39;rest-server&#39;</span><span class="p">,</span> <span class="nx">app</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>Now the server may be started and stopped on demand:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+</code></pre></div>
+
+
+
+<p>Both methods also supports events and callbacks if needed. The setup will remain.</p>
+
+
+<div class="pilwrap" id="ssl%20server">
+  <h3>
+    <a href="#ssl%20server" name="ssl%20server" class="pilcrow">&#182;</a>
+    SSL server
+  </h3>
+</div>
+
+
+<p>The use as ssl server is as easy as a normal webserver. All you need to do is set
+it to ssl with the corresponding port and certificates in the configuration file.</p>
+
+
+<div class="pilwrap" id="api">
+  <h2>
+    <a href="#api" name="api" class="pilcrow">&#182;</a>
+    API
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="events">
+  <h3>
+    <a href="#events" name="events" class="pilcrow">&#182;</a>
+    Events
+  </h3>
+</div>
+
+
+<p>The following events are supported:</p>
+
+<ul>
+<li><code>error</code> - then something fails</li>
+<li><code>init</code> - after initialization is done</li>
+<li><code>start</code> - then the server has started</li>
+<li><code>stop</code> - then the server has stopped</li>
+</ul>
+
+
+<div class="pilwrap" id="properties">
+  <h3>
+    <a href="#properties" name="properties" class="pilcrow">&#182;</a>
+    Properties
+  </h3>
+</div>
+
+
+<ul>
+<li><code>config</code> (object) - configuration data</li>
+<li><code>configClass</code> (Config) - if an alinex-config instance is given or the config loaded</li>
+<li><code>init</code> (boolean) - flag set to true if server is fully initialized</li>
+<li><code>app</code> (Express) - application runing as main</li>
+<li><code>server</code> (Server) - node network server instance</li>
+</ul>
+
+
+<div class="pilwrap" id="methods">
+  <h3>
+    <a href="#methods" name="methods" class="pilcrow">&#182;</a>
+    Methods
+  </h3>
+</div>
+
+
+<ul>
+<li><code>start</code> - start the web server</li>
+<li><code>stop</code> - stop the webserver</li>
+</ul>
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+<p>This is possible with a <code>server.yml</code> or <code>given-name.yml</code> (also in other formats)
+like described under <a href="http://alinex.github.io/node-config">alinex-cionfig</a>.</p>
+
+<p>For more information to the concrete values see the example config file.</p>
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2014 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>

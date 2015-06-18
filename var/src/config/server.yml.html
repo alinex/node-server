@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>server.yml</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-server/var/src/config/server.yml", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#configuration%20for%20production%20server">Configuration for production server</a>
+      </div>
+      <div class="heading h2">
+        <a href="#server%20listening">Server listening</a>
+      </div>
+      <div class="heading h3">
+        <a href="#port">Port</a>
+      </div>
+      <div class="heading h3">
+        <a href="#trust%20proxy">trust proxy</a>
+      </div>
+      <div class="heading h3">
+        <a href="#server%20nodes">Server nodes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#access%20restrictions">Access restrictions</a>
+      </div>
+      <div class="heading h3">
+        <a href="#whitelist">Whitelist</a>
+      </div>
+      <div class="heading h3">
+        <a href="#blacklist">Blacklist</a>
+      </div>
+      <div class="heading h2">
+        <a href="#session%20handling">Session handling</a>
+      </div>
+      <div class="heading h2">
+        <a href="#secure%20settings">Secure settings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#debugging%20settings">Debugging settings</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration%20for%20production%20server">
+  <h1>
+    <a href="#configuration%20for%20production%20server" name="configuration%20for%20production%20server" class="pilcrow">&#182;</a>
+    Configuration for production server
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="server%20listening">
+  <h2>
+    <a href="#server%20listening" name="server%20listening" class="pilcrow">&#182;</a>
+    Server listening
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="port">
+  <h3>
+    <a href="#port" name="port" class="pilcrow">&#182;</a>
+    Port
+  </h3>
+</div>
+
+
+<p>Set the port the server is listening on.</p>
+
+<p>To use a privileged port below 1024 you have to bind it using root privileges.
+This may be critical.
+The following three methods are possible to do this securely:</p>
+
+<ol>
+<li><p>Use sudo to start the server and change back to the normal user
+after port binding.</p></li>
+<li><p>Start as root user but use the uid/gid setting below to change after
+port binding</p></li>
+<li><p>Use ip-tables to forward to an unprivileged port:
+<code>sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000</code></p></li>
+<li><p>Use Nginx reverse-proxy on port 80 this helps also if you may run other
+things on port 80, too.</p></li>
+</ol>
+
+<p>Keep in mind to use different ports for different services like HTTP and
+HTTPS. Defaults to port 23174 if not set.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="trust%20proxy">
+  <h3>
+    <a href="#trust%20proxy" name="trust%20proxy" class="pilcrow">&#182;</a>
+    trust proxy
+  </h3>
+</div>
+
+
+<p>Indicate that the app is sitting behind a front-facing proxy, and the X-Forwarded-*
+headers may be trusted for determining the connection and the IP address of
+the client. It must, however, be noted that, the X-Forwarded-* headers are
+easily spoofed and the detected IP addresses are unreliable.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">trustProxy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="server%20nodes">
+  <h3>
+    <a href="#server%20nodes" name="server%20nodes" class="pilcrow">&#182;</a>
+    Server nodes
+  </h3>
+</div>
+
+
+<p>If set this will define how much nodes to start. 0 means no cluster support
+running with one process. 1 means cluster support running with one forked node
+which will be restarted from the master on kill. And higher values mean more
+nodes but not more will be used than the number of cpu cores.
+nodes: 0</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="access%20restrictions">
+  <h2>
+    <a href="#access%20restrictions" name="access%20restrictions" class="pilcrow">&#182;</a>
+    Access restrictions
+  </h2>
+</div>
+
+
+<p>The following restrictions are possible:</p>
+
+<ul>
+<li><code>ip</code> give an ip address or list of addresses</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="whitelist">
+  <h3>
+    <a href="#whitelist" name="whitelist" class="pilcrow">&#182;</a>
+    Whitelist
+  </h3>
+</div>
+
+
+<p>To only allow access from specific clients they have to be listed here:
+allow:
+ ip:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="blacklist">
+  <h3>
+    <a href="#blacklist" name="blacklist" class="pilcrow">&#182;</a>
+    Blacklist
+  </h3>
+</div>
+
+
+<p>To disallow access from specific clients list them here:
+disallow:
+ ip:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="session%20handling">
+  <h2>
+    <a href="#session%20handling" name="session%20handling" class="pilcrow">&#182;</a>
+    Session handling
+  </h2>
+</div>
+
+
+<p>session:
+The secret is used to hash the session with HMAC. The session is then
+protected against session hijacking by checking the fingerprint against the
+hash with the secret.
+secret: R4FCaOCutWGN.GfVym9ag3yyPM
+After the following time of inactivity (no server request) the session will
+be outdated.
+expire: 3600s</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="secure%20settings">
+  <h2>
+    <a href="#secure%20settings" name="secure%20settings" class="pilcrow">&#182;</a>
+    Secure settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>This will configure the server to use SSL. Remove the complete section to
+use normal http.
+ssl:
+ key: server.key
+ cert: server.crt
+ ca: server.crt</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="debugging%20settings">
+  <h2>
+    <a href="#debugging%20settings" name="debugging%20settings" class="pilcrow">&#182;</a>
+    Debugging settings
+  </h2>
+</div>
+
+
+<p>To enable debugging set this to some possible and free ports.
+debug: false
+ port: 5858
+ inspectorPort: 3009</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
