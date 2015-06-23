@@ -1,9 +1,9 @@
 Alinex web server
 =================================================
 
-[![Build Status] (https://travis-ci.org/alinex/node-server.svg?branch=master)](https://travis-ci.org/alinex/node-server)
-[![Coverage Status] (https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
-[![Dependency Status] (https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
+[![Build Status](https://travis-ci.org/alinex/node-server.svg?branch=master)](https://travis-ci.org/alinex/node-server)
+[![Coverage Status](https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
+[![Dependency Status](https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
 
 The alinex server is a simple container for express applications. The express
 framework integrates perfectly and can be fully used. Also subapplications can
