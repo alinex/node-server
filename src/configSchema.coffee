@@ -8,11 +8,11 @@ module.exports =
   description: "the configuration for the webserver"
   type: 'object'
   allowedKeys: true
-  entries:
+  keys:
     port:
       title: "Http Port"
       description: "the port to listen on"
-      type: 'integer'
+      type: 'port'
       default: 23174
     trustProxy:
       title: "Enable proxy forwarding"

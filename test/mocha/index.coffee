@@ -7,21 +7,19 @@ request = require 'request'
 # Root directory of the core application
 GLOBAL.ROOT_DIR = path.dirname path.dirname __dirname
 
-error = require 'alinex-error'
-error.install()
 Config = require 'alinex-config'
 Config.search = [ 'test/data/config' ]
 
 Server = require '../../lib/index'
-check = require '../../lib/check'
-validator = require 'alinex-validator'
 
 describe "Webserver", ->
 
-  describe "configuration", ->
+  describe.only "config", ->
 
-    it "should has correct validator rules", ->
-      validator.selfcheck 'check.server', check
+    it "should run the selfcheck on the schema", (cb) ->
+      validator = require 'alinex-validator'
+      schema = require '../../src/configSchema'
+      validator.selfcheck schema, cb
 
   describe "express", ->
 
@@ -39,7 +37,7 @@ describe "Webserver", ->
         server.close()
         done()
 
-  describe.only "default server", ->
+  describe "default server", ->
 
     server = null
 
