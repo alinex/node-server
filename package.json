@@ -25,24 +25,20 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/alinex-make -c compile",
-    "test": "node_modules/.bin/alinex-make -c test"
+    "prepublish": "node_modules/.bin/builder -c compile",
+    "test": "node_modules/.bin/builder -c test"
   },
   "directories": {
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-error": "0.2.x",
-    "alinex-util": "0.1.x",
+    "alinex-config": "^1.0.3",
     "debug": ">=0.8.0 <3.0.0",
-    "express": "4.x",
-    "async": "0.9.x",
-    "alinex-config": "0.x"
+    "express": "4.x"
   },
   "devDependencies": {
-    "alinex-make": "0.4.x",
-    "alinex-validator": "0.3.x",
-    "chai": "1.x",
+    "alinex-validator": "^1.0.2",
+    "chai": "^3.2.0",
     "request": "2.x"
   },
   "optionalDependencies": {},

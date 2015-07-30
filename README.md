@@ -12,7 +12,8 @@ be done easy the express way.
 - full configurable
 - supports also ssl
 - single server cluster support
-- easy api
+- serve static files
+- multiple service interfaces
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
