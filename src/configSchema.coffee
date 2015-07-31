@@ -4,18 +4,24 @@
 # [alinex-validator](http://alinex.github.io/node-validator).
 
 module.exports =
-  title: "Webserver configuration"
-  description: "the configuration for the webserver"
+  title: "Server"
+  description: "the configuration of servers (connected by client)"
   type: 'object'
   allowedKeys: true
   keys:
-    port:
-      title: "Http Port"
-      description: "the port to listen on"
-      type: 'port'
-      default: 23174
-    trustProxy:
-      title: "Enable proxy forwarding"
-      description: "the flag that enables that the X-Forwarded headers will be trusted"
-      type: 'boolean'
-      default: false
+    http:
+      title: "Webserver"
+      description: "the configuration for the webserver"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        port:
+          title: "Http Port"
+          description: "the port to listen on"
+          type: 'port'
+          default: 23174
+        trustProxy:
+          title: "Enable proxy forwarding"
+          description: "the flag that enables that the X-Forwarded headers will be trusted"
+          type: 'boolean'
+          default: false

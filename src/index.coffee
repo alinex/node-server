@@ -14,131 +14,49 @@
 
 # include base modules
 debug = require('debug')('server')
-EventEmitter = require('events').EventEmitter
-cluster = require 'cluster'
-express = require 'express'
+fspath = require 'path'
 # alinex modules
-Config = require 'alinex-config'
-# internal helpers
-configcheck = require './configcheck'
+config = require 'alinex-config'
+async = require 'alinex-async'
+fs = require 'alinex-fs'
 
-# Forked server node
+# Data container
 # -------------------------------------------------
-unless cluster.isMaster
-  # start server
-  throw new Error "sorry, cluster support not implemented!"
+types = [] # list of possible server types
 
-# Server class
+# Define singleton instance
 # -------------------------------------------------
-class Server extends EventEmitter
+module.exports = server =
 
-  # ### Create instance
-  # This will only store the reference to the configuration object. This may be
-  # an [alinex-config](http://alinex.github.io/node-config), a name for the
-  # configuration to load or the configuration structure itself.
-  # The configuration loading will start, after finished an `init` event is
-  # thrown and the `init` flag is set.
-  constructor: (@config = 'server', app) ->
-    debug "create new server instance"
-    # set config from different values
-    if typeof @config is 'string'
-      @config = Config.instance @config
-      @config.setCheck configcheck
-    if @config instanceof Config
-      @configClass = @config
-      @config = @configClass.data
-      @name = @configClass.name
-    @initDone = false # status set to true after initializing
-    # set init status if configuration is loaded
-    unless @configClass?
-      @_init app
-    else
-      # wait till configuration is loaded
-      @configClass.load (err) =>
-        @emit 'error', err if err
-        @_init app
+  # Initialization
+  # -------------------------------------------------
 
-  _init: (app) ->
-    # setup app
-    @app = express()
-    @app.disable 'x-powered-by'
-    if @config.trustProxy
-      @app.enable 'trust proxy'
-    # ip restriction
-    if @config.restrictIP? and @config.restrictIP.length
-      ips = new RegExp @config.restrictIP.join '|'
-      @app.all '/', (req, res, next) ->
-        if not req.ip.match ips
-          logger.warn 'The IP %s is not allowed.', req.ip
-          err = new Error "Your IP (#{req.ip}) is not allowed."
-          err.status = 403
-          return next err
-        next()
-    # use given rules
-    @app.use app
-    # default homepage
-    @app.get '/', (req, res) ->
-      res.send 'Alinex Server running!'
-    # file not found error
-    @app.use (req, res, next) ->
-      err = new Error "Resource not found!"
-      err.status = 404
-      next err
-    # handling errors
-    @app.use (err, req, res, next) ->
-      err.status ?= 500
-      res.status err.status
-      res.send err.message
-    # initialization done
-    @initDone = true
-    @emit 'init'
+  # set the modules config paths and validation schema
+  setup: async.once (cb) ->
+    # set module search path
+    config.register false, fspath.dirname __dirname
+    # add schema for module's configuration
+    config.setSchema '/server', require('./configSchema'), cb
 
-  # ### Start the server
-  start: (cb, loaded = false) ->
-    # wait till configuration is loaded
-    unless @initDone and loaded
-      return @once 'init', => @start cb, true
-    # support callback through event wrapper
-    if cb
-      @on 'error', (err) ->
-        debug "Error: #{err}"
+  # set the modules config paths, validation schema and initialize the configuration
+  init: async.once (cb) ->
+    debug "initialize server"
+    async.parallel [
+      # load types
+      (cb) ->  fs.readdir __dirname + '/type', (err, list) ->
+        types = list?.map (e) -> fspath.basename e, fspath.extname e
         cb err
-        cb = ->
-      @on 'start', =>
-        config = @config.data
-        debug "listening on http://localhost:#{@config.port}"
-        cb()
-        cb = ->
-    # start the server
-    debug "start server #{@name}", @config
-    # start the server
-    @server = @app.listen @config.port, (err) =>
-      if err
-        if e.code is 'EADDRINUSE'
-          console.log chalk.bold.red 'Failed to bind to port - address already in use '
-          process.exit 1
-        else
-          @emit 'error', err
-      else
-        @emit 'start'
+      # set module search path and init config
+      (cb) -> server.setup (err) ->
+        return cb err if err
+        config.init cb
+    ], cb
 
-  # ### Start the server
-  stop: (cb) ->
-    # support callback through event wrapper
-    if cb
-      @on 'error', (err) ->
-        debug "Error: #{err}"
-        cb err
-        cb = ->
-      @on 'stop', ->
-        debug "server stopped"
-        cb()
-        cb = ->
-    # stop server
-    @server.close (err) =>
-      if err
-        @emit 'error', err
-      else
-        @emit 'stop'
+  # add new server types
+  add: (type, cb) ->
+    return cb() if server[type]?
+    return cb new Error "Unknown server type '#{type}'!" unless type in types
+    debug "initialize #{type} server"
+    server.http = require "./type/#{type}"
+    cb()
 
-module.exports = Server
