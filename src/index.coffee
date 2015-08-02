@@ -32,7 +32,7 @@ module.exports = server =
   # -------------------------------------------------
 
   # set the modules config paths and validation schema
-  setup: async.once (cb) ->
+  setup: (cb) -> #async.once (cb) ->
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
@@ -50,7 +50,14 @@ module.exports = server =
       (cb) -> server.setup (err) ->
         return cb err if err
         config.init cb
-    ], cb
+    ], (err) ->
+      return cb err if err
+      # initialize individual servers
+
+
+
+
+      cb()
 
   # add new server types
   add: (type, cb) ->
@@ -59,4 +66,5 @@ module.exports = server =
     debug "initialize #{type} server"
     server.http = require "./type/#{type}"
     cb()
+
 

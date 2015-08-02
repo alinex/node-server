@@ -15,11 +15,29 @@ module.exports =
       type: 'object'
       allowedKeys: true
       keys:
-        port:
-          title: "Http Port"
-          description: "the port to listen on"
-          type: 'port'
-          default: 23174
+        listen:
+          title: "Listen"
+          description: "the host and port to bind to"
+          type: 'array'
+          entries:
+            type: 'object'
+            allowedKeys: true
+            mandatoryKeys: ['port']
+            keys:
+              host:
+                title: "Host or IP"
+                description: "the hostname or ip address to bind to"
+                type: 'or'
+                or: [
+                  type: 'ipaddr'
+                ,
+                  type: 'hostname'
+                ]
+              port:
+                title: "Port"
+                description: "the port to listen on"
+                type: 'port'
+                default: 23174
         trustProxy:
           title: "Enable proxy forwarding"
           description: "the flag that enables that the X-Forwarded headers will be trusted"
