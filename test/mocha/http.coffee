@@ -11,6 +11,4 @@ describe "http", ->
       @timeout 300000
       server.init (err) ->
         return cb err if err
-        server.add 'http', (err) ->
-          return cb err if err
-          server.http.start cb
+        server.http.start cb

@@ -4,35 +4,45 @@
 
 # Server listening
 # -------------------------------------------------
+# This is list of labels with their connections to bind to. SWith this you
+# have the ability to listen on multiple connections. You may connect your apps
+# with specific labels, vhost and context paths.
+#
+# ### Host
+#
+# Hostname or IP address to bind server to.
+#
+# ### Port
+#
+# Set the port the server is listening on.
+#
+# To use a privileged port below 1024 you have to bind it using root privileges.
+# This may be critical.
+# The following three methods are possible to do this securely:
+#
+# 1.  Use sudo to start the server and change back to the normal user
+#     after port binding.
+#
+# 2.  Use ip-tables to forward to an unprivileged port:
+#     `sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000`
+#
+# 3.  Use Nginx reverse-proxy on port 80 this helps also if you may run other
+#     things on port 80, too.
+#
+# 4.  Give Normal user capability of using sockets as root
+#     sudo apt-get install libcap2-bin
+#     sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
+#
+# Keep in mind to use different ports for different services like HTTP and
+# HTTPS. Defaults to port 23174 if not set.
 listen:
-  # ### PHost
-  #
-  # Hostname or IP address to bind server to.
-  # ### Port
-  #
-  # Set the port the server is listening on.
-  #
-  # To use a privileged port below 1024 you have to bind it using root privileges.
-  # This may be critical.
-  # The following three methods are possible to do this securely:
-  #
-  # 1.  Use sudo to start the server and change back to the normal user
-  #     after port binding.
-  #
-  # 2.  Use ip-tables to forward to an unprivileged port:
-  #     `sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000`
-  #
-  # 3.  Use Nginx reverse-proxy on port 80 this helps also if you may run other
-  #     things on port 80, too.
-  #
-  # 4.  Give Normal user capability of using sockets as root
-  #     sudo apt-get install libcap2-bin
-  #     sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
-  #
-  # Keep in mind to use different ports for different services like HTTP and
-  # HTTPS. Defaults to port 23174 if not set.
-  - #host: localhost
+
+  default:
+    #host: localhost
     port: <<<env://PORT | 23174>>>
+
+
+
 
 
 
@@ -44,7 +54,7 @@ listen:
 # headers may be trusted for determining the connection and the IP address of
 # the client. It must, however, be noted that, the X-Forwarded-* headers are
 # easily spoofed and the detected IP addresses are unreliable.
-trustProxy: false
+#trustProxy: false
 
 # ### Server nodes
 # If set this will define how much nodes to start. 0 means no cluster support

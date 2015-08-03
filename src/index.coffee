@@ -23,6 +23,7 @@ fs = require 'alinex-fs'
 # Data container
 # -------------------------------------------------
 types = [] # list of possible server types
+conf = null # configuration
 
 # Define singleton instance
 # -------------------------------------------------
@@ -53,18 +54,10 @@ module.exports = server =
     ], (err) ->
       return cb err if err
       # initialize individual servers
-
-
-
-
-      cb()
-
-  # add new server types
-  add: (type, cb) ->
-    return cb() if server[type]?
-    return cb new Error "Unknown server type '#{type}'!" unless type in types
-    debug "initialize #{type} server"
-    server.http = require "./type/#{type}"
-    cb()
-
-
+      conf = config.get 'server'
+      async.each types, (type, cb) ->
+        return cb() if server[type]? or not conf[type]?
+        debug "initialize #{type} server part"
+        server.http = require "./type/#{type}"
+        server.http.init cb
+      , cb
