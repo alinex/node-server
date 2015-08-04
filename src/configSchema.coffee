@@ -45,35 +45,41 @@ module.exports =
                 allowedKeys: true
                 keys:
                   pfx:
-                    title: ""
-                    description: "the Certificate, Private key and CA certificates to use for SSL. Default null."
-                    type: 'string'
-                  key:
-                    title: ""
-                    description: "the Private key to use for SSL. Default null."
-                    type: 'string'
-                  passphrase:
-                    title: ""
-                    description: "the A string of passphrase for the private key or pfx. Default null."
+                    title: "PKCS#12 Certificate"
+                    description: "the PKCS#12 certificate, private key and CA
+                    certificates to use for SSL"
                     type: 'string'
                   cert:
-                    title: ""
-                    description: "the Public x509 certificate to use. Default null."
+                    title: "x509 Certificate"
+                    description: "the public x509 certificate to use"
+                    type: 'string'
+                  key:
+                    title: "Private Key"
+                    description: "the private key to use for SSL"
+                    type: 'string'
+                  passphrase:
+                    title: "Passphrase"
+                    description: "the passphrase for the private key or pfx if necessary"
                     type: 'string'
                   ca:
-                    title: ""
-                    description: "the An authority certificate or array of authority certificates to check the remote host against.§
+                    title: "Authority Certificate"
+                    description: "an authority certificate or array of authority certificates
+                    to check the remote host against"
                     type: 'string'
                   ciphers:
-                    title: ""
-                    description: "the A string describing the ciphers to use or exclude. Consult http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT for details on the format.""
+                    title: "Ciphers"
+                    description: "a string describing the ciphers to use or exclude
+                    (http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)"
                     type: 'string'
                   rejectUnauthorized:
-                    title: ""
-                    description: "the If true, the server certificate is verified against the list of supplied CAs. An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Default true."
+                    title: "Reject Unathorized"
+                    description: "a flag to check server certificate against the
+                    list of supplied CAs"
                     type: 'boolean'
                   secureProtocol:
-                    title: ""
-                    description: "the The SSL method to use, e.g. TLSv1_method to force TLS version 1. The possible values depend on your installation of OpenSSL and are defined in the constant SSL_METHODS."
+                    title: "SSL Method"
+                    description: "the SSL method to use, e.g. TLSv1_method to force TLS version 1
+                    (the possible values depend on your installation of OpenSSL and
+                    are defined in the constant SSL_METHODS)"
                     type: 'string'
           ]
