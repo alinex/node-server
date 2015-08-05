@@ -145,6 +145,14 @@ plugin =
     register: require 'poop'
     options:
       logPath: "#{__dirname}/poop.log"
+  accesslog: ->
+    register: '../hapi-plugin/log'
+    options:
+      filename: __dirname
+      colorize: true
+#      timestamp: options.timestamp,
+      level: 'info'
+      json: false
 
 
     # register plugins
