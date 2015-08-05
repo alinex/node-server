@@ -82,4 +82,27 @@ module.exports =
                     (the possible values depend on your installation of OpenSSL and
                     are defined in the constant SSL_METHODS)"
                     type: 'string'
+              load:
+                title: "Load Limit"
+                description: "the limit after which the server will respond with
+                503 code to incoming requests"
+                type: 'object'
+                allowedKeys: true
+                keys:
+                  maxHeap:
+                    title: "Maximum Heap"
+                    description: "the maximum V8 heap size over which incoming
+                    requests are rejected"
+                    type: 'byte'
+                  maxRss:
+                    title: "Maximum RSS"
+                    description: "the maximum process RSS size over which incoming
+                    requests are rejected"
+                    type: 'byte'
+                  eventLoopDelay:
+                    title: "Maximum Event Loop Delay"
+                    description: "the maximum event loop delay duration in milliseconds
+                    over which incoming requests are rejected"
+                    type: 'interval'
+                    unit: 'ms'
           ]

@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="server" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438357733387"><hook NAME="MapStyle">
+<node TEXT="b-prepare pr&#xfc;fen" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438752967756"><hook NAME="MapStyle">
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -168,6 +168,11 @@
 <node TEXT="secureProtocol" ID="ID_397448425" CREATED="1438611433042" MODIFIED="1438611437528"/>
 </node>
 <node TEXT="socket" ID="ID_898210226" CREATED="1438430451583" MODIFIED="1438430458664"/>
+<node TEXT="load" ID="ID_3791126" CREATED="1438753043207" MODIFIED="1438753045276">
+<node TEXT="maxHeap" ID="ID_1944564531" CREATED="1438755675719" MODIFIED="1438755679604"/>
+<node TEXT="maxRss" ID="ID_307792813" CREATED="1438755680383" MODIFIED="1438755684348"/>
+<node TEXT="eventLoopDelay" ID="ID_1569161831" CREATED="1438755684919" MODIFIED="1438755692611"/>
+</node>
 </node>
 </node>
 <node TEXT="auth" ID="ID_1159193522" CREATED="1438430522434" MODIFIED="1438541928533">

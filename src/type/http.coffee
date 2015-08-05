@@ -24,6 +24,8 @@ hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
 
+obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
+
 # Define singleton instance
 # -------------------------------------------------
 class HttpServer extends EventEmitter
@@ -35,8 +37,15 @@ class HttpServer extends EventEmitter
 
   init: (cb) ->
     @conf = config.get '/server/http'
-    @server = new hapi.Server()
-    # event handling
+    # configure server
+    options = {}
+    for key, value of @conf.listen
+      if value.load?
+        options.load =
+          sampleInterval: 1000
+        break
+    @server = new hapi.Server options
+    # event handling for debug and output
     @server.on 'start', =>
       debug "hapi server started"
       for srv in @server.connections
@@ -64,49 +73,58 @@ class HttpServer extends EventEmitter
           response = "-> #{chalk[color] code} #{time}"
           debugAccess client + access + response
         if debugHeader.enabled
-          debugHeader chalk.grey "request #{util.inspect(data.headers).replace /\s+/g, ' '}"
-          debugHeader chalk.grey "response #{util.inspect(data.response.headers).replace /\s+/g, ' '}"
+          debugHeader chalk.grey "request #{obj2str data.headers}"
+          debugHeader chalk.grey "response #{obj2str data.response.headers}"
         if debugPayload.enabled
-          debugPayload chalk.grey "request #{data.payload}" if data.payload
-          debugPayload chalk.grey "response #{data.response.source}"
+          if data.query
+            debugPayload chalk.grey "query #{obj2str data.query}"
+          if data.payload
+            debugPayload chalk.grey "data #{obj2str data.payload}"
+          debugPayload chalk.grey "response #{obj2str data.response.source}"
     # add connections
     for label, listen of @conf.listen
-      @server.connection
+      options =
         labels: [label]
         host: listen.host
         port: listen.port
         tls: listen.tls
-    # register plugins
-    @server.register
-      register: require 'good'
-      options:
-        opsInterval: 1000
-        reporters: [
-          reporter: require 'good-console'
-          events: { log: '*', response: '*' }
-        ,
-          reporter: require 'good-file'
-          events: { ops: '*' }
-          config: './test/fixtures/awesome_log'
-        ,
-          reporter: 'good-http'
-          events: { error: '*' }
-          config:
-            endpoint: 'http://prod.logs:3000'
-            wreck:
-              headers: { 'x-api-key' : 12345 }
-        ]
-    , (err) =>
-      return cb err if err
-      # test routing
-      @server.route
-        method: 'GET',
-        path: '/hello',
-        handler: (req, reply) ->
-          reply 'hello world'
+      if listen.load?
+        options.load =
+          maxHeapUsedBytes: listen.load.maxHeap
+          maxRssBytes: listen.load.maxRss
+          maxEventLoopDelay: listen.load.eventLoopDelay
+      @server.connection options
+#    # register plugins
+#    @server.register
+#      register: require 'good'
+#      options:
+#        opsInterval: 1000
+#        reporters: [
+#          reporter: require 'good-console'
+#          events: { log: '*', response: '*' }
+#        ,
+#          reporter: require 'good-file'
+#          events: { ops: '*' }
+#          config: './test/fixtures/awesome_log'
+#        ,
+#          reporter: 'good-http'
+#          events: { error: '*' }
+#          config:
+#            endpoint: 'http://prod.logs:3000'
+#            wreck:
+#              headers: { 'x-api-key' : 12345 }
+#        ]
+#    , (err) =>
+#      return cb err if err
 
+    # test routing
+    @server.route
+      method: 'GET',
+      path: '/hello',
+      handler: (req, reply) ->
+        reply 'hello world'
 
-      cb()
+    cb()
 
   # Server Start and Stop
   # -------------------------------------------------

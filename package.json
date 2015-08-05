@@ -37,10 +37,6 @@
     "alinex-fs": "^0.2.1",
     "chalk": "^1.1.0",
     "debug": ">=0.8.0 <3.0.0",
-    "good": "^6.3.0",
-    "good-console": "^5.0.2",
-    "good-file": "^5.0.1",
-    "good-http": "^5.1.0",
     "hapi": "^8.8.1"
   },
   "devDependencies": {

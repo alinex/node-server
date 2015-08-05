@@ -7,11 +7,11 @@
 # This is list of labels with their connections to bind to. SWith this you
 # have the ability to listen on multiple connections. You may connect your apps
 # with specific labels, vhost and context paths.
-#
+
 # ### Host
 #
 # Hostname or IP address to bind server to.
-#
+
 # ### Port
 #
 # Set the port the server is listening on.
@@ -35,11 +35,40 @@
 #
 # Keep in mind to use different ports for different services like HTTP and
 # HTTPS. Defaults to port 23174 if not set.
+
+# ### TLS
+#
+# The settings to use an SSL encryption on this connections:
+#
+# - pfx - PKCS#12 certificate containing certificate, private key and CA
+#   certificates to use for SSL
+# - cert - public x509 certificate to use
+# - key - private key to use for SSL
+# - passphrase - passphrase for the private key or pfx if necessary
+# - ca - authority certificate or array of authority certificates to check
+#   the remote host against"
+# - ciphers - string describing the ciphers to use or exclude
+#   (http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)"
+# - rejectUnauthorized - lag to check server certificate against the list of
+#   supplied CAs
+# - secureProtocol - SSL method to use, e.g. TLSv1_method to force TLS version 1
+#  (the possible values depend on your installation of OpenSSL and
+#  are defined in the constant SSL_METHODS)"
+
+# ### Load
+#
+# The load settings will result in rejection of incoming requests with an
+# "HTTP Server Timeout (503)" response if they are reached:
+#
+# - maxHeap - maximum V8 heap size
+# - maxRss - maximum process RSS size
+# - eventLoopDelay - maximum event loop delay duration in milliseconds
 listen:
 
   default:
     #host: localhost
     port: <<<env://PORT | 23174>>>
+
 
 
 
