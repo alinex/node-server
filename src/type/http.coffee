@@ -23,6 +23,7 @@ EventEmitter = require('events').EventEmitter
 hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
+async = require 'alinex-async'
 
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
@@ -38,14 +39,53 @@ class HttpServer extends EventEmitter
   init: (cb) ->
     @conf = config.get '/server/http'
     # configure server
-    options = {}
+    options =
+      debug: false
     for key, value of @conf.listen
       if value.load?
         options.load =
           sampleInterval: 1000
         break
     @server = new hapi.Server options
-    # event handling for debug and output
+    setup.events.call this
+    setup.connections.call this
+    # register plugins (defined below)
+    async.each Object.keys(plugin), (name, cb) =>
+      @server.register plugin[name](), cb
+    , (err) =>
+      return cb err if err
+
+      # test routing
+      @server.route
+        method: 'GET',
+        path: '/hello',
+        handler: (req, reply) ->
+          throw new Error "Poopsie"
+          reply 'hello world'
+
+      cb()
+
+
+  # Server Start and Stop
+  # -------------------------------------------------
+
+  start: (cb) ->
+    debug "start hapi server V#{@server.version}"
+    @server.root.start()
+#    cb()
+
+  stop: (cb) ->
+    @server.root.stop()
+    cb()
+
+module.exports = http = new HttpServer()
+
+# Server setup functions
+# -------------------------------------------------
+
+setup =
+  # event handling for debug and output
+  events: ->
     @server.on 'start', =>
       debug "hapi server started"
       for srv in @server.connections
@@ -81,7 +121,9 @@ class HttpServer extends EventEmitter
           if data.payload
             debugPayload chalk.grey "data #{obj2str data.payload}"
           debugPayload chalk.grey "response #{obj2str data.response.source}"
-    # add connections
+
+  # add connections
+  connections: ->
     for label, listen of @conf.listen
       options =
         labels: [label]
@@ -94,7 +136,18 @@ class HttpServer extends EventEmitter
           maxRssBytes: listen.load.maxRss
           maxEventLoopDelay: listen.load.eventLoopDelay
       @server.connection options
-#    # register plugins
+
+# Plugin configurations
+# -------------------------------------------------
+plugin =
+
+  poop: ->
+    register: require 'poop'
+    options:
+      logPath: "#{__dirname}/poop.log"
+
+
+    # register plugins
 #    @server.register
 #      register: require 'good'
 #      options:
@@ -114,29 +167,4 @@ class HttpServer extends EventEmitter
 #            wreck:
 #              headers: { 'x-api-key' : 12345 }
 #        ]
-#    , (err) =>
-#      return cb err if err
-
-    # test routing
-    @server.route
-      method: 'GET',
-      path: '/hello',
-      handler: (req, reply) ->
-        reply 'hello world'
-
-    cb()
-
-  # Server Start and Stop
-  # -------------------------------------------------
-
-  start: (cb) ->
-    debug "start hapi server V#{@server.version}"
-    @server.root.start()
-#    cb()
-
-  stop: (cb) ->
-    @server.root.stop()
-    cb()
-
-module.exports = http = new HttpServer()
-
+      #throw new Error "Poops"

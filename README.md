@@ -47,11 +47,28 @@ Usage
 
 The usage is very simple, you have to load the server modules first:
 
-    var Server = require('alinex-server');
-    var express = require('express');
+``` coffee
+server = require 'alinex-server'
+```
 
-Because it depends on express.js you may define your app in the standard manner
-adding routes...
+After that in your code you have to initialize the server:
+
+``` coffee
+server.init (err) ->
+  return cb err if err
+  server.http.start ->
+    # server is running
+```
+
+
+Configuration
+-------------------------------------------------
+
+
+
+
+
+
 
     var app = express();
     app.get('/', function (req, res) {

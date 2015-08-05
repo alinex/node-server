@@ -37,7 +37,8 @@
     "alinex-fs": "^0.2.1",
     "chalk": "^1.1.0",
     "debug": ">=0.8.0 <3.0.0",
-    "hapi": "^8.8.1"
+    "hapi": "^8.8.1",
+    "poop": "^1.2.5"
   },
   "devDependencies": {
     "alinex-builder": "^1.1.2",
