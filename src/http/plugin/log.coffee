@@ -13,59 +13,63 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('server:http:log')
 winston = require 'winston'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
 
+loger = null
 
 # Plugin Interface
 # -------------------------------------------------
 
 exports.register = (server, options, next) ->
-  now =
-  date = (new Date()).toISOString().substring 0, 10
+  date = new Date().toISOString().substring 0, 10
+  logger = new winston.Logger
+    transports: [
+      new winston.transports.Console()
+    ]
+  logger = new winston.Logger
+    transports: [
+      new winston.transports.Console()
+    ,
+      new winston.transports.File
+        filename: options.path + '/' + date + '.log'
+        colorize: options.colorize
+        timestamp: -> new Date()
+        level: options.level
+        json: options.json
+    ]
+  debug options.path + '/' + date + '.log'
+  logger.error 'Ups'
+  logger.add winston.transports.Console
+    level: options.level
+    colorize: true
+#    ]
+#    exceptionHandlers: [
+#      new winston.transports.File
+#        colorize: options.colorize
+#        timestamp: -> new Date()
+#        filename: options.path + '/exceptions.log.json'
+#        json: options.json
+#    ]
   pack = server.servers[0].pack
   pack.events.on('log', onLog)
   pack.events.on('internalError', internalError)
   plugin.ext('onPreResponse', onPreResponse)
+  debug "initialized"
   next()
-,
-  before: 'dictionary-api'
-
-
-logger = (new winston.Logger())
-  transports: [
-    new winston.transports.Console()
-      level: options.level,
-      colorize: true
-  ,
-    new winston.transports.File
-      filename: options.path + '/' + date + '.log',
-      colorize: options.colorize,
-      timestamp: -> new Date()
-      level: options.level,
-      json: options.json
-  ]
-  exceptionHandlers: [
-    new winston.transports.File
-      colorize: options.colorize,
-      timestamp: -> new Date()
-      filename: options.path + '/exceptions.log.json',
-      json: options.json
-  ]
-
+#,
+#  before: 'dictionary-api'
 
 exports.register.attributes =
   name: 'log'
   version: '1.0.0'
   multiple: true
 
-
-
 # Helper methods
 # -------------------------------------------------
-
 
 onLog = (event, tags) ->
   mess = if event.data.error

@@ -24,6 +24,7 @@ hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
+{object} = require 'alinex-util'
 
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
@@ -39,8 +40,7 @@ class HttpServer extends EventEmitter
   init: (cb) ->
     @conf = config.get '/server/http'
     # configure server
-    options =
-      debug: false
+    options = {debug: false}
     for key, value of @conf.listen
       if value.load?
         options.load =
@@ -86,6 +86,13 @@ module.exports = http = new HttpServer()
 setup =
   # event handling for debug and output
   events: ->
+    @server.on 'log', -> debug chalk.grey 'Unhandled LOG event'#, arguments
+    @server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
+    @server.on 'request-internal', -> debug chalk.grey 'Unhandled INTERNAL event'#, arguments
+    @server.on 'request-error', (request, err) ->
+      keys = ['domainThrown', 'isBoom', 'isServer', 'isDeveloperError', 'data']
+      debug chalk.red "#{err.message} #{obj2str object.filter err, (v, k) -> v? and k in keys}"
+    @server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments
     @server.on 'start', =>
       debug "hapi server started"
       for srv in @server.connections
@@ -94,9 +101,11 @@ setup =
       debug "hapi server stopped"
     if debugAccess.enabled or debugHeader.enabled or debugPayload.enabled
       @server.on 'response', (data) ->
+        raw = data.raw.req
+        url = "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
         if debugAccess.enabled
           client = chalk.grey "#{data.info.remoteAddress} "
-          access = "-> #{data.method.toUpperCase()} #{data.connection.info.uri}#{data.path} "
+          access = "-> #{data.method.toUpperCase()} #{url} "
           code = data.response.statusCode
           color = switch
             when code < 200 then 'white'
@@ -116,10 +125,8 @@ setup =
           debugHeader chalk.grey "request #{obj2str data.headers}"
           debugHeader chalk.grey "response #{obj2str data.response.headers}"
         if debugPayload.enabled
-          if data.query
-            debugPayload chalk.grey "query #{obj2str data.query}"
           if data.payload
-            debugPayload chalk.grey "data #{obj2str data.payload}"
+            debugPayload chalk.grey "request #{obj2str data.payload}"
           debugPayload chalk.grey "response #{obj2str data.response.source}"
 
   # add connections
@@ -141,14 +148,10 @@ setup =
 # -------------------------------------------------
 plugin =
 
-  poop: ->
-    register: require 'poop'
-    options:
-      logPath: "#{__dirname}/poop.log"
   accesslog: ->
-    register: '../hapi-plugin/log'
+    register: require "../http/plugin/log"
     options:
-      filename: __dirname
+      path: __dirname
       colorize: true
 #      timestamp: options.timestamp,
       level: 'info'
