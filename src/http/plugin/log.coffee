@@ -25,6 +25,19 @@ loger = null
 # -------------------------------------------------
 
 exports.register = (server, options, next) ->
+  # get configuration
+  conf = config.get '/server/http/log'
+  debug '-----', conf
+  # loop over loggers
+  # add winston config
+  # loop over servers
+  # break if logger not possible for server
+  # bind logger to log function
+  # setup winston
+  return next()
+
+# filter entries
+
   date = new Date().toISOString().substring 0, 10
   logger = new winston.Logger
     transports: [
@@ -43,9 +56,9 @@ exports.register = (server, options, next) ->
     ]
   debug options.path + '/' + date + '.log'
   logger.error 'Ups'
-  logger.add winston.transports.Console
-    level: options.level
-    colorize: true
+  #logger.add winston.transports.Console
+  #  level: options.level
+  #  colorize: true
 #    ]
 #    exceptionHandlers: [
 #      new winston.transports.File
@@ -54,6 +67,7 @@ exports.register = (server, options, next) ->
 #        filename: options.path + '/exceptions.log.json'
 #        json: options.json
 #    ]
+  console.log server.pack
   pack = server.servers[0].pack
   pack.events.on('log', onLog)
   pack.events.on('internalError', internalError)

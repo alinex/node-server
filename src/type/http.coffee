@@ -38,6 +38,7 @@ class HttpServer extends EventEmitter
   @server: null
 
   init: (cb) ->
+    debug "setup server connections and plugins"
     @conf = config.get '/server/http'
     # configure server
     options = {debug: false}
@@ -48,10 +49,11 @@ class HttpServer extends EventEmitter
         break
     @server = new hapi.Server options
     setup.events.call this
+    # setup connections to use
     setup.connections.call this
     # register plugins (defined below)
-    async.each Object.keys(plugin), (name, cb) =>
-      @server.register plugin[name](), cb
+    async.each plugins, (setup, cb) =>
+      @server.register setup, cb
     , (err) =>
       return cb err if err
 
@@ -144,38 +146,11 @@ setup =
           maxEventLoopDelay: listen.load.eventLoopDelay
       @server.connection options
 
+  logger: ->
+    console.log @server.select().label
+
 # Plugin configurations
 # -------------------------------------------------
-plugin =
-
-  accesslog: ->
-    register: require "../http/plugin/log"
-    options:
-      path: __dirname
-      colorize: true
-#      timestamp: options.timestamp,
-      level: 'info'
-      json: false
-
-
-    # register plugins
-#    @server.register
-#      register: require 'good'
-#      options:
-#        opsInterval: 1000
-#        reporters: [
-#          reporter: require 'good-console'
-#          events: { log: '*', response: '*' }
-#        ,
-#          reporter: require 'good-file'
-#          events: { ops: '*' }
-#          config: './test/fixtures/awesome_log'
-#        ,
-#          reporter: 'good-http'
-#          events: { error: '*' }
-#          config:
-#            endpoint: 'http://prod.logs:3000'
-#            wreck:
-#              headers: { 'x-api-key' : 12345 }
-#        ]
-      #throw new Error "Poops"
+plugins = [
+  register: require "../http/plugin/log"
+]
