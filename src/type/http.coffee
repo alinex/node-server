@@ -41,7 +41,7 @@ class HttpServer extends EventEmitter
     debug "setup server connections and plugins"
     @conf = config.get '/server/http'
     # configure server
-    options = {debug: false}
+    options = {}   # {debug: false}
     for key, value of @conf.listen
       if value.load?
         options.load =
@@ -112,8 +112,8 @@ setup =
           color = switch
             when code < 200 then 'white'
             when code < 300 then 'green'
-            when code < 400 then 'yellow'
-            when code < 500 then 'orange'
+            when code < 400 then 'cyan'
+            when code < 500 then 'yellow'
             else 'red'
           time = data.info.responded - data.info.received
           time = switch

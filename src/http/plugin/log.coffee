@@ -15,11 +15,12 @@
 # include base modules
 debug = require('debug')('server:http:log')
 winston = require 'winston'
+util = require 'util'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
 
-loger = null
+obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
 # Plugin Interface
 # -------------------------------------------------
@@ -27,55 +28,16 @@ loger = null
 exports.register = (server, options, next) ->
   # get configuration
   conf = config.get '/server/http/log'
-  debug '-----', conf
-  # loop over loggers
-  # add winston config
   # loop over servers
-  # break if logger not possible for server
-  # bind logger to log function
-  # setup winston
+  for setup in conf
+    event = switch setup.data
+      when 'access' then 'response'
+      when 'error' then ''
+    # add to specific server
+    # add to all servers
+    server.on event, addLogger server, setup
+  # done
   return next()
-
-# filter entries
-
-  date = new Date().toISOString().substring 0, 10
-  logger = new winston.Logger
-    transports: [
-      new winston.transports.Console()
-    ]
-  logger = new winston.Logger
-    transports: [
-      new winston.transports.Console()
-    ,
-      new winston.transports.File
-        filename: options.path + '/' + date + '.log'
-        colorize: options.colorize
-        timestamp: -> new Date()
-        level: options.level
-        json: options.json
-    ]
-  debug options.path + '/' + date + '.log'
-  logger.error 'Ups'
-  #logger.add winston.transports.Console
-  #  level: options.level
-  #  colorize: true
-#    ]
-#    exceptionHandlers: [
-#      new winston.transports.File
-#        colorize: options.colorize
-#        timestamp: -> new Date()
-#        filename: options.path + '/exceptions.log.json'
-#        json: options.json
-#    ]
-  console.log server.pack
-  pack = server.servers[0].pack
-  pack.events.on('log', onLog)
-  pack.events.on('internalError', internalError)
-  plugin.ext('onPreResponse', onPreResponse)
-  debug "initialized"
-  next()
-#,
-#  before: 'dictionary-api'
 
 exports.register.attributes =
   name: 'log'
@@ -85,38 +47,39 @@ exports.register.attributes =
 # Helper methods
 # -------------------------------------------------
 
-onLog = (event, tags) ->
-  mess = if event.data.error
-    '[' + event.tags.join() + '] - \n{\n\t' +
-    'source : '+event.data.source+'\n\t' +
-    'code : '+event.data.code+'\n\t' +
-    'message : '+event.data.message+'\n\t' +
-    'stackTrace : '+event.data.stack+'\n}'
-  else
-    '[' + event.tags.join(',') + '] - ' + event.data
-  # log type
-  switch
-    when tags.fatal
-      logger.error mess
-      process.exit(1)
-    when tags.error then logger.error mess
-    when tags.info then logger.info mess
-    when tags.warn then logger.warn mess
-    when tags.debug then logger.debug mess
-    when tags.trace then logger.trace mess
+addLogger = (server, setup) ->
+  (data) ->
+    # create logger
+    if setup.file?
+      t = winston.transports
+      logger = new winston.Logger
+        transports: [
+          new (if setup.file.datePattern then t.DailyRotateFile else t.File)
+#            level: 'info'
+            showLevel: true
+            filename: "#{__dirname}/../../../log/#{setup.file.filename}"
+            colorize: false
+            json: false
+            maxsize: setup.file.maxSize
+            maxFiles: setup.file.maxFiles
+            tailable: true
+            zippedArchive: setup.file.compress
+            datePattern: setup.file.datePattern
+        ]
+    console.log '--------------------------------'
+    raw = data.raw.req
+    url = "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
+    client = "#{data.info.remoteAddress} "
+    access = "-> #{data.method.toUpperCase()} #{url} "
+    code = data.response.statusCode
+    time = data.info.responded - data.info.received
+    time = switch
+      when time < 1000 then "#{time}ms"
+      else "#{Math.round time/1000}s"
+    response = "-> #{code} #{time}"
+    level = switch
+      when code < 300 then 'info'
+      when code < 500 then 'warn'
+      else 'error'
+    logger.log level, client + access + response
 
-onPreResponse = (request, reply) ->
-  response = request.response
-  if not response.isBoom and response.variety is 'plain' and not response.source instanceof Array
-    # Sanitize database fields
-    payload = response.source
-    if payload._id
-      payload.id = payload._id
-      delete payload._id
-    for i in payload
-      delete payload[i] if payload.hasOwnProperty i and i[0] is '_'
-  reply()
-
-internalError = (request, err) ->
-  logger.error "Error response (500) sent for request: " +
-    request.id + ' because: ' + err.message+ ' - '+err.stack

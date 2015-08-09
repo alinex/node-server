@@ -2,7 +2,7 @@
 # =================================================
 
 
-# Server listening
+# Server Connections
 # -------------------------------------------------
 # This is list of labels with their connections to bind to. SWith this you
 # have the ability to listen on multiple connections. You may connect your apps
@@ -69,10 +69,21 @@ listen:
     #host: localhost
     port: <<<env://PORT | 23174>>>
 
+# Log Settings
+# -------------------------------------------------
+log:
 
+  - data: access
+    file:
+      filename: access.log
+      datePattern: .yyyy-MM-dd
+      compress: true
 
-
-
+  - data: error
+    file:
+      filename: error.log
+      maxSize: 100MB
+      compress: true
 
 
 
@@ -119,21 +130,3 @@ listen:
   # After the following time of inactivity (no server request) the session will
   # be outdated.
   #expire: 3600s
-
-
-# Secure settings
-# -------------------------------------------------
-
-# This will configure the server to use SSL. Remove the complete section to
-# use normal http.
-#ssl:
-#  key: server.key
-#  cert: server.crt
-#  ca: server.crt
-
-# Debugging settings
-# -------------------------------------------------
-# To enable debugging set this to some possible and free ports.
-#debug: false
-#  port: 5858
-#  inspectorPort: 3009

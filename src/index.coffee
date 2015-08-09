@@ -44,13 +44,17 @@ module.exports = server =
     debug "initialize server"
     async.parallel [
       # load types
-      (cb) ->  fs.readdir __dirname + '/type', (err, list) ->
+      (cb) -> fs.readdir __dirname + '/type', (err, list) ->
         types = list?.map (e) -> fspath.basename e, fspath.extname e
         cb err
       # set module search path and init config
       (cb) -> server.setup (err) ->
         return cb err if err
         config.init cb
+      # setup log directory
+      (cb) -> fs.mkdir __dirname + '/../log', (err) ->
+        return cb err if err and not err.code is 'EEXIST'
+        cb()
     ], (err) ->
       return cb err if err
       # initialize individual servers
