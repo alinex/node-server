@@ -44,7 +44,13 @@ module.exports = server =
     debug "initialize server"
     async.parallel [
       # load types
-      (cb) -> fs.readdir __dirname + '/type', (err, list) ->
+      (cb) -> fs.find __dirname,
+        type: 'dir'
+        mindepth: 1
+        maxdepth: 1
+        exclude: 'doc'
+      , (err, list) ->
+        console.log list
         types = list?.map (e) -> fspath.basename e, fspath.extname e
         cb err
       # set module search path and init config
@@ -62,6 +68,6 @@ module.exports = server =
       async.each types, (type, cb) ->
         return cb() if server[type]? or not conf[type]?
         debug "initialize #{type} server part"
-        server.http = require "./type/#{type}"
+        server.http = require "./#{type}/index"
         server.http.init cb
       , cb
