@@ -73,7 +73,7 @@ listen:
 # -------------------------------------------------
 log:
 
-  - data: access
+  - data: combined
     file:
       filename: access.log
       datePattern: .yyyy-MM-dd
