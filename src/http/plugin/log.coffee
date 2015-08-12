@@ -31,11 +31,16 @@ exports.register = (server, options, next) ->
   # loop over servers
   for setup in conf
     event = switch setup.data
-      when 'access' then 'response'
-      when 'error' then ''
-    # add to specific server
-    # add to all servers
-    server.on event, addLogger server, setup
+      when 'error', 'event'
+        'log'
+      else
+        'response'
+    if setup.listen?
+      # add to specific server
+      server.select(setup.listen).on event, addLogger server, setup
+    else
+      # add to all servers
+      server.on event, addLogger server, setup
   # done
   return next()
 
