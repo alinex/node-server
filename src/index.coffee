@@ -50,7 +50,6 @@ module.exports = server =
         maxdepth: 1
         exclude: 'doc'
       , (err, list) ->
-        console.log list
         types = list?.map (e) -> fspath.basename e, fspath.extname e
         cb err
       # set module search path and init config

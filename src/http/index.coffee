@@ -147,11 +147,9 @@ setup =
           maxEventLoopDelay: listen.load.eventLoopDelay
       @server.connection options
 
-  logger: ->
-    console.log @server.select().label
-
 # Plugin configurations
 # -------------------------------------------------
+
 plugins = [
   register: require "../http/plugin/log"
 ]

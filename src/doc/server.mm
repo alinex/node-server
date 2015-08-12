@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="server" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
+<node TEXT="server" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -211,11 +211,10 @@
 <node TEXT="extended" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1170665785" CREATED="1439279419220" MODIFIED="1439388330876"/>
 <node TEXT="all" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_245119987" CREATED="1439279427596" MODIFIED="1439388330877"/>
 </node>
-<node TEXT="bind" ID="ID_216381691" CREATED="1438892627707" MODIFIED="1439047792952">
-<node TEXT="listen" ID="ID_1579586369" CREATED="1438539944698" MODIFIED="1438974571984">
-<node TEXT="bind to specific server" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_112326073" CREATED="1439388321286" MODIFIED="1439388627658">
+<node TEXT="bind" ID="ID_216381691" CREATED="1438892627707" MODIFIED="1439408305298">
 <icon BUILTIN="button_ok"/>
-</node>
+<node TEXT="listen" ID="ID_1579586369" CREATED="1438539944698" MODIFIED="1438974571984">
+<node TEXT="bind to specific server" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_112326073" CREATED="1439388321286" MODIFIED="1439408307774"/>
 </node>
 <node TEXT="domain" ID="ID_1405884174" CREATED="1438541852029" MODIFIED="1438974544200">
 <node TEXT="bind to vhost name" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1079149560" CREATED="1439388417661" MODIFIED="1439388430338"/>
