@@ -1,13 +1,6 @@
-# Startup Alinex Server
+# Logging plugin
 # =================================================
-# This file is used to start the whole system. It will start as single server
-# or cluster server depending on the `NODE_ENV` setting.
-#
-# For productive system the server starts as cluster to use the power of
-# multi core architectures. It is not aimed for multi server cluster, this have
-# to be set up on top.
-#
-# To configure the system use the `config/server.coffee` file.
+# To add logging capabilities using the winston logger.
 
 # Node Modules
 # -------------------------------------------------
@@ -77,28 +70,41 @@ addLogger = (server, setup) ->
           tailable: true
           zippedArchive: setup.file.compress
           datePattern: setup.file.datePattern
+          formatter: formatter[setup.data]
       ]
-  # return event handler
+  # return event handler which will collect the data and give them to the logger
   (data) ->
     # check context and domain filter
     raw = data.raw.req
     return unless filterContext setup, data
-    # collect data
-    url = "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
-    client = "#{data.info.remoteAddress} "
-    access = "-> #{data.method.toUpperCase()} #{url} "
+    # log event
     code = data.response.statusCode
-    time = data.info.responded - data.info.received
-    time = switch
-      when time < 1000 then "#{time}ms"
-      else "#{Math.round time/1000}s"
-    response = "-> #{code} #{time}"
-    level = switch
+    diff = data.info.responded - data.info.received
+    logger.log switch
       when code < 300 then 'info'
       when code < 500 then 'warn'
       else 'error'
-    console.log '----- LOG ------->', client + access + response
-    logger.log level, client + access + response
+    ,
+      # user data
+      client: data.info.remoteAddress
+      referrer: data.info.referrer
+      session: data.session
+      userAgent: data.headers['user-agent']
+      # request
+      requestTime: new Date data.info.received
+      method: data.method.toUpperCase()
+      hostname: data.info.hostname
+      url: "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
+      query: data.query
+      # response
+      statusCode: data.response.statusCode
+      error: data.response.source.error
+      responseTime: new Date data.info.responded
+      # process
+      diff: diff
+      duration: switch
+        when diff < 1000 then "#{diff}ms"
+        else "#{Math.round diff/1000}s"
 
 # ### Check bind settings
 filterContext = (setup, data) ->
@@ -107,3 +113,28 @@ filterContext = (setup, data) ->
   return false unless setup.bind?.domain is data.info.hostname
   return false unless string.starts data.raw.req.url, setup.bind?.context
   true
+
+# ### Formatter
+# Used from the winston transport to format the data according to it's name.
+formatter =
+  # error log
+  error: (data) ->
+    return "mydata #{data}"
+  # events by priority
+  event: (data) ->
+    return "mydata #{data}"
+  # apache custom access log
+  custom: (data) ->
+    return "mydata #{data}"
+  # apache combined access log
+  combined: (data) ->
+    return "mydata #{data}"
+  # apache referrer access log
+  referrer: (data) ->
+    return "mydata #{data}"
+  # apache combined access log
+  extended: (data) ->
+    return "mydata #{data}"
+  # apache combined access log
+  all: (data) ->
+    return "mydata #{data}"

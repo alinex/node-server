@@ -7,7 +7,7 @@
 # multi core architectures. It is not aimed for multi server cluster, this have
 # to be set up on top.
 #
-# To configure the system use the `config/server.coffee` file.
+# To configure the system use the `config/server` files.
 
 # Node Modules
 # -------------------------------------------------

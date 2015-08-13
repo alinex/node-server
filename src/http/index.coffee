@@ -1,13 +1,8 @@
-# Startup Alinex Server
+# Startup Http Server
 # =================================================
-# This file is used to start the whole system. It will start as single server
-# or cluster server depending on the `NODE_ENV` setting.
+# This file is used to start the real http server.
 #
-# For productive system the server starts as cluster to use the power of
-# multi core architectures. It is not aimed for multi server cluster, this have
-# to be set up on top.
-#
-# To configure the system use the `config/server.coffee` file.
+# To configure the system use the `config/server/http` file.
 
 # Node Modules
 # -------------------------------------------------
@@ -17,15 +12,16 @@ debug = require('debug')('server:http')
 debugAccess = require('debug')('server:http:access')
 debugHeader = require('debug')('server:http:header')
 debugPayload = require('debug')('server:http:payload')
+EventEmitter = require('events').EventEmitter
 chalk = require 'chalk'
 util = require 'util'
-EventEmitter = require('events').EventEmitter
 hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
 {object} = require 'alinex-util'
 
+# helper for debug output formatting
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
 # Define singleton instance
@@ -34,9 +30,11 @@ class HttpServer extends EventEmitter
 
   # Data container
   # -------------------------------------------------
-  @conf: null
-  @server: null
+  @conf: null # configuration
+  @server: null # server
 
+  # ### initialize
+  # setup connections, debugging and base plugins
   init: (cb) ->
     debug "setup server connections and plugins"
     @conf = config.get '/server/http'
@@ -68,15 +66,16 @@ class HttpServer extends EventEmitter
 
       cb()
 
-
   # Server Start and Stop
   # -------------------------------------------------
 
+  # ### start
   start: (cb) ->
     debug "start hapi server V#{@server.version}"
     @server.root.start()
 #    cb()
 
+  # ### stop
   stop: (cb) ->
     @server.root.stop()
     cb()
@@ -85,9 +84,11 @@ module.exports = http = new HttpServer()
 
 # Server setup functions
 # -------------------------------------------------
+# They are called within the init() method and do some specific steps.
 
 setup =
-  # event handling for debug and output
+  # ### Events for debugging
+  # Event handling for debug and output
   events: ->
     @server.on 'log', -> debug chalk.grey 'Unhandled LOG event'#, arguments
     @server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
@@ -132,7 +133,7 @@ setup =
             debugPayload chalk.grey "request #{obj2str data.payload}"
           debugPayload chalk.grey "response #{obj2str data.response.source}"
 
-  # add connections
+  # ### Add Connections
   connections: ->
     for label, listen of @conf.listen
       options =
@@ -149,7 +150,8 @@ setup =
 
 # Plugin configurations
 # -------------------------------------------------
-
+# The following plugins will be loaded automatically. The implementation is in
+# the extra files.
 plugins = [
   register: require "../http/plugin/log"
 ]
