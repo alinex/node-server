@@ -121,6 +121,20 @@ filterContext = (setup, data) ->
   return false unless string.starts data.raw.req.url, setup.bind?.context
   true
 
+#Version: 1.0
+#Date: 12-Jan-1996 00:00:00
+#Fields: date time cs-method cs-uri
+#c   Client
+#s   Server
+#r   Remote
+#cs  Client to Server.
+#sc  Server to Client.
+#sr  Server to Remote Server, this prefix is used by proxies.
+#rs  Remote Server to Server, this prefix is used by proxies.
+#x   Application specific identifier.
+
+
+
 # ### Formatter
 # Used from the winston transport to format the data according to it's name.
 formatter =
