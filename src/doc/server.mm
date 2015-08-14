@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="server" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
+<node TEXT="server" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -276,6 +276,7 @@
 <node TEXT="deny" ID="ID_306725017" CREATED="1438430642572" MODIFIED="1438430645143"/>
 </node>
 </node>
+<node TEXT="heapdump ?" ID="ID_1529632006" CREATED="1439569413371" MODIFIED="1439569425053"/>
 </node>
 </node>
 </map>

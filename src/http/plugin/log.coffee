@@ -58,21 +58,37 @@ addLogger = (server, setup) ->
   # create logger
   if setup.file?
     t = winston.transports
+    trans = new (if setup.file.datePattern then t.DailyRotateFile else t.File)
+      level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
+      showLevel: true
+      filename: "#{__dirname}/../../../log/#{setup.file.filename}"
+      colorize: false
+      json: false
+      maxsize: setup.file.maxSize
+      maxFiles: setup.file.maxFiles
+      tailable: true
+      zippedArchive: setup.file.compress
+      datePattern: setup.file.datePattern
+      formatter: formatter[setup.data]
     logger = new winston.Logger
-      transports: [
-        new (if setup.file.datePattern then t.DailyRotateFile else t.File)
-          level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
-          showLevel: true
-          filename: "#{__dirname}/../../../log/#{setup.file.filename}"
-          colorize: false
-          json: false
-          maxsize: setup.file.maxSize
-          maxFiles: setup.file.maxFiles
-          tailable: true
-          zippedArchive: setup.file.compress
-          datePattern: setup.file.datePattern
-          formatter: formatter[setup.data]
-      ]
+      transports: [trans]
+    if setup.data is 'extended'
+#      trans.on 'open', ->
+#        trans._stream.write """
+#          #Software: Microsoft Internet Information Services 6.0
+#          #Version: 1.0
+#          #Date: 2002-05-02 17:42:15
+#          #Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem
+#          cs-uri-query sc-status cs(User-Agent)
+#          """
+      logger.error
+        comment: "
+          #Software: Alinex-Server
+          \n#Version: 1.0
+          \n#Date: #{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'}
+          \n#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem
+          cs-uri-query sc-status cs(User-Agent)
+          \n"
   # return event handler which will collect the data and give them to the logger
   (data) ->
     # check context and domain filter
@@ -87,31 +103,33 @@ addLogger = (server, setup) ->
       when code < 500 then 'warn'
       else 'error'
     ,
-      # user data
-      client: data.info.remoteAddress
-      referrer: data.info.referrer
-      session: data.session
-      userAgent: data.headers['user-agent']
-      user: null
-      # request
-      requestTime: new Date data.info.received
-      method: data.method.toUpperCase()
-      hostname: data.info.hostname
-      url: "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
-      path: raw.url
-      pathname: data.path
-      query: data.query
-      protocolVersion: "#{data.connection.info.protocol.toUpperCase()} #{raw.httpVersion}"
-      # response
-      statusCode: data.response.statusCode
-      error: data.response.source.error
-      responseTime: new Date data.info.responded
-      responseSize: data.response.headers['content-length']
-      # process
-      diff: diff
-      duration: switch
-        when diff < 1000 then "#{diff}ms"
-        else "#{Math.round diff/1000}s"
+      client:
+        ip: raw['x-forwarded-for'] ? data.info.remoteAddress
+        referrer: data.info.referrer
+        session: data.session
+        agent: data.headers['user-agent']
+        user: if data.auth.isAuthenticated then data.auth.isAuthenticated else null
+      server:
+        port: data.connection.info.port
+        ip: data.connection.info.address
+        hostname: data.info.hostname
+      request:
+        time: new Date data.info.received
+        protocolVersion: "#{data.connection.info.protocol.toUpperCase()} #{raw.httpVersion}"
+        method: data.method.toUpperCase()
+        url: "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
+        path: raw.url
+        pathname: data.path
+        query: data.url.search
+      response:
+        code: data.response.statusCode
+        error: data.response.source.error
+        time: new Date data.info.responded
+        size: data.response.headers['content-length']
+        duration: diff
+        durationString: switch
+          when diff < 1000 then "#{diff}ms"
+          else "#{Math.round diff/1000}s"
 
 # ### Check bind settings
 filterContext = (setup, data) ->
@@ -121,53 +139,47 @@ filterContext = (setup, data) ->
   return false unless string.starts data.raw.req.url, setup.bind?.context
   true
 
-#Version: 1.0
-#Date: 12-Jan-1996 00:00:00
-#Fields: date time cs-method cs-uri
-#c   Client
-#s   Server
-#r   Remote
-#cs  Client to Server.
-#sc  Server to Client.
-#sr  Server to Remote Server, this prefix is used by proxies.
-#rs  Remote Server to Server, this prefix is used by proxies.
-#x   Application specific identifier.
-
-
-
 # ### Formatter
 # Used from the winston transport to format the data according to it's name.
 formatter =
   # error log
-  error: (d) ->
-    return "myd #{d}"
+  error: (data) -> data
   # events by priority
-  event: (d) ->
-    return "myd #{d}"
+  event: (data) -> data
   # apache custom access log
-  common: (d) ->
-    return "#{d.client} - #{d.user ? '-'}
-    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
-    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}"
-  commonvhost: (d) ->
-    return "#{d.hostname} #{d.client} - #{d.user ? '-'}
-    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
-    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}"
+  common: (data) ->
+    d = data.meta
+    "#{d.client.ip} - #{d.client.user ? '-'}
+    [#{moment(d.request.time).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.request.method} #{d.request.path} #{d.request.protocolVersion}\"
+    #{d.response.code} #{d.response.size}"
+  commonvhost: (data) ->
+    d = data.meta
+    "#{d.server.hostname} #{d.client.ip} - #{d.client.user ? '-'}
+    [#{moment(d.request.time).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.request.method} #{d.request.path} #{d.request.protocolVersion}\"
+    #{d.response.code} #{d.response.size}"
   # apache combined access log
   combined: (data) ->
     d = data.meta
-    referrer = if d.referrer then "\"#{d.referrer}\"" else '-'
-    userAgent = if d.userAgent then "\"#{d.userAgent}\"" else '-'
-    return "#{d.client} - #{d.user ? '-'}
-    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
-    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}
-    #{referrer} #{userAgent}"
+    referrer = if d.client.referrer then "\"#{d.client.referrer}\"" else '-'
+    agent = if d.client.agent then "\"#{d.client.agent}\"" else '-'
+    "#{d.client.ip} - #{d.client.user ? '-'}
+    [#{moment(d.request.time).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.request.method} #{d.request.path} #{d.request.protocolVersion}\"
+    #{d.response.code} #{d.response.size}
+    #{referrer} #{agent}"
   # apache referrer access log
-  referrer: (d) ->
-    return "#{d.referrer} -> #{d.pathname}"
+  referrer: (data) ->
+    d = data.meta
+    return "#{d.client.referrer} -> #{d.request.pathname}"
   # apache combined access log
-  extended: (d) ->
-    return "myd #{d}"
+  extended: (data) ->
+    d = data.meta
+    return d.comment if d.comment?
+    "#{moment(d.request.time).format 'YYYY-MM-DD'} #{moment(d.request.time).format 'HH:mm:ss'}
+    #{d.client.ip} #{d.client.user ? '-'} #{d.server.ip} #{d.server.port}
+    #{d.request.method} #{d.request.pathname} #{d.request.query ? '-'}
+    #{d.response.code} #{encodeURI d.client.agent}"
   # apache combined access log
-  all: (d) ->
-    return "myd #{d}"
+  all: (data) -> data
