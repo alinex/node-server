@@ -39,8 +39,11 @@ class HttpServer extends EventEmitter
     debug "setup server connections and plugins"
     @conf = config.get '/server/http'
     # configure server
-    options = {}
-    options.debug = false unless process.env.DEBUG?
+    options =
+      debug:
+        log: ['error']
+        request: ['error']
+#    options.debug = false unless process.env.DEBUG?
     for key, value of @conf.listen
       if value.load?
         options.load =

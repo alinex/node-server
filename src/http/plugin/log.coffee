@@ -28,9 +28,9 @@ exports.register = (server, options, next) ->
     events = switch setup.data
       when 'error'
         unless setup.bind?.domain? or setup.bind?.context?
-          ['log', 'response-error']
+          ['log', 'request-error']
         else
-          ['response-error']
+          ['request-error']
       when 'event'
         ['log']
       else
@@ -90,6 +90,20 @@ addLogger = (server, setup) ->
           cs-uri-query sc-status cs(User-Agent)
           \n"
   # return event handler which will collect the data and give them to the logger
+  if setup.data is 'event' or setup.data is 'error'
+    return (data, err) ->
+      if data.raw?
+        # request-error
+        code = data.response.statusCode
+        level = switch
+          when code < 300 then 'info'
+          when code < 500 then 'warn'
+          else 'error'
+        data = err.output.payload ? err
+      else
+        # log
+        level = data.level
+      logger.log level, data
   (data) ->
     # check context and domain filter
     raw = data.raw.req
@@ -143,9 +157,13 @@ filterContext = (setup, data) ->
 # Used from the winston transport to format the data according to it's name.
 formatter =
   # error log
-  error: (data) -> data
+  error: (data) ->
+    "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:
+    #{JSON.stringify data.meta}"
   # events by priority
-  event: (data) -> data
+  event: (data) ->
+    "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:
+    #{JSON.stringify data.meta}"
   # apache custom access log
   common: (data) ->
     d = data.meta
