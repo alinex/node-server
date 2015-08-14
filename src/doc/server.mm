@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="server" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
+<node TEXT="server" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1438881761591"><hook NAME="MapStyle">
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -208,12 +208,21 @@
 </node>
 </node>
 <node TEXT="log @" ID="ID_1696451794" CREATED="1438539641613" MODIFIED="1438540047544">
-<node TEXT="data $" ID="ID_1415076830" CREATED="1438892749816" MODIFIED="1438973281278">
+<node TEXT="data $" ID="ID_1415076830" CREATED="1438892749816" MODIFIED="1439555004967">
 <node TEXT="error" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1339691501" CREATED="1438892829795" MODIFIED="1439388330861"/>
 <node TEXT="event" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1935972278" CREATED="1439279400997" MODIFIED="1439388330866"/>
-<node TEXT="custom" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_686966495" CREATED="1439279404252" MODIFIED="1439388330870"/>
-<node TEXT="combined" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_4334821" CREATED="1439279415572" MODIFIED="1439388330872"/>
-<node TEXT="referrer" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1027037485" CREATED="1439387770878" MODIFIED="1439388330874"/>
+<node TEXT="common" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_686966495" CREATED="1439279404252" MODIFIED="1439555007519">
+<icon BUILTIN="button_ok"/>
+</node>
+<node TEXT="commonvhost" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1575336840" CREATED="1439554977896" MODIFIED="1439555008783">
+<icon BUILTIN="button_ok"/>
+</node>
+<node TEXT="combined" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_4334821" CREATED="1439279415572" MODIFIED="1439555009599">
+<icon BUILTIN="button_ok"/>
+</node>
+<node TEXT="referrer" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1027037485" CREATED="1439387770878" MODIFIED="1439555010415">
+<icon BUILTIN="button_ok"/>
+</node>
 <node TEXT="extended" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_1170665785" CREATED="1439279419220" MODIFIED="1439388330876"/>
 <node TEXT="all" LOCALIZED_STYLE_REF="defaultstyle.details" ID="ID_245119987" CREATED="1439279427596" MODIFIED="1439388330877"/>
 </node>

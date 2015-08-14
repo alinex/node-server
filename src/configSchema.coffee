@@ -120,7 +120,12 @@ log =
         title: "Data Type"
         description: "the type of data to log"
         type: 'string'
-        list: ['error', 'event', 'custom', 'combined', 'extended', 'referrer', 'all']
+        list: [
+          'error', 'event'
+          'common', 'commonvhost', 'combined', 'referrer'
+          'extended'
+          'all'
+        ]
       bind:
         title: "Binding"
         description: "the connection, domain and context to only bind to"

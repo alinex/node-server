@@ -8,6 +8,7 @@
 # include base modules
 debug = require('debug')('server:http:log')
 winston = require 'winston'
+moment = require 'moment'
 util = require 'util'
 # alinex modules
 config = require 'alinex-config'
@@ -80,6 +81,7 @@ addLogger = (server, setup) ->
     # log event
     code = data.response.statusCode
     diff = data.info.responded - data.info.received
+#    console.log data
     logger.log switch
       when code < 300 then 'info'
       when code < 500 then 'warn'
@@ -90,16 +92,21 @@ addLogger = (server, setup) ->
       referrer: data.info.referrer
       session: data.session
       userAgent: data.headers['user-agent']
+      user: null
       # request
       requestTime: new Date data.info.received
       method: data.method.toUpperCase()
       hostname: data.info.hostname
       url: "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
+      path: raw.url
+      pathname: data.path
       query: data.query
+      protocolVersion: "#{data.connection.info.protocol.toUpperCase()} #{raw.httpVersion}"
       # response
       statusCode: data.response.statusCode
       error: data.response.source.error
       responseTime: new Date data.info.responded
+      responseSize: data.response.headers['content-length']
       # process
       diff: diff
       duration: switch
@@ -118,23 +125,35 @@ filterContext = (setup, data) ->
 # Used from the winston transport to format the data according to it's name.
 formatter =
   # error log
-  error: (data) ->
-    return "mydata #{data}"
+  error: (d) ->
+    return "myd #{d}"
   # events by priority
-  event: (data) ->
-    return "mydata #{data}"
+  event: (d) ->
+    return "myd #{d}"
   # apache custom access log
-  custom: (data) ->
-    return "mydata #{data}"
+  common: (d) ->
+    return "#{d.client} - #{d.user ? '-'}
+    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}"
+  commonvhost: (d) ->
+    return "#{d.hostname} #{d.client} - #{d.user ? '-'}
+    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}"
   # apache combined access log
   combined: (data) ->
-    return "mydata #{data}"
+    d = data.meta
+    referrer = if d.referrer then "\"#{d.referrer}\"" else '-'
+    userAgent = if d.userAgent then "\"#{d.userAgent}\"" else '-'
+    return "#{d.client} - #{d.user ? '-'}
+    [#{moment(d.requestTime).format 'DD/MMM/YY:HH:mm:ss ZZ'}]
+    \"#{d.method} #{d.path} #{d.protocolVersion}\" #{d.statusCode} #{d.responseSize}
+    #{referrer} #{userAgent}"
   # apache referrer access log
-  referrer: (data) ->
-    return "mydata #{data}"
+  referrer: (d) ->
+    return "#{d.referrer} -> #{d.pathname}"
   # apache combined access log
-  extended: (data) ->
-    return "mydata #{data}"
+  extended: (d) ->
+    return "myd #{d}"
   # apache combined access log
-  all: (data) ->
-    return "mydata #{data}"
+  all: (d) ->
+    return "myd #{d}"
