@@ -124,7 +124,7 @@ log =
           'error', 'event'
           'common', 'commonvhost', 'combined', 'referrer'
           'extended'
-          'all'
+          'object'
         ]
       bind:
         title: "Binding"

@@ -63,7 +63,7 @@ addLogger = (server, setup) ->
       showLevel: true
       filename: "#{__dirname}/../../../log/#{setup.file.filename}"
       colorize: false
-      json: false
+      json: setup.data is 'all'
       maxsize: setup.file.maxSize
       maxFiles: setup.file.maxFiles
       tailable: true
@@ -182,4 +182,4 @@ formatter =
     #{d.request.method} #{d.request.pathname} #{d.request.query ? '-'}
     #{d.response.code} #{encodeURI d.client.agent}"
   # apache combined access log
-  all: (data) -> data
+  object: (data) -> JSON.stringify data
