@@ -44,6 +44,7 @@ exports.register = (server, options, next) ->
       for event in events
         server.on event, addLogger server, setup
   # done
+  server.log 'error', 'have to be logged'
   return next()
 
 exports.register.attributes =
@@ -100,6 +101,11 @@ addLogger = (server, setup) ->
           when code < 500 then 'warn'
           else 'error'
         data = err.output.payload ? err
+        data.message = err.message
+      else if data.tags
+        console.log data
+        level = if data.tags?[0] in ['error', 'warn'] then data.tags[0] else 'info'
+        data = data.data
       else
         # log
         level = data.level
@@ -159,7 +165,7 @@ formatter =
   # error log
   error: (data) ->
     "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:
-    #{JSON.stringify data.meta}"
+    #{data.message ? JSON.stringify data.meta}"
   # events by priority
   event: (data) ->
     "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:

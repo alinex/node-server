@@ -39,11 +39,8 @@ class HttpServer extends EventEmitter
     debug "setup server connections and plugins"
     @conf = config.get '/server/http'
     # configure server
-    options =
-      debug:
-        log: ['error']
-        request: ['error']
-#    options.debug = false unless process.env.DEBUG?
+    options = {}
+    options.debug = false unless process.env.DEBUG?
     for key, value of @conf.listen
       if value.load?
         options.load =
@@ -63,7 +60,8 @@ class HttpServer extends EventEmitter
       @server.route
         method: 'GET',
         path: '/hello',
-        handler: (req, reply) ->
+        handler: (req, reply) =>
+#          @server.log 'error', 'TEST'
           throw new Error "Poopsie"
           reply 'hello world'
 
