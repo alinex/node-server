@@ -19,7 +19,7 @@ hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
-{object} = require 'alinex-util'
+{object, string} = require 'alinex-util'
 
 # helper for debug output formatting
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
@@ -58,12 +58,14 @@ class HttpServer extends EventEmitter
 
       # test routing
       @server.route
-        method: 'GET',
-        path: '/hello',
-        handler: (req, reply) =>
-#          @server.log 'error', 'TEST'
-          throw new Error "Poopsie"
-          reply 'hello world'
+        method: 'GET'
+        path: '/hello'
+        config:
+          description: 'anything'
+          handler: (req, reply) ->
+#            @server.log 'error', 'TEST'
+            throw new Error "Poopsie"
+            reply 'hello world'
 
       cb()
 
@@ -91,25 +93,45 @@ setup =
   # ### Events for debugging
   # Event handling for debug and output
   events: ->
+    # unused events
     @server.on 'log', -> debug chalk.grey 'Unhandled LOG event'#, arguments
     @server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
     @server.on 'request-internal', -> debug chalk.grey 'Unhandled INTERNAL event'#, arguments
+    @server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments
+    # debug requests errors
     @server.on 'request-error', (request, err) ->
       keys = ['domainThrown', 'isBoom', 'isServer', 'isDeveloperError', 'data']
       debug chalk.red "#{err.message} #{obj2str object.filter err, (v, k) -> v? and k in keys}"
-    @server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments
+    # display routing table after start
     @server.on 'start', =>
       debug "hapi server started"
-      for srv in @server.connections
-        console.log "Server listening on #{srv.info.uri}"
+      console.log chalk.bold "Server listening on:"
+      # write routing table
+      for conn in @server.table()
+        console.log "#{chalk.underline.bold.cyan conn.info.uri} #{chalk.magenta conn.labels[0]}"
+        list = []
+        for route in conn.table
+          list.push
+            method: route.method.toUpperCase()
+            path: route.path.replace /({.*?})/g, chalk.gray '$1'
+            auth: if route.settings.auth then route.settings.auth.strategies.toString() else false
+            description: route.settings.description ? ''
+        list.sort (a, b) -> a.path.localeCompare b.path
+        for route in list
+          console.log "  #{chalk.green string.rpad route.method, 18}
+          #{string.rpad route.path, 30}
+          #{if route.auth then chalk.green route.auth else chalk.red 'none'}
+          #{chalk.yellow route.description}"
+    # short message after stop
     @server.on 'stop', ->
       debug "hapi server stopped"
+    # debug requests with payload and response
     if debugAccess.enabled or debugHeader.enabled or debugPayload.enabled
       @server.on 'response', (data) ->
         raw = data.raw.req
         url = "#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}"
         if debugAccess.enabled
-          client = chalk.grey "#{data.info.remoteAddress} "
+          client = chalk.grey "#{raw['x-forwarded-for'] ? data.info.remoteAddress} "
           access = "-> #{data.method.toUpperCase()} #{url} "
           code = data.response.statusCode
           color = switch

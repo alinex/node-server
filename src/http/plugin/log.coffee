@@ -13,7 +13,8 @@ util = require 'util'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
-{string} = require 'alinex-util'
+{string, object} = require 'alinex-util'
+
 
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
@@ -94,20 +95,30 @@ addLogger = (server, setup) ->
   if setup.data is 'event' or setup.data is 'error'
     return (data, err) ->
       if data.raw?
-        # request-error
+        # request-error events
+#        console.log 1, err
         code = data.response.statusCode
         level = switch
           when code < 300 then 'info'
           when code < 500 then 'warn'
           else 'error'
-        data = err.output.payload ? err
-        data.message = err.message
+        data = {}
+        object.clone err.output.payload if err.output.payload?
+        if err
+          data.error = err.message
+          data.file = err.fileName
+          data.line = err.lineNumber
+          data.column = err.columnNumber
+          data.name = err.name
+          data.stack = err.stack
       else if data.tags
-        console.log data
+        # log events
+#        console.log 2, data
         level = if data.tags?[0] in ['error', 'warn'] then data.tags[0] else 'info'
         data = data.data
       else
         # log
+#        console.log 3, data
         level = data.level
       logger.log level, data
   (data) ->
@@ -164,12 +175,17 @@ filterContext = (setup, data) ->
 formatter =
   # error log
   error: (data) ->
+    m = if data.message then data.message else null
+    d = data.meta ? null
+#    console.log '=', m, d
     "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:
-    #{data.message ? JSON.stringify data.meta}"
+    #{m ? JSON.stringify d}"
   # events by priority
   event: (data) ->
+    m = if data.message then data.message else null
+    d = data.meta ? null
     "#{moment().format 'YYYY-MM-DD HH:mm:ss ZZ'} #{data.level.toUpperCase()}:
-    #{JSON.stringify data.meta}"
+    #{m ? JSON.stringify d}"
   # apache custom access log
   common: (data) ->
     d = data.meta
@@ -206,4 +222,7 @@ formatter =
     #{d.request.method} #{d.request.pathname} #{d.request.query ? '-'}
     #{d.response.code} #{encodeURI d.client.agent}"
   # apache combined access log
-  object: (data) -> JSON.stringify data
+  object: (data) ->
+    m = if data.message then data.message else null
+    d = data.meta ? null
+    m ? JSON.stringify d
