@@ -61,11 +61,22 @@ class HttpServer extends EventEmitter
         method: 'GET'
         path: '/hello'
         config:
-          description: 'anything'
+          description: 'Hello World'
+          handler: (req, reply) -> reply 'hello world'
+      @server.route
+        method: 'GET'
+        path: '/500'
+        config:
+          description: 'Test Call with 500 error'
+          handler: (req, reply) -> throw new Error "Poopsie"
+      @server.route
+        method: 'GET'
+        path: '/log'
+        config:
+          description: 'Log an error message'
           handler: (req, reply) ->
-#            @server.log 'error', 'TEST'
-            throw new Error "Poopsie"
-            reply 'hello world'
+            @server.log 'error', 'TEST'
+            reply 'done'
 
       cb()
 
@@ -108,7 +119,7 @@ setup =
       console.log chalk.bold "Server listening on:"
       # write routing table
       for conn in @server.table()
-        console.log "#{chalk.underline.bold.cyan conn.info.uri} #{chalk.magenta conn.labels[0]}"
+        console.log "  #{chalk.underline.bold.cyan conn.info.uri} #{chalk.magenta conn.labels[0]}"
         list = []
         for route in conn.table
           list.push
@@ -118,7 +129,7 @@ setup =
             description: route.settings.description ? ''
         list.sort (a, b) -> a.path.localeCompare b.path
         for route in list
-          console.log "  #{chalk.green string.rpad route.method, 18}
+          console.log "    #{chalk.green string.rpad route.method, 8}
           #{string.rpad route.path, 30}
           #{if route.auth then chalk.green route.auth else chalk.red 'none'}
           #{chalk.yellow route.description}"
