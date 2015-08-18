@@ -87,7 +87,7 @@ class HttpServer extends EventEmitter
   start: (cb) ->
     debug "start hapi server V#{@server.version}"
     @server.root.start()
-#    cb()
+    @server.once 'start', cb
 
   # ### stop
   stop: (cb) ->
