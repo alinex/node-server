@@ -1,6 +1,6 @@
 {
   "name": "alinex-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Web server platform for attachable apps.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
