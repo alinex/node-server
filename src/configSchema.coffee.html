@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>configSchema.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-server/src/configSchemacoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#check%20definitions">Check definitions</a>
+      </div>
+      <div class="heading h2">
+        <a href="#connection%20settings">Connection Settings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log%20settings">Log Settings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#connection%20settings">Connection Settings</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20definitions">
+  <h1>
+    <a href="#check%20definitions" name="check%20definitions" class="pilcrow">&#182;</a>
+    Check definitions
+  </h1>
+</div>
+
+
+<p>This contains check definitions for the
+<a href="http://alinex.github.io/node-validator">alinex-validator</a>.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="connection%20settings">
+  <h2>
+    <a href="#connection%20settings" name="connection%20settings" class="pilcrow">&#182;</a>
+    Connection Settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">listen =</span>
+  <span class="nv">title: </span><span class="s">&quot;Listen&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the host and port to bind to by label&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;port&#39;</span><span class="p">]</span>
+    <span class="nv">keys:</span>
+      <span class="nv">host:</span>
+        <span class="nv">title: </span><span class="s">&quot;Host or IP&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to bind to&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+        <span class="o">or:</span> <span class="p">[</span>
+          <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+        <span class="p">,</span>
+          <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+        <span class="p">,</span>
+          <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+          <span class="nv">filetype: </span><span class="s">&#39;socket&#39;</span>
+          <span class="nv">exists: </span><span class="kc">true</span>
+        <span class="p">]</span>
+      <span class="nv">port:</span>
+        <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the port to listen on&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+        <span class="nv">default: </span><span class="mi">23174</span>
+      <span class="nv">tls:</span>
+        <span class="nv">title: </span><span class="s">&quot;HTTPS Server&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the settings to have listen using SSL&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">pfx:</span>
+            <span class="nv">title: </span><span class="s">&quot;PKCS</span><span class="err">#</span><span class="s">12 Certificate&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the PKCS</span><span class="err">#</span><span class="s">12 certificate, private key and CA</span>
+<span class="s">            certificates to use for SSL&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">cert:</span>
+            <span class="nv">title: </span><span class="s">&quot;x509 Certificate&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the public x509 certificate to use&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">key:</span>
+            <span class="nv">title: </span><span class="s">&quot;Private Key&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the private key to use for SSL&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">passphrase:</span>
+            <span class="nv">title: </span><span class="s">&quot;Passphrase&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the passphrase for the private key or pfx if necessary&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">ca:</span>
+            <span class="nv">title: </span><span class="s">&quot;Authority Certificate&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;an authority certificate or array of authority certificates</span>
+<span class="s">            to check the remote host against&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">ciphers:</span>
+            <span class="nv">title: </span><span class="s">&quot;Ciphers&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a string describing the ciphers to use or exclude</span>
+<span class="s">            (http://www.openssl.org/docs/apps/ciphers.html</span><span class="err">#</span><span class="s">CIPHER_LIST_FORMAT)&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">rejectUnauthorized:</span>
+            <span class="nv">title: </span><span class="s">&quot;Reject Unathorized&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a flag to check server certificate against the</span>
+<span class="s">            list of supplied CAs&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+          <span class="nv">secureProtocol:</span>
+            <span class="nv">title: </span><span class="s">&quot;SSL Method&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the SSL method to use, e.g. TLSv1_method to force TLS version 1</span>
+<span class="s">            (the possible values depend on your installation of OpenSSL and</span>
+<span class="s">            are defined in the constant SSL_METHODS)&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">load:</span>
+        <span class="nv">title: </span><span class="s">&quot;Load Limit&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the limit after which the server will respond with</span>
+<span class="s">        503 code to incoming requests&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">maxHeap:</span>
+            <span class="nv">title: </span><span class="s">&quot;Maximum Heap&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum V8 heap size over which incoming</span>
+<span class="s">            requests are rejected&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+          <span class="nv">maxRss:</span>
+            <span class="nv">title: </span><span class="s">&quot;Maximum RSS&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum process RSS size over which incoming</span>
+<span class="s">            requests are rejected&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+          <span class="nv">eventLoopDelay:</span>
+            <span class="nv">title: </span><span class="s">&quot;Maximum Event Loop Delay&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum event loop delay duration in milliseconds</span>
+<span class="s">            over which incoming requests are rejected&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+            <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+  <span class="p">]</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="log%20settings">
+  <h2>
+    <a href="#log%20settings" name="log%20settings" class="pilcrow">&#182;</a>
+    Log Settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">log =</span>
+  <span class="nv">title: </span><span class="s">&quot;Log Settigs&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the host and port to bind to by label&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+  <span class="nv">entries:</span>
+    <span class="nv">title: </span><span class="s">&quot;Log Transport&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;the configuration of a log transporter&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
+    <span class="nv">keys:</span>
+      <span class="nv">data:</span>
+        <span class="nv">title: </span><span class="s">&quot;Data Type&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the type of data to log&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">list: </span><span class="p">[</span>
+          <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="s">&#39;event&#39;</span>
+          <span class="s">&#39;common&#39;</span><span class="p">,</span> <span class="s">&#39;commonvhost&#39;</span><span class="p">,</span> <span class="s">&#39;combined&#39;</span><span class="p">,</span> <span class="s">&#39;referrer&#39;</span>
+          <span class="s">&#39;extended&#39;</span>
+          <span class="s">&#39;object&#39;</span>
+        <span class="p">]</span>
+      <span class="nv">bind:</span>
+        <span class="nv">title: </span><span class="s">&quot;Binding&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the connection, domain and context to only bind to&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">listen:</span>
+            <span class="nv">title: </span><span class="s">&quot;Listener&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the name of the defined listener&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="nv">values: </span><span class="s">&#39;&lt;&lt;&lt;listen&gt;&gt;&gt;&#39;</span>
+          <span class="nv">domain:</span>
+            <span class="nv">title: </span><span class="s">&quot;Domain Name&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the hostname to bind to&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+          <span class="nv">context:</span>
+            <span class="nv">title: </span><span class="s">&quot;Context&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the context path to bind to&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="nv">startsWith: </span><span class="s">&#39;/&#39;</span>
+            <span class="nv">minLength: </span><span class="mi">2</span>
+      <span class="nv">file:</span>
+        <span class="nv">title: </span><span class="s">&quot;File Logger&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the setup of an file logger&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">filename:</span>
+            <span class="nv">title: </span><span class="s">&quot;Filename&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the filename within the log directory&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+          <span class="nv">datePattern:</span>
+            <span class="nv">title: </span><span class="s">&quot;Rotation Pattern&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the date pattern to be used for rotating files&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="nv">minLength: </span><span class="mi">1</span>
+          <span class="nv">maxSize:</span>
+            <span class="nv">title: </span><span class="s">&quot;max. Size&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum file size before file rotation&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+            <span class="nv">min: </span><span class="mi">1</span>
+          <span class="nv">maxFiles:</span>
+            <span class="nv">title: </span><span class="s">&quot;max. Files&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum number of files (older ones will be deleted on rotation)&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+            <span class="nv">min: </span><span class="mi">1</span>
+          <span class="nv">compress:</span>
+            <span class="nv">title: </span><span class="s">&quot;Compress&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a flag indicating rotated files should be compressed&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+      <span class="nv">http:</span>
+        <span class="nv">title: </span><span class="s">&quot;HTTP Webservice&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a service to send log entries to&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">host:</span>
+            <span class="nv">title: </span><span class="s">&quot;Hostname or IP&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to send to&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+            <span class="o">or:</span> <span class="p">[</span>
+              <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+            <span class="p">,</span>
+              <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+            <span class="p">]</span>
+          <span class="nv">port:</span>
+            <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the port of the service to use&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+          <span class="nv">path:</span>
+            <span class="nv">title: </span><span class="s">&quot;Request URI Path&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the uri path to send request to&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="nv">startsWith: </span><span class="s">&#39;/&#39;</span>
+            <span class="nv">minLength: </span><span class="mi">2</span>
+          <span class="nv">auth:</span>
+            <span class="nv">title: </span><span class="s">&quot;Authentication&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the basic authentication settings&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+            <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+            <span class="nv">keys:</span>
+              <span class="nv">username:</span>
+                <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the username to use for basic authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">password:</span>
+                <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the password used for basic authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">secure:</span>
+            <span class="nv">title: </span><span class="s">&quot;Secure Connection&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a flag indicating to user https protocol&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+      <span class="nv">mail:</span>
+        <span class="nv">title: </span><span class="s">&quot;Mail Logger&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the configuration for a mail logger&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">to:</span>
+            <span class="nv">title: </span><span class="s">&quot;To&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the email address to send email to&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">from:</span>
+            <span class="nv">title: </span><span class="s">&quot;From&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the origin email address used as sender&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">host:</span>
+            <span class="nv">title: </span><span class="s">&quot;SMTP Host&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the SMTO hostname if needed&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+            <span class="o">or:</span> <span class="p">[</span>
+              <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+            <span class="p">,</span>
+              <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+            <span class="p">]</span>
+          <span class="nv">port:</span>
+            <span class="nv">title: </span><span class="s">&quot;SMTP Port&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the port of the SMTP host is listening&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+          <span class="nv">secure:</span>
+            <span class="nv">title: </span><span class="s">&quot;Secure Protocol&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a flag indicating to use secure connections&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+          <span class="nv">auth:</span>
+            <span class="nv">title: </span><span class="s">&quot;Authentication&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the smtp authentication settings&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+            <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+            <span class="nv">keys:</span>
+              <span class="nv">username:</span>
+                <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the username to use for smtp authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">password:</span>
+                <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the password used for smtp authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="connection%20settings">
+  <h2>
+    <a href="#connection%20settings" name="connection%20settings" class="pilcrow">&#182;</a>
+    Connection Settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">module.exports =</span>
+  <span class="nv">title: </span><span class="s">&quot;Server&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration of servers (connected by client)&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">http:</span>
+      <span class="nv">title: </span><span class="s">&quot;Webserver&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the configuration for the webserver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">listen: </span><span class="nx">listen</span>
+        <span class="nv">log: </span><span class="nx">log</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

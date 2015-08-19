@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>log.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-server/src/http/plugin/logcoffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#logging%20plugin">Logging plugin</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#plugin%20interface">Plugin Interface</a>
+      </div>
+      <div class="heading h2">
+        <a href="#helper%20methods">Helper methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#check%20bind%20settings">Check bind settings</a>
+      </div>
+      <div class="heading h3">
+        <a href="#formatter">Formatter</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="logging%20plugin">
+  <h1>
+    <a href="#logging%20plugin" name="logging%20plugin" class="pilcrow">&#182;</a>
+    Logging plugin
+  </h1>
+</div>
+
+
+<p>To add logging capabilities using the winston logger.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server:http:log&#39;</span><span class="p">)</span>
+<span class="nv">winston = </span><span class="nx">require</span> <span class="s">&#39;winston&#39;</span>
+<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="p">{</span><span class="nx">string</span><span class="p">,</span> <span class="nx">object</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+
+<span class="nv">obj2str = </span><span class="nf">(o) -&gt;</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">o</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="plugin%20interface">
+  <h2>
+    <a href="#plugin%20interface" name="plugin%20interface" class="pilcrow">&#182;</a>
+    Plugin Interface
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">exports.register = </span><span class="nf">(server, options, next) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>get configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/server/http/log&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>loop over servers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="nx">setup</span> <span class="k">in</span> <span class="nx">conf</span>
+    <span class="nv">events = </span><span class="k">switch</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span>
+      <span class="k">when</span> <span class="s">&#39;error&#39;</span>
+        <span class="k">unless</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span> <span class="o">or</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">context</span><span class="o">?</span>
+          <span class="p">[</span><span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&#39;request-error&#39;</span><span class="p">]</span>
+        <span class="k">else</span>
+          <span class="p">[</span><span class="s">&#39;request-error&#39;</span><span class="p">]</span>
+      <span class="k">when</span> <span class="s">&#39;event&#39;</span>
+        <span class="p">[</span><span class="s">&#39;log&#39;</span><span class="p">]</span>
+      <span class="k">else</span>
+        <span class="p">[</span><span class="s">&#39;response&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">listen</span><span class="o">?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>add to specific server</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">for</span> <span class="nx">event</span> <span class="k">in</span> <span class="nx">events</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">setup</span><span class="p">.</span><span class="nx">listen</span><span class="p">).</span><span class="nx">on</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">addLogger</span> <span class="nx">server</span><span class="p">,</span> <span class="nx">setup</span>
+    <span class="k">else</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>add to all servers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">for</span> <span class="nx">event</span> <span class="k">in</span> <span class="nx">events</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">on</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">addLogger</span> <span class="nx">server</span><span class="p">,</span> <span class="nx">setup</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>done</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="s">&#39;have to be logged&#39;</span>
+  <span class="k">return</span> <span class="nx">next</span><span class="p">()</span>
+
+<span class="nv">exports.register.attributes =</span>
+  <span class="nv">name: </span><span class="s">&#39;log&#39;</span>
+  <span class="nv">version: </span><span class="s">&#39;1.0.0&#39;</span>
+  <span class="nv">multiple: </span><span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="helper%20methods">
+  <h2>
+    <a href="#helper%20methods" name="helper%20methods" class="pilcrow">&#182;</a>
+    Helper methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">addLogger = </span><span class="nf">(server, setup) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>create logger</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="o">?</span>
+    <span class="nv">t = </span><span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span>
+    <span class="nv">trans = </span><span class="k">new</span> <span class="p">(</span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">datePattern</span> <span class="k">then</span> <span class="nx">t</span><span class="p">.</span><span class="nx">DailyRotateFile</span> <span class="k">else</span> <span class="nx">t</span><span class="p">.</span><span class="nx">File</span><span class="p">)</span>
+      <span class="nv">level: </span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;error&#39;</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span> <span class="k">else</span> <span class="k">if</span> <span class="s">&#39;all&#39;</span> <span class="k">then</span> <span class="s">&#39;debug&#39;</span> <span class="k">else</span> <span class="s">&#39;info&#39;</span>
+      <span class="nv">showLevel: </span><span class="kc">true</span>
+      <span class="nv">filename: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/../../../log/</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">filename</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nv">colorize: </span><span class="kc">false</span>
+      <span class="nv">json: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;all&#39;</span>
+      <span class="nv">maxsize: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">maxSize</span>
+      <span class="nv">maxFiles: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">maxFiles</span>
+      <span class="nv">tailable: </span><span class="kc">true</span>
+      <span class="nv">zippedArchive: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">compress</span>
+      <span class="nv">datePattern: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">datePattern</span>
+      <span class="nv">formatter: </span><span class="nx">formatter</span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">data</span><span class="p">]</span>
+    <span class="nv">logger = </span><span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">Logger</span>
+      <span class="nv">transports: </span><span class="p">[</span><span class="nx">trans</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;extended&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code> <span class="nx">trans</span><span class="p">.</span><span class="nx">on</span> <span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="o">-&gt;</span>
+   <span class="nx">trans</span><span class="p">.</span><span class="nx">_stream</span><span class="p">.</span><span class="nx">write</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">     #Software: Microsoft Internet Information Services 6.0</span>
+<span class="s2">     #Version: 1.0</span>
+<span class="s2">     #Date: 2002-05-02 17:42:15</span>
+<span class="s2">     #Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem</span>
+<span class="s2">     cs-uri-query sc-status cs(User-Agent)</span>
+<span class="s2">     &quot;&quot;&quot;</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">logger</span><span class="p">.</span><span class="nx">error</span>
+        <span class="nv">comment: </span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>Software: Alinex-Server</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">          \n</span><span class="err">#</span><span class="s">Version: 1.0</span>
+<span class="s">          \n</span><span class="err">#</span><span class="s">Date: </span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span> <span class="s">&#39;YYYY-MM-DD HH:mm:ss ZZ&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">          \n</span><span class="err">#</span><span class="s">Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem</span>
+<span class="s">          cs-uri-query sc-status cs(User-Agent)</span>
+<span class="s">          \n&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>return event handler which will collect the data and give them to the logger</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;event&#39;</span> <span class="o">or</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;error&#39;</span>
+    <span class="k">return</span> <span class="nf">(data, err) -&gt;</span>
+      <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="o">?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>request-error events
+       console.log 1, err</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">code = </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
+        <span class="nv">level = </span><span class="k">switch</span>
+          <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;info&#39;</span>
+          <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">500</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span>
+          <span class="k">else</span> <span class="s">&#39;error&#39;</span>
+        <span class="nv">data = </span><span class="p">{}</span>
+        <span class="nx">object</span><span class="p">.</span><span class="nx">clone</span> <span class="nx">err</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">payload</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">payload</span><span class="o">?</span>
+        <span class="k">if</span> <span class="nx">err</span>
+          <span class="nv">data.error = </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
+          <span class="nv">data.file = </span><span class="nx">err</span><span class="p">.</span><span class="nx">fileName</span>
+          <span class="nv">data.line = </span><span class="nx">err</span><span class="p">.</span><span class="nx">lineNumber</span>
+          <span class="nv">data.column = </span><span class="nx">err</span><span class="p">.</span><span class="nx">columnNumber</span>
+          <span class="nv">data.name = </span><span class="nx">err</span><span class="p">.</span><span class="nx">name</span>
+          <span class="nv">data.stack = </span><span class="nx">err</span><span class="p">.</span><span class="nx">stack</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tags</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>log events
+       console.log 2, data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">level = </span><span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tags</span><span class="o">?</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">]</span> <span class="k">then</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s">&#39;info&#39;</span>
+        <span class="nv">data = </span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span>
+      <span class="k">else</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>log
+       console.log 3, data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">level = </span><span class="nx">data</span><span class="p">.</span><span class="nx">level</span>
+      <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span> <span class="nx">level</span><span class="p">,</span> <span class="nx">data</span>
+  <span class="nf">(data) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>check context and domain filter</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">raw = </span><span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="p">.</span><span class="nx">req</span>
+    <span class="k">return</span> <span class="k">unless</span> <span class="nx">filterContext</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">data</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>log event</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">code = </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
+    <span class="nv">diff = </span><span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">responded</span> <span class="o">-</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">received</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>console.log data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span> <span class="k">switch</span>
+      <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;info&#39;</span>
+      <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">500</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span>
+      <span class="k">else</span> <span class="s">&#39;error&#39;</span>
+    <span class="p">,</span>
+      <span class="nv">client:</span>
+        <span class="nv">ip: </span><span class="nx">raw</span><span class="p">[</span><span class="s">&#39;x-forwarded-for&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">remoteAddress</span>
+        <span class="nv">referrer: </span><span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">referrer</span>
+        <span class="nv">session: </span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span>
+        <span class="nv">agent: </span><span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;user-agent&#39;</span><span class="p">]</span>
+        <span class="nv">user: </span><span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">isAuthenticated</span> <span class="k">then</span> <span class="nx">data</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">isAuthenticated</span> <span class="k">else</span> <span class="kc">null</span>
+      <span class="nv">server:</span>
+        <span class="nv">port: </span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">port</span>
+        <span class="nv">ip: </span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">address</span>
+        <span class="nv">hostname: </span><span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">hostname</span>
+      <span class="nv">request:</span>
+        <span class="nv">time: </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">received</span>
+        <span class="nv">protocolVersion: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">httpVersion</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">method: </span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span>
+        <span class="nv">url: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="si">}#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">path: </span><span class="nx">raw</span><span class="p">.</span><span class="nx">url</span>
+        <span class="nv">pathname: </span><span class="nx">data</span><span class="p">.</span><span class="nx">path</span>
+        <span class="nv">query: </span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">search</span>
+      <span class="nv">response:</span>
+        <span class="nv">code: </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
+        <span class="nv">error: </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">error</span>
+        <span class="nv">time: </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">responded</span>
+        <span class="nv">size: </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;content-length&#39;</span><span class="p">]</span>
+        <span class="nv">duration: </span><span class="nx">diff</span>
+        <span class="nv">durationString: </span><span class="k">switch</span>
+          <span class="k">when</span> <span class="nx">diff</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="k">then</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">diff</span><span class="si">}</span><span class="s">ms&quot;</span>
+          <span class="k">else</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">diff</span><span class="o">/</span><span class="mi">1000</span><span class="si">}</span><span class="s">s&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20bind%20settings">
+  <h3>
+    <a href="#check%20bind%20settings" name="check%20bind%20settings" class="pilcrow">&#182;</a>
+    Check bind settings
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">filterContext = </span><span class="nf">(setup, data) -&gt;</span>
+  <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span> <span class="o">or</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">context</span><span class="o">?</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">hostname</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">domain</span> <span class="o">is</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">hostname</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span><span class="p">.</span><span class="nx">context</span>
+  <span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="formatter">
+  <h3>
+    <a href="#formatter" name="formatter" class="pilcrow">&#182;</a>
+    Formatter
+  </h3>
+</div>
+
+
+<p>Used from the winston transport to format the data according to it's name.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">formatter =</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>error log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">error: </span><span class="nf">(data) -&gt;</span>
+    <span class="nv">m = </span><span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">message</span> <span class="k">then</span> <span class="nx">data</span><span class="p">.</span><span class="nx">message</span> <span class="k">else</span> <span class="kc">null</span>
+    <span class="nv">d = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span> <span class="o">?</span> <span class="kc">null</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>console.log '=', m, d</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span> <span class="s">&#39;YYYY-MM-DD HH:mm:ss ZZ&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">level</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>{m ? JSON.stringify d}"
+events by priority</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  event: (data) -&gt;</span>
+<span class="s">    m = if data.message then data.message else null</span>
+<span class="s">    d = data.meta ? null</span>
+<span class="s">    &quot;</span><span class="c1">#{moment().format &#39;YYYY-MM-DD HH:mm:ss ZZ&#39;} #{data.level.toUpperCase()}:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<p>{m ? JSON.stringify d}"
+apache custom access log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">common: </span><span class="nf">(data) -&gt;</span>
+    <span class="nv">d = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">ip</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="s">&#39;-&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">    [</span><span class="si">#{</span><span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;DD/MMM/YY:HH:mm:ss ZZ&#39;</span><span class="si">}</span><span class="s">]</span>
+<span class="s">    \&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">path</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">protocolVersion</span><span class="si">}</span><span class="s">\&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<p>{d.response.code} #{d.response.size}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  commonvhost: (data) -&gt;</span>
+<span class="s">    d = data.meta</span>
+<span class="s">    &quot;</span><span class="c1">#{d.server.hostname} #{d.client.ip} - #{d.client.user ? &#39;-&#39;}</span>
+    <span class="p">[</span><span class="c1">#{moment(d.request.time).format &#39;DD/MMM/YY:HH:mm:ss ZZ&#39;}]</span>
+    <span class="err">\</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">path</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">protocolVersion</span><span class="si">}</span><span class="s">\&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>{d.response.code} #{d.response.size}"
+apache combined access log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  combined: (data) -&gt;</span>
+<span class="s">    d = data.meta</span>
+<span class="s">    referrer = if d.client.referrer then &quot;</span><span class="err">\</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">referrer</span><span class="si">}</span><span class="s">\&quot;&quot;</span> <span class="k">else</span> <span class="s">&#39;-&#39;</span>
+    <span class="nv">agent = </span><span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">agent</span> <span class="k">then</span> <span class="s">&quot;\&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">agent</span><span class="si">}</span><span class="s">\&quot;&quot;</span> <span class="k">else</span> <span class="s">&#39;-&#39;</span>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">ip</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="s">&#39;-&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">    [</span><span class="si">#{</span><span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;DD/MMM/YY:HH:mm:ss ZZ&#39;</span><span class="si">}</span><span class="s">]</span>
+<span class="s">    \&quot;</span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">path</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">protocolVersion</span><span class="si">}</span><span class="s">\&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>{d.response.code} #{d.response.size}
+{referrer} #{agent}"
+apache referrer access log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  referrer: (data) -&gt;</span>
+<span class="s">    d = data.meta</span>
+<span class="s">    return &quot;</span><span class="c1">#{d.client.referrer} -&gt; #{d.request.pathname}&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>apache combined access log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">extended: </span><span class="nf">(data) -&gt;</span>
+    <span class="nv">d = </span><span class="nx">data</span><span class="p">.</span><span class="nx">meta</span>
+    <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">comment</span> <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">comment</span><span class="o">?</span>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;YYYY-MM-DD&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;HH:mm:ss&#39;</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+</div>
+<p>{d.client.ip} #{d.client.user ? '-'} #{d.server.ip} #{d.server.port}
+{d.request.method} #{d.request.pathname} #{d.request.query ? '-'}
+{d.response.code} #{encodeURI d.client.agent}"
+apache combined access log</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  object: (data) -&gt;</span>
+<span class="s">    m = if data.message then data.message else null</span>
+<span class="s">    d = data.meta ? null</span>
+<span class="s">    m ? JSON.stringify d</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

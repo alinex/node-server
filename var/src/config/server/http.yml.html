@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>server.yml</title>
+  <title>http.yml</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
-  <script src="../../../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../", thisFile = "home/alex/a3/node-server/var/src/config/server.yml", defaultSidebar = true;
+    var relativeDir = "../../../../", thisFile = "home/alex/a3/node-server/var/src/config/server/httpyml", defaultSidebar = true;
   </script>
-  <script src="../../../doc-script.js"></script>
-  <script src="../../../fileSearch.js"></script>
-  <script src="../../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../../fileSearch.css" />
-  <link rel="stylesheet" href="../../../goToLine.css" />
+  <script src="../../../../doc-script.js"></script>
+  <script src="../../../../fileSearch.js"></script>
+  <script src="../../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -22,7 +22,7 @@
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
   <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
@@ -33,13 +33,25 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#configuration%20for%20production%20server">Configuration for production server</a>
+        <a href="#configuration%20for%20http%20server">Configuration for http server</a>
       </div>
       <div class="heading h2">
-        <a href="#server%20listening">Server listening</a>
+        <a href="#server%20connections">Server Connections</a>
+      </div>
+      <div class="heading h3">
+        <a href="#host">Host</a>
       </div>
       <div class="heading h3">
         <a href="#port">Port</a>
+      </div>
+      <div class="heading h3">
+        <a href="#tls">TLS</a>
+      </div>
+      <div class="heading h3">
+        <a href="#load">Load</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log%20settings">Log Settings</a>
       </div>
       <div class="heading h3">
         <a href="#trust%20proxy">trust proxy</a>
@@ -59,12 +71,6 @@
       <div class="heading h2">
         <a href="#session%20handling">Session handling</a>
       </div>
-      <div class="heading h2">
-        <a href="#secure%20settings">Secure settings</a>
-      </div>
-      <div class="heading h2">
-        <a href="#debugging%20settings">Debugging settings</a>
-      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -73,10 +79,10 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="configuration%20for%20production%20server">
+<div class="pilwrap" id="configuration%20for%20http%20server">
   <h1>
-    <a href="#configuration%20for%20production%20server" name="configuration%20for%20production%20server" class="pilcrow">&#182;</a>
-    Configuration for production server
+    <a href="#configuration%20for%20http%20server" name="configuration%20for%20http%20server" class="pilcrow">&#182;</a>
+    Configuration for http server
   </h1>
 </div>
 
@@ -86,13 +92,35 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="server%20listening">
+<div class="pilwrap" id="server%20connections">
   <h2>
-    <a href="#server%20listening" name="server%20listening" class="pilcrow">&#182;</a>
-    Server listening
+    <a href="#server%20connections" name="server%20connections" class="pilcrow">&#182;</a>
+    Server Connections
   </h2>
 </div>
 
+
+<p>This is list of labels with their connections to bind to. SWith this you
+have the ability to listen on multiple connections. You may connect your apps
+with specific labels, vhost and context paths.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="host">
+  <h3>
+    <a href="#host" name="host" class="pilcrow">&#182;</a>
+    Host
+  </h3>
+</div>
+
+
+<p>Hostname or IP address to bind server to.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
@@ -119,19 +147,128 @@ The following three methods are possible to do this securely:</p>
 <ol>
 <li><p>Use sudo to start the server and change back to the normal user
 after port binding.</p></li>
-<li><p>Start as root user but use the uid/gid setting below to change after
-port binding</p></li>
 <li><p>Use ip-tables to forward to an unprivileged port:
 <code>sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000</code></p></li>
 <li><p>Use Nginx reverse-proxy on port 80 this helps also if you may run other
 things on port 80, too.</p></li>
+<li><p>Give Normal user capability of using sockets as root
+sudo apt-get install libcap2-bin
+sudo setcap cap_net_bind_service=+ep <code>readlink -f \</code>which node``</p></li>
 </ol>
 
 <p>Keep in mind to use different ports for different services like HTTP and
 HTTPS. Defaults to port 23174 if not set.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="tls">
+  <h3>
+    <a href="#tls" name="tls" class="pilcrow">&#182;</a>
+    TLS
+  </h3>
+</div>
+
+
+<p>The settings to use an SSL encryption on this connections:</p>
+
+<ul>
+<li>pfx - PKCS#12 certificate containing certificate, private key and CA
+certificates to use for SSL</li>
+<li>cert - public x509 certificate to use</li>
+<li>key - private key to use for SSL</li>
+<li>passphrase - passphrase for the private key or pfx if necessary</li>
+<li>ca - authority certificate or array of authority certificates to check
+the remote host against"</li>
+<li>ciphers - string describing the ciphers to use or exclude
+(<a href='http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT'>http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT</a>)"</li>
+<li>rejectUnauthorized - lag to check server certificate against the list of
+supplied CAs</li>
+<li>secureProtocol - SSL method to use, e.g. TLSv1_method to force TLS version 1
+(the possible values depend on your installation of OpenSSL and
+are defined in the constant SSL_METHODS)"</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="load">
+  <h3>
+    <a href="#load" name="load" class="pilcrow">&#182;</a>
+    Load
+  </h3>
+</div>
+
+
+<p>The load settings will result in rejection of incoming requests with an
+"HTTP Server Timeout (503)" response if they are reached:</p>
+
+<ul>
+<li>maxHeap - maximum V8 heap size</li>
+<li>maxRss - maximum process RSS size</li>
+<li>eventLoopDelay - maximum event loop delay duration in milliseconds</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
+
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>host: localhost</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;env://PORT | 23174&gt;&gt;&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="log%20settings">
+  <h2>
+    <a href="#log%20settings" name="log%20settings" class="pilcrow">&#182;</a>
+    Log Settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">log</span><span class="p-Indicator">:</span>
+
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">combined</span>
+    <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">access.log</span>
+      <span class="l-Scalar-Plain">datePattern</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">.yyyy-MM-dd</span>
+      <span class="l-Scalar-Plain">compress</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">error</span>
+    <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">error.log</span>
+      <span class="l-Scalar-Plain">maxSize</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100MB</span>
+      <span class="l-Scalar-Plain">compress</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+
+
+
 
 
 </pre></div>
@@ -150,10 +287,10 @@ HTTPS. Defaults to port 23174 if not set.</p>
 <p>Indicate that the app is sitting behind a front-facing proxy, and the X-Forwarded-*
 headers may be trusted for determining the connection and the IP address of
 the client. It must, however, be noted that, the X-Forwarded-* headers are
-easily spoofed and the detected IP addresses are unreliable.</p>
+easily spoofed and the detected IP addresses are unreliable.
+trustProxy: false</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">trustProxy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
 
 
 </pre></div>
@@ -262,62 +399,6 @@ secret: R4FCaOCutWGN.GfVym9ag3yyPM
 After the following time of inactivity (no server request) the session will
 be outdated.
 expire: 3600s</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="secure%20settings">
-  <h2>
-    <a href="#secure%20settings" name="secure%20settings" class="pilcrow">&#182;</a>
-    Secure settings
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
-</div>
-<p>This will configure the server to use SSL. Remove the complete section to
-use normal http.
-ssl:
- key: server.key
- cert: server.crt
- ca: server.crt</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="debugging%20settings">
-  <h2>
-    <a href="#debugging%20settings" name="debugging%20settings" class="pilcrow">&#182;</a>
-    Debugging settings
-  </h2>
-</div>
-
-
-<p>To enable debugging set this to some possible and free ports.
-debug: false
- port: 5858
- inspectorPort: 3009</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
