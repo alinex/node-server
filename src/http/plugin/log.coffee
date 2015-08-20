@@ -36,10 +36,10 @@ exports.register = (server, options, next) ->
         ['log']
       else
         ['response']
-    if setup.listen?
+    if setup.listener?
       # add to specific server
       for event in events
-        server.select(setup.listen).on event, addLogger server, setup
+        server.select(setup.listener).on event, addLogger server, setup
     else
       # add to all servers
       for event in events

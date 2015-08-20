@@ -41,7 +41,7 @@ class HttpServer extends EventEmitter
     # configure server
     options = {}
     options.debug = false unless process.env.DEBUG?
-    for key, value of @conf.listen
+    for key, value of @conf.listener
       if value.load?
         options.load =
           sampleInterval: 1000
@@ -169,7 +169,7 @@ setup =
 
   # ### Add Connections
   connections: ->
-    for label, listen of @conf.listen
+    for label, listen of @conf.listener
       options =
         labels: [label]
         host: listen.host

@@ -6,7 +6,7 @@
 # Connection Settings
 # -------------------------------------------------
 
-listen =
+listener =
   title: "Listen"
   description: "the host and port to bind to by label"
   type: 'object'
@@ -132,11 +132,11 @@ log =
         type: 'object'
         allowedKeys: true
         keys:
-          listen:
+          listener:
             title: "Listener"
             description: "the name of the defined listener"
             type: 'string'
-            values: '<<<listen>>>'
+            values: '<<<listener>>>'
           domain:
             title: "Domain Name"
             description: "the hostname to bind to"
@@ -281,5 +281,5 @@ module.exports =
       type: 'object'
       allowedKeys: true
       keys:
-        listen: listen
+        listener: listener
         log: log

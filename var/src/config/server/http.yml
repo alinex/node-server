@@ -63,7 +63,7 @@
 # - maxHeap - maximum V8 heap size
 # - maxRss - maximum process RSS size
 # - eventLoopDelay - maximum event loop delay duration in milliseconds
-listen:
+listener:
 
   default:
     #host: localhost
