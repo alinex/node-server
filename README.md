@@ -5,13 +5,14 @@ Alinex web server
 [![Coverage Status](https://coveralls.io/repos/alinex/node-server/badge.png?branch=master)](https://coveralls.io/r/alinex/node-server?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-server.png)](https://gemnasium.com/alinex/node-server)
 
-The alinex server is a simple container for express applications. The express
-framework integrates perfectly and can be fully used. Also subapplications can
-be done easy the express way.
+The alinex server is a simple base system making it possible to easily use it for
+any application. The main part is it's HTTP/HTTPS server part but it may also include
+other server protocols like ftp later.
 
 - full configurable
 - supports also SSL and multiple IPs
 - full debug and logging support
+- support vhost and spaces
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
@@ -59,6 +60,57 @@ server.init (err) ->
 ```
 
 > Inclusion of your own routes are not supported, yet.
+
+
+Webserver Architecture
+-------------------------------------------------
+At the base this module manages any server like an HTTP or HTTPS server. Therefore
+it includes the basic server technology without specific applications.
+
+Just now the only possible server is an http server.
+
+The following architecture shows you how it is organized internally to learn how
+to customize it to your needs.
+
+![Architecture](src/doc/architecture.png)
+
+The arrows will show you some of the possibilities to connect the different server
+parts together. Because of the possibilities it may look complex at first.
+
+### Listener
+
+The basic part of the connection to the network are the listeners. The server may
+listen on multiple or all IP addresses of the local host and may bind to multiple
+ports with HTTP or HTTPS protocols. For each Port binding and specific IP an extra
+listener has to be created.
+
+The different listeners bundle all the used network connections for the server
+together and their names may be used later to bind spaces or apps to it.
+It also defines if an SSL protocol (HTTPS) will be used.
+
+The concrete listener, virtual host (used Domain) and context (path) may be used
+to bind spaces and plugin to them.
+
+### Spaces
+
+To make administration of complex and big servers easier you may use spaces. They
+define an area over some parts of one or multiple listeners which belongs together.
+It is not necessary to do so but it helps you to make configuration easier and
+put all configurations of one space together.
+
+If spaces are used and you bind a plugin to them the plugin will be bound only to
+this area or a subpart of it if specified.
+
+### Plugins
+
+Everything a user can use is specified using some plugins which may have their own
+configuration. They will be bound to a space, listener, domain and context path.
+
+In the configuration you define them below the spaces to bind them to it or directly
+below the `http` element to directly bind to the listeners. If you want a plugin to
+be bound to multiple spaces you have to bind it directly to the listener or make
+multiple entries for it.
+
 
 Configuration
 -------------------------------------------------
