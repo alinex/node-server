@@ -37,9 +37,11 @@ exports.register = (server, options, next) ->
       else
         ['response']
     if setup.listener?
+      listener = if Array.isArray setup.listener then setup.listener else [setup.listener]
       # add to specific server
-      for event in events
-        server.select(setup.listener).on event, addLogger server, setup
+      for listen in listener
+        for event in events
+          server.select(listen).on event, addLogger server, setup
     else
       # add to all servers
       for event in events
@@ -165,6 +167,7 @@ addLogger = (server, setup) ->
 # ### Check bind settings
 filterContext = (setup, data) ->
   return true unless setup.bind?.domain? or setup.bind?.context?
+
   console.log data.info.hostname, data.raw.req.url
   return false unless setup.bind?.domain is data.info.hostname
   return false unless string.starts data.raw.req.url, setup.bind?.context
