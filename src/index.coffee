@@ -33,7 +33,7 @@ module.exports = server =
   # -------------------------------------------------
 
   # set the modules config paths and validation schema
-  setup: (cb) -> #async.once (cb) ->
+  setup: async.once (cb) ->
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
