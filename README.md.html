@@ -42,6 +42,18 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
+        <a href="#webserver%20architecture">Webserver Architecture</a>
+      </div>
+      <div class="heading h3">
+        <a href="#listener">Listener</a>
+      </div>
+      <div class="heading h3">
+        <a href="#spaces">Spaces</a>
+      </div>
+      <div class="heading h3">
+        <a href="#plugins">Plugins</a>
+      </div>
+      <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
       <div class="heading h2">
@@ -69,14 +81,15 @@
 <a href="https://coveralls.io/r/alinex/node-server?branch=master"><img src="https://coveralls.io/repos/alinex/node-server/badge.png?branch=master" alt="Coverage Status" title="" /></a>
 <a href="https://gemnasium.com/alinex/node-server"><img src="https://gemnasium.com/alinex/node-server.png" alt="Dependency Status" title="" /></a></p>
 
-<p>The alinex server is a simple container for express applications. The express
-framework integrates perfectly and can be fully used. Also subapplications can
-be done easy the express way.</p>
+<p>The alinex server is a simple base system making it possible to easily use it for
+any application. The main part is it's HTTP/HTTPS server part but it may also include
+other server protocols like ftp later.</p>
 
 <ul>
 <li>full configurable</li>
 <li>supports also SSL and multiple IPs</li>
 <li>full debug and logging support</li>
+<li>support vhost and spaces</li>
 </ul>
 
 <blockquote>
@@ -147,6 +160,83 @@ be done easy the express way.</p>
 <blockquote>
   <p>Inclusion of your own routes are not supported, yet.</p>
 </blockquote>
+
+
+<div class="pilwrap" id="webserver%20architecture">
+  <h2>
+    <a href="#webserver%20architecture" name="webserver%20architecture" class="pilcrow">&#182;</a>
+    Webserver Architecture
+  </h2>
+</div>
+
+
+<p>At the base this module manages any server like an HTTP or HTTPS server. Therefore
+it includes the basic server technology without specific applications.</p>
+
+<p>Just now the only possible server is an http server.</p>
+
+<p>The following architecture shows you how it is organized internally to learn how
+to customize it to your needs.</p>
+
+<p><img src="src/doc/architecture.png" alt="Architecture" title="" /></p>
+
+<p>The arrows will show you some of the possibilities to connect the different server
+parts together. Because of the possibilities it may look complex at first.</p>
+
+
+<div class="pilwrap" id="listener">
+  <h3>
+    <a href="#listener" name="listener" class="pilcrow">&#182;</a>
+    Listener
+  </h3>
+</div>
+
+
+<p>The basic part of the connection to the network are the listeners. The server may
+listen on multiple or all IP addresses of the local host and may bind to multiple
+ports with HTTP or HTTPS protocols. For each Port binding and specific IP an extra
+listener has to be created.</p>
+
+<p>The different listeners bundle all the used network connections for the server
+together and their names may be used later to bind spaces or apps to it.
+It also defines if an SSL protocol (HTTPS) will be used.</p>
+
+<p>The concrete listener, virtual host (used Domain) and context (path) may be used
+to bind spaces and plugin to them.</p>
+
+
+<div class="pilwrap" id="spaces">
+  <h3>
+    <a href="#spaces" name="spaces" class="pilcrow">&#182;</a>
+    Spaces
+  </h3>
+</div>
+
+
+<p>To make administration of complex and big servers easier you may use spaces. They
+define an area over some parts of one or multiple listeners which belongs together.
+It is not necessary to do so but it helps you to make configuration easier and
+put all configurations of one space together.</p>
+
+<p>If spaces are used and you bind a plugin to them the plugin will be bound only to
+this area or a subpart of it if specified.</p>
+
+
+<div class="pilwrap" id="plugins">
+  <h3>
+    <a href="#plugins" name="plugins" class="pilcrow">&#182;</a>
+    Plugins
+  </h3>
+</div>
+
+
+<p>Everything a user can use is specified using some plugins which may have their own
+configuration. They will be bound to a space, listener, domain and context path.</p>
+
+<p>In the configuration you define them below the spaces to bind them to it or directly
+below the <code>http</code> element to directly bind to the listeners. If you want a plugin to
+be bound to multiple spaces you have to bind it directly to the listener or make
+multiple entries for it.</p>
 
 
 <div class="pilwrap" id="configuration">

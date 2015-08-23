@@ -56,6 +56,9 @@
       <div class="heading h3">
         <a href="#stop">stop</a>
       </div>
+      <div class="heading h3">
+        <a href="#printout%20routing">printout routing</a>
+      </div>
       <div class="heading h2">
         <a href="#server%20setup%20functions">Server setup functions</a>
       </div>
@@ -222,7 +225,7 @@
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">options = </span><span class="p">{}</span>
     <span class="nv">options.debug = </span><span class="kc">false</span> <span class="k">unless</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DEBUG</span><span class="o">?</span>
-    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listen</span>
+    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listener</span>
       <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">load</span><span class="o">?</span>
         <span class="nv">options.load =</span>
           <span class="nv">sampleInterval: </span><span class="mi">1000</span>
@@ -349,7 +352,210 @@
     <span class="nx">@server</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
     <span class="nx">cb</span><span class="p">()</span>
 
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="printout%20routing">
+  <h3>
+    <a href="#printout%20routing" name="printout%20routing" class="pilcrow">&#182;</a>
+    printout routing
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">printRouting: </span><span class="nf">(cb = -&gt; ) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Server started:&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>collect routing data
+routes = uri:{app}
+listen = name:base</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">routes = </span><span class="p">{}</span>
+    <span class="nv">listener = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">conn</span> <span class="k">in</span> <span class="nx">@server</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
+      <span class="nx">listener</span><span class="p">[</span><span class="nx">conn</span><span class="p">.</span><span class="nx">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span>
+      <span class="k">for</span> <span class="nx">route</span> <span class="k">in</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">table</span>
+        <span class="nv">base = </span><span class="k">if</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span>
+          <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">else</span>
+          <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span>
+        <span class="nx">routes</span><span class="p">[</span><span class="nx">base</span> <span class="o">+</span> <span class="nx">route</span><span class="p">.</span><span class="nx">path</span><span class="p">]</span> <span class="o">=</span>
+          <span class="nv">method: </span><span class="nx">route</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span>
+          <span class="nv">host: </span><span class="nx">base</span>
+          <span class="nv">path: </span><span class="nx">route</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/({.*?})/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">gray</span> <span class="s">&#39;$1&#39;</span>
+          <span class="nv">auth: </span><span class="k">if</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span> <span class="k">then</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">strategies</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="k">else</span> <span class="kc">false</span>
+          <span class="nv">description: </span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">description</span> <span class="o">?</span> <span class="s">&#39;&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>spaces = name:[base]</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">spaces = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">space</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">space</span>
+      <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="nx">listen</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span>
+        <span class="nv">conn = </span><span class="nx">@server</span><span class="p">.</span><span class="nx">select</span> <span class="nx">listen</span>
+        <span class="k">if</span> <span class="nx">space</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span>
+          <span class="k">for</span> <span class="nx">domain</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">domain</span>
+            <span class="nv">base = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">base</span> <span class="o">+</span> <span class="nx">context</span> <span class="k">for</span> <span class="nx">context</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">context</span> <span class="o">?</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]</span>
+        <span class="k">else</span>
+          <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span> <span class="o">+</span> <span class="nx">context</span> <span class="k">for</span> <span class="nx">context</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">context</span> <span class="o">?</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>uris = base:[route]</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">uris = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">app</span> <span class="k">of</span> <span class="nx">routes</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>search in spaces</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">found = </span><span class="kc">false</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">checks</span> <span class="k">of</span> <span class="nx">spaces</span>
+        <span class="k">break</span> <span class="k">if</span> <span class="nx">found</span>
+        <span class="k">for</span> <span class="nx">check</span> <span class="k">in</span> <span class="nx">checks</span>
+          <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">check</span>
+            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
+            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">].</span><span class="nx">push</span> <span class="nx">app</span>
+            <span class="nv">found = </span><span class="kc">true</span>
+            <span class="k">break</span>
+      <span class="k">unless</span> <span class="nx">found</span>
+        <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">check</span> <span class="k">of</span> <span class="nx">listener</span>
+          <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">check</span>
+            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
+            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">].</span><span class="nx">push</span> <span class="nx">app</span>
+            <span class="k">break</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>sort routing</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">uris</span>
+      <span class="nx">uris</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">sort</span> <span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">localeCompare</span> <span class="nx">b</span><span class="p">.</span><span class="nx">path</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>write routing table listeners</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">base</span> <span class="k">of</span> <span class="nx">listener</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">cyan</span> <span class="nx">base</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>{chalk.magenta name + ' listener'}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">      for uri, route of uris[base]</span>
+<span class="s">        console.log &quot;</span>    <span class="c1">#{chalk.green string.rpad route.method, 8}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>{string.rpad route.path, 30}
+{if route.auth then chalk.green route.auth else chalk.red 'public'}
+{chalk.yellow route.description}"    #   - with apps
+spaces</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">spaces</span>
+      <span class="nx">list</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
+      <span class="k">for</span> <span class="nx">base</span> <span class="k">in</span> <span class="nx">list</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">cyan</span> <span class="nx">base</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>{chalk.magenta name + ' space'}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">        for uri, route of uris[base]</span>
+<span class="s">          console.log &quot;</span>    <span class="c1">#{chalk.green string.rpad route.method, 8}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>{string.rpad route.path, 30}
+{if route.auth then chalk.green route.auth else chalk.red 'public'}
+{chalk.yellow route.description}"    #   - with apps</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">cb</span><span class="p">()</span>
+
 <span class="nv">module.exports = http = </span><span class="k">new</span> <span class="nx">HttpServer</span><span class="p">()</span>
+
 
 
 </pre></div>
@@ -395,7 +601,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>unused events</p>
         </td>
@@ -411,7 +617,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>debug requests errors</p>
         </td>
@@ -426,14 +632,14 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>display routing table after start</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
       <span class="nx">debug</span> <span class="s">&quot;hapi server started&quot;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Server listening on:&quot;</span>
+      <span class="nx">@printRouting</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -441,23 +647,13 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
-<p>write routing table</p>
+<p>short message after stop</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">for</span> <span class="nx">conn</span> <span class="k">in</span> <span class="nx">@server</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">cyan</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nv">list = </span><span class="p">[]</span>
-        <span class="k">for</span> <span class="nx">route</span> <span class="k">in</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">table</span>
-          <span class="nx">list</span><span class="p">.</span><span class="nx">push</span>
-            <span class="nv">method: </span><span class="nx">route</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span>
-            <span class="nv">path: </span><span class="nx">route</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/({.*?})/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">gray</span> <span class="s">&#39;$1&#39;</span>
-            <span class="nv">auth: </span><span class="k">if</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span> <span class="k">then</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">strategies</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="k">else</span> <span class="kc">false</span>
-            <span class="nv">description: </span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">description</span> <span class="o">?</span> <span class="s">&#39;&#39;</span>
-        <span class="nx">list</span><span class="p">.</span><span class="nx">sort</span> <span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">localeCompare</span> <span class="nx">b</span><span class="p">.</span><span class="nx">path</span>
-        <span class="k">for</span> <span class="nx">route</span> <span class="k">in</span> <span class="nx">list</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;    </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">route</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span> <span class="mi">8</span><span class="si">}</span><span class="s"></span>
+    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;stop&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">debug</span> <span class="s">&quot;hapi server stopped&quot;</span>
 
 </pre></div>
         </td>
@@ -465,32 +661,15 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>{string.rpad route.path, 30}
-{if route.auth then chalk.green route.auth else chalk.red 'none'}
-{chalk.yellow route.description}"
-short message after stop</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    @server.on &#39;stop&#39;, -&gt;</span>
-<span class="s">      debug &quot;</span><span class="nx">hapi</span> <span class="nx">server</span> <span class="nx">stopped</span><span class="s">&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>debug requests with payload and response</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    if debugAccess.enabled or debugHeader.enabled or debugPayload.enabled</span>
-<span class="s">      @server.on &#39;response&#39;, (data) -&gt;</span>
-<span class="s">        raw = data.raw.req</span>
-<span class="s">        url = &quot;</span><span class="c1">#{data.connection.info.protocol}://#{raw.headers.host}#{raw.url}&quot;</span>
+    <span class="k">if</span> <span class="nx">debugAccess</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugHeader</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugPayload</span><span class="p">.</span><span class="nx">enabled</span>
+      <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;response&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+        <span class="nv">raw = </span><span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="p">.</span><span class="nx">req</span>
+        <span class="nv">url = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="si">}#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="k">if</span> <span class="nx">debugAccess</span><span class="p">.</span><span class="nx">enabled</span>
           <span class="nv">client = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">raw</span><span class="p">[</span><span class="s">&#39;x-forwarded-for&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">remoteAddress</span><span class="si">}</span><span class="s"> &quot;</span>
           <span class="nv">access = </span><span class="s">&quot;-&gt; </span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">url</span><span class="si">}</span><span class="s"> &quot;</span>
@@ -533,7 +712,7 @@ short message after stop</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">connections: </span><span class="nf">-&gt;</span>
-    <span class="k">for</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">listen</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listen</span>
+    <span class="k">for</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">listen</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listener</span>
       <span class="nv">options =</span>
         <span class="nv">labels: </span><span class="p">[</span><span class="nx">label</span><span class="p">]</span>
         <span class="nv">host: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">host</span>
