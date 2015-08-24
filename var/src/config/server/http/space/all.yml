@@ -1,0 +1,44 @@
+# Configuration for space: all
+# =================================================
+
+# Spaces
+# -------------------------------------------------
+# The space is a hashmap of named areas to be configured individually
+#
+# ### bind
+#
+# Like described above this will define the area of requests to log.
+
+bind:
+ context: '/'
+
+# Log Settings
+# -------------------------------------------------
+# The log settings are defined as array of possible loggers.
+#
+# ### bind
+#
+# Like described above this will define the area of requests to log.
+#
+# ### data
+#
+# This is a specific format selected of the possible formats: 'error', 'event'
+# 'common', 'commonvhost', 'combined', 'referrer', 'extended', 'object'.
+#
+# ### file
+# ### http
+# ### mail
+
+log:
+  - data: combined
+    file:
+      filename: http-access.log
+      datePattern: .yyyy-MM-dd
+      compress: true
+  - data: error
+    file:
+      filename: http-error.log
+      maxSize: 100MB
+      compress: true
+
+

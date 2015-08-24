@@ -37,9 +37,8 @@ exports.register = (server, options, next) ->
       else
         ['response']
     if setup.listener?
-      listener = if Array.isArray setup.listener then setup.listener else [setup.listener]
       # add to specific server
-      for listen in listener
+      for listen in setup.bind.listener
         for event in events
           server.select(listen).on event, addLogger server, setup
     else
@@ -65,7 +64,7 @@ addLogger = (server, setup) ->
     trans = new (if setup.file.datePattern then t.DailyRotateFile else t.File)
       level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
       showLevel: true
-      filename: "#{__dirname}/../../../log/#{setup.file.filename}"
+      filename: "#{__dirname}/../../../var/log/#{setup.file.filename}"
       colorize: false
       json: setup.data is 'all'
       maxsize: setup.file.maxSize
@@ -74,8 +73,26 @@ addLogger = (server, setup) ->
       zippedArchive: setup.file.compress
       datePattern: setup.file.datePattern
       formatter: formatter[setup.data]
-    logger = new winston.Logger
-      transports: [trans]
+  else if setup.http?
+    trans = new winston.transports.Http
+      level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
+      host: setup.http.host
+      port: setup.http.port
+      path: setup.http.path
+      auth: setup.http.auth
+      ssl: setup.http.secure
+  else if setup.mail?
+    trans = new require('winston-mail').Mail
+      level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
+      to: setup.mail.to
+      from: setup.mail.from
+      host: setup.mail.host
+      port: setup.mail.port
+      auth: setup.mail.auth
+      secure: setup.mail.secure
+  logger = new winston.Logger
+    transports: [trans]
+  if setup.file?
     if setup.data is 'extended'
 #      trans.on 'open', ->
 #        trans._stream.write """
@@ -167,10 +184,12 @@ addLogger = (server, setup) ->
 # ### Check bind settings
 filterContext = (setup, data) ->
   return true unless setup.bind?.domain? or setup.bind?.context?
-
-  console.log data.info.hostname, data.raw.req.url
-  return false unless setup.bind?.domain is data.info.hostname
-  return false unless string.starts data.raw.req.url, setup.bind?.context
+  if setup.bind?.domain?
+    domain = setup.bind.domain.filter (d) -> return data.info.hostname is d
+    return false unless domain.length
+  if setup.bind?.context?
+    context = setup.bind.context.filter (d) -> return string.starts data.raw.req.url, d
+    return false unless context.length
   true
 
 # ### Formatter

@@ -1,5 +1,21 @@
-# Configuration for production server
+# Configuration for http server
 # =================================================
 
-port: 3080
+listener:
+  default:
+    port: <<<env://PORT | 23174>>>
+  ssl:
+    port: <<<env://PORT | 23175>>>
+#    tls:
 
+log:
+  - data: combined
+    file:
+      filename: http-access.log
+      datePattern: .yyyy-MM-dd
+      compress: true
+  - data: error
+    file:
+      filename: http-error.log
+      maxSize: 100MB
+      compress: true

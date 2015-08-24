@@ -103,12 +103,46 @@ listener =
   ]
 
 
+# Binding of Spaces and Plugins
+# -------------------------------------------------
+bind =
+  title: "Binding"
+  description: "the connection, domain and context to only bind to"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    listener:
+      title: "Listener"
+      description: "the name of the defined listener"
+      type: 'array'
+      toArray: true
+      entries:
+        type: 'string'
+        values: '<<<listener>>>'
+    domain:
+      title: "Domain Name"
+      description: "the hostname to bind to"
+      type: 'array'
+      toArray: true
+      entries:
+        type: 'hostname'
+    context:
+      title: "Context"
+      description: "the context path to bind to"
+      type: 'array'
+      toArray: true
+      entries:
+        type: 'string'
+        startsWith: '/'
+        minLength: 1
+
 # Log Settings
 # -------------------------------------------------
 log =
   title: "Log Settigs"
   description: "the host and port to bind to by label"
   type: 'array'
+  toArray: true
   entries:
     title: "Log Transport"
     description: "the configuration of a log transporter"
@@ -126,27 +160,7 @@ log =
           'extended'
           'object'
         ]
-      bind:
-        title: "Binding"
-        description: "the connection, domain and context to only bind to"
-        type: 'object'
-        allowedKeys: true
-        keys:
-          listener:
-            title: "Listener"
-            description: "the name of the defined listener"
-            type: 'string'
-            values: '<<<listener>>>'
-          domain:
-            title: "Domain Name"
-            description: "the hostname to bind to"
-            type: 'hostname'
-          context:
-            title: "Context"
-            description: "the context path to bind to"
-            type: 'string'
-            startsWith: '/'
-            minLength: 2
+      bind: bind
       file:
         title: "File Logger"
         description: "the setup of an file logger"
@@ -265,8 +279,41 @@ log =
                 description: "the password used for smtp authentication"
                 type: 'string'
 
+# Authentication
+# -------------------------------------------------
+auth =
+  type: 'object'
+  keys:
+    bind: bind
 
-# Connection Settings
+# Application routes
+# -------------------------------------------------
+app =
+  type: 'object'
+
+# Spaces
+# -------------------------------------------------
+space =
+  title: "Spaces"
+  description: "the server spaces which are an abstraction of the listener"
+  type: 'object'
+  entries: [
+    title: "Space"
+    description: "the server space which is an abstraction of the listener"
+    type: 'object'
+    mandatoryKeys: ['bind']
+    allowedKeys: true
+    keys:
+      bind: bind
+      theme:
+        type: 'string'
+        default: 'default'
+      log: log
+      auth: auth
+      app: app
+  ]
+
+# Server Settings
 # -------------------------------------------------
 
 module.exports =
@@ -283,3 +330,6 @@ module.exports =
       keys:
         listener: listener
         log: log
+        auth: auth
+        app: app
+        space: space

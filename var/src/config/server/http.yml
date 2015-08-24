@@ -8,11 +8,11 @@
 # have the ability to listen on multiple connections. You may connect your apps
 # with specific labels, vhost and context paths.
 
-# ### Host
+# ### host
 #
 # Hostname or IP address to bind server to.
 
-# ### Port
+# ### port
 #
 # Set the port the server is listening on.
 #
@@ -36,7 +36,7 @@
 # Keep in mind to use different ports for different services like HTTP and
 # HTTPS. Defaults to port 23174 if not set.
 
-# ### TLS
+# ### tls
 #
 # The settings to use an SSL encryption on this connections:
 #
@@ -55,7 +55,7 @@
 #  (the possible values depend on your installation of OpenSSL and
 #  are defined in the constant SSL_METHODS)"
 
-# ### Load
+# ### load
 #
 # The load settings will result in rejection of incoming requests with an
 # "HTTP Server Timeout (503)" response if they are reached:
@@ -71,62 +71,34 @@ listener:
 
 # Log Settings
 # -------------------------------------------------
-log:
+# The log settings are defined as array of possible loggers.
 
+# ### bind
+#
+# Like described above this will define the area of requests to log.
+
+# ### data
+#
+# This is a specific format selected of the possible formats: 'error', 'event'
+# 'common', 'commonvhost', 'combined', 'referrer', 'extended', 'object'.
+
+# ### file
+#
+
+# ### http
+#
+
+# ### mail
+#
+
+log:
   - data: combined
     file:
-      filename: access.log
+      filename: http-access.log
       datePattern: .yyyy-MM-dd
       compress: true
-
   - data: error
     file:
-      filename: error.log
+      filename: http-error.log
       maxSize: 100MB
       compress: true
-
-
-
-
-
-# ### trust proxy
-# Indicate that the app is sitting behind a front-facing proxy, and the X-Forwarded-*
-# headers may be trusted for determining the connection and the IP address of
-# the client. It must, however, be noted that, the X-Forwarded-* headers are
-# easily spoofed and the detected IP addresses are unreliable.
-#trustProxy: false
-
-# ### Server nodes
-# If set this will define how much nodes to start. 0 means no cluster support
-# running with one process. 1 means cluster support running with one forked node
-# which will be restarted from the master on kill. And higher values mean more
-# nodes but not more will be used than the number of cpu cores.
-#nodes: 0
-
-# Access restrictions
-# -------------------------------------------------
-# The following restrictions are possible:
-#
-# - `ip` give an ip address or list of addresses
-
-# ### Whitelist
-# To only allow access from specific clients they have to be listed here:
-#allow:
-#  ip:
-
-# ### Blacklist
-# To disallow access from specific clients list them here:
-#disallow:
-#  ip:
-
-
-# Session handling
-# -------------------------------------------------
-#session:
-  # The secret is used to hash the session with HMAC. The session is then
-  # protected against session hijacking by checking the fingerprint against the
-  # hash with the secret.
-  #secret: R4FCaOCutWGN.GfVym9ag3yyPM
-  # After the following time of inactivity (no server request) the session will
-  # be outdated.
-  #expire: 3600s

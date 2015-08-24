@@ -10,9 +10,12 @@ any application. The main part is it's HTTP/HTTPS server part but it may also in
 other server protocols like ftp later.
 
 - full configurable
-- supports also SSL and multiple IPs
-- full debug and logging support
+- supports multiple IPs, ports, ssl
 - support vhost and spaces
+- full debug and logging support
+- authentication
+- forwarding and redirects
+- proxy support
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
@@ -73,6 +76,9 @@ The following architecture shows you how it is organized internally to learn how
 to customize it to your needs.
 
 ![Architecture](src/doc/architecture.png)
+
+The server has two different bindings, first it should bind to the network to get
+the requests. Second it allows binding plugins to specific requests.
 
 The arrows will show you some of the possibilities to connect the different server
 parts together. Because of the possibilities it may look complex at first.

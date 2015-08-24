@@ -94,7 +94,86 @@ class HttpServer extends EventEmitter
     @server.root.stop()
     cb()
 
+
+  # ### printout routing
+  printRouting: (cb = -> ) ->
+    console.log chalk.bold "Server started:"
+    # collect routing data
+    # routes = uri:{app}
+    # listen = name:base
+    routes = {}
+    listener = {}
+    for conn in @server.table()
+      listener[conn.labels[0]] = conn.info.uri
+      for route in conn.table
+        base = if route.settings.vhost
+          "#{conn.info.protocol}://#{route.settings.vhost}:#{conn.info.port}"
+        else
+          conn.info.uri
+        routes[base + route.path] =
+          method: route.method.toUpperCase()
+          host: base
+          path: route.path.replace /({.*?})/g, chalk.gray '$1'
+          auth: if route.settings.auth then route.settings.auth.strategies.toString() else false
+          description: route.settings.description ? ''
+    # spaces = name:[base]
+    spaces = {}
+    for name, space of @conf.space
+      spaces[name] = []
+      for listen in space.bind.listener ? Object.keys listener
+        conn = @server.select listen
+        if space.domain?
+          for domain in space.bind.domain
+            base = "#{conn.info.protocol}://#{route.settings.vhost}:#{conn.info.port}"
+            spaces[name].push base + context for context in space.bind.context ? ['']
+        else
+          spaces[name].push conn.info.uri + context for context in space.bind.context ? ['']
+    # uris = base:[route]
+    uris = {}
+    for uri, app of routes
+      # search in spaces
+      found = false
+      for name, checks of spaces
+        break if found
+        for check in checks
+          if string.starts uri, check
+            uris[check] ?= []
+            uris[check].push app
+            found = true
+            break
+      unless found
+        for name, check of listener
+          if string.starts uri, check
+            uris[check] ?= []
+            uris[check].push app
+            break
+    # sort routing
+    for name of uris
+      uris[name].sort (a, b) -> a.path.localeCompare b.path
+    # write routing table listeners
+    for name, base of listener
+      console.log "  #{chalk.underline.bold.cyan base}
+      #{chalk.magenta name + ' listener'}"
+      for uri, route of uris[base]
+        console.log "    #{chalk.green string.rpad route.method, 8}
+        #{string.rpad route.path, 30}
+        #{if route.auth then chalk.green route.auth else chalk.red 'public'}
+        #{chalk.yellow route.description}"    #   - with apps
+    # spaces
+    for name, list of spaces
+      list.sort()
+      for base in list
+        console.log "  #{chalk.underline.bold.cyan base}
+        #{chalk.magenta name + ' space'}"
+        for uri, route of uris[base]
+          console.log "    #{chalk.green string.rpad route.method, 8}
+          #{string.rpad route.path, 30}
+          #{if route.auth then chalk.green route.auth else chalk.red 'public'}
+          #{chalk.yellow route.description}"    #   - with apps
+    cb()
+
 module.exports = http = new HttpServer()
+
 
 # Server setup functions
 # -------------------------------------------------
@@ -116,23 +195,7 @@ setup =
     # display routing table after start
     @server.on 'start', =>
       debug "hapi server started"
-      console.log chalk.bold "Server listening on:"
-      # write routing table
-      for conn in @server.table()
-        console.log "  #{chalk.underline.bold.cyan conn.info.uri} #{chalk.magenta conn.labels[0]}"
-        list = []
-        for route in conn.table
-          list.push
-            method: route.method.toUpperCase()
-            path: route.path.replace /({.*?})/g, chalk.gray '$1'
-            auth: if route.settings.auth then route.settings.auth.strategies.toString() else false
-            description: route.settings.description ? ''
-        list.sort (a, b) -> a.path.localeCompare b.path
-        for route in list
-          console.log "    #{chalk.green string.rpad route.method, 8}
-          #{string.rpad route.path, 30}
-          #{if route.auth then chalk.green route.auth else chalk.red 'none'}
-          #{chalk.yellow route.description}"
+      @printRouting()
     # short message after stop
     @server.on 'stop', ->
       debug "hapi server stopped"
@@ -189,3 +252,4 @@ setup =
 plugins = [
   register: require "../http/plugin/log"
 ]
+
