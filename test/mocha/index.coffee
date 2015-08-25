@@ -2,13 +2,19 @@ chai = require 'chai'
 expect = chai.expect
 path = require 'path'
 
-describe "server", ->
+server = require '../../src/index'
+config = require 'alinex-config'
 
-  server = require '../../src/index'
+before ->
+  server.setup ->
+    config.pushOrigin
+      uri: 'test/data/config/http.yml'
+      path: 'server/http'
+
+describe "server", ->
 
   describe "config", ->
 
-    config = require 'alinex-config'
 
     it "should run the selfcheck on the schema", (cb) ->
       @timeout 8000
@@ -16,9 +22,9 @@ describe "server", ->
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
 
-    it "should load configuration", (cb) ->
+    it.only "should load configuration", (cb) ->
       @timeout 15000
       server.init (err) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'init error').to.not.exist
         expect(config.get '/server').to.exist
         cb()

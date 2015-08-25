@@ -19,3 +19,8 @@ log:
       filename: http-error.log
       maxSize: 100MB
       compress: true
+
+space:
+  all:
+    bind:
+     context: '/'

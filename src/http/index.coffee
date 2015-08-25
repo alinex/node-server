@@ -152,7 +152,7 @@ class HttpServer extends EventEmitter
       uris[name].sort (a, b) -> a.path.localeCompare b.path
     # write routing table listeners
     for name, base of listener
-      console.log "  #{chalk.underline.bold.cyan base}
+      console.log "  #{chalk.bold.cyan string.rpad base, 41}
       #{chalk.magenta name + ' listener'}"
       for uri, route of uris[base]
         console.log "    #{chalk.green string.rpad route.method, 8}
@@ -163,7 +163,7 @@ class HttpServer extends EventEmitter
     for name, list of spaces
       list.sort()
       for base in list
-        console.log "  #{chalk.underline.bold.cyan base}
+        console.log "  #{chalk.bold.cyan string.rpad base, 41}
         #{chalk.magenta name + ' space'}"
         for uri, route of uris[base]
           console.log "    #{chalk.green string.rpad route.method, 8}
