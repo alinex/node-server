@@ -57,7 +57,7 @@ module.exports = server =
         return cb err if err
         config.init cb
       # setup log directory
-      (cb) -> fs.mkdir __dirname + '/../log', (err) ->
+      (cb) -> fs.mkdir __dirname + '/../var/log', (err) ->
         return cb err if err and not err.code is 'EEXIST'
         cb()
     ], (err) ->

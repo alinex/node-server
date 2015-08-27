@@ -35,7 +35,7 @@ class HttpServer extends EventEmitter
 
   # ### initialize
   # setup connections, debugging and base plugins
-  init: (cb) ->
+  init: (cb) =>
     debug "setup server connections and plugins"
     @conf = config.get '/server/http'
     # configure server
@@ -53,32 +53,17 @@ class HttpServer extends EventEmitter
     # register plugins (defined below)
     async.each plugins, (setup, cb) =>
       @server.register setup, cb
-    , (err) =>
-      return cb err if err
+    , cb
 
-      # test routing
-      @server.route
-        method: 'GET'
-        path: '/hello'
-        config:
-          description: 'Hello World'
-          handler: (req, reply) -> reply 'hello world'
-      @server.route
-        method: 'GET'
-        path: '/500'
-        config:
-          description: 'Test Call with 500 error'
-          handler: (req, reply) -> throw new Error "Poopsie"
-      @server.route
-        method: 'GET'
-        path: '/log'
-        config:
-          description: 'Log an error message'
-          handler: (req, reply) ->
-            @server.log 'error', 'TEST'
-            reply 'done'
+  # ### add route
+  # add routes directly
+  route: (setup, cb = -> ) =>
+    @server.route setup
+    cb()
 
-      cb()
+  # ### add plugin
+  plugin: (setup, cb = -> ) =>
+    @server.register setup, cb
 
   # Server Start and Stop
   # -------------------------------------------------

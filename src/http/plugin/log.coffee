@@ -10,9 +10,7 @@ debug = require('debug')('server:http:log')
 winston = require 'winston'
 moment = require 'moment'
 util = require 'util'
-path = require 'path'
 # alinex modules
-fs = require 'alinex-fs'
 config = require 'alinex-config'
 async = require 'alinex-async'
 {string, object} = require 'alinex-util'
@@ -63,12 +61,10 @@ addLogger = (server, setup) ->
   # create logger
   if setup.file?
     t = winston.transports
-    file = path.resolve "#{__dirname}/../../../var/log/#{setup.file.filename}"
-    fs.mkdirsSync path.dirname(file)
     trans = new (if setup.file.datePattern then t.DailyRotateFile else t.File)
       level: if setup.data is 'error' then 'warn' else if 'all' then 'debug' else 'info'
       showLevel: true
-      filename: file
+      filename: "#{__dirname}/../../../var/log/#{setup.file.filename}"
       colorize: false
       json: setup.data is 'all'
       maxsize: setup.file.maxSize
