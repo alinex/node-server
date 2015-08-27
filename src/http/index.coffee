@@ -184,7 +184,12 @@ setup =
   # Event handling for debug and output
   events: ->
     # unused events
-    @server.on 'log', -> debug chalk.grey 'Unhandled LOG event'#, arguments
+    @server.on 'log', (data) ->
+      color = switch data.tags[0]
+        when 'error' then 'red'
+        when 'warn' then 'magenta'
+        else 'gray'
+      debug chalk[color] "#{data.tags[0].toUpperCase()}: #{data.data}"
     @server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
     @server.on 'request-internal', -> debug chalk.grey 'Unhandled INTERNAL event'#, arguments
     @server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments

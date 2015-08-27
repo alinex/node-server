@@ -5,19 +5,17 @@ listener:
   default:
     port: <<<env://PORT | 23174>>>
   ssl:
-    port: <<<env://PORT | 23175>>>
-#    tls:
+    host: localhost
+    port: 23175
+    tls:
+      key: <<<file://test/data/ssl/key.pem>>>
+      cert: <<<file://test/data/ssl/cert.pem>>>
 
 log:
   - data: combined
     file:
       filename: http-access.log
       datePattern: .yyyy-MM-dd
-      compress: true
-  - data: error
-    file:
-      filename: http-error.log
-      maxSize: 100MB
       compress: true
 
 space:

@@ -8,13 +8,12 @@ config = require 'alinex-config'
 before ->
   server.setup ->
     config.pushOrigin
-      uri: 'test/data/config/http.yml'
-      path: 'server/http'
+      uri: 'test/data/config/*'
+      path: 'server'
 
 describe "server", ->
 
   describe "config", ->
-
 
     it "should run the selfcheck on the schema", (cb) ->
       @timeout 8000
@@ -22,7 +21,7 @@ describe "server", ->
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
 
-    it.only "should load configuration", (cb) ->
+    it "should load configuration", (cb) ->
       @timeout 15000
       server.init (err) ->
         expect(err, 'init error').to.not.exist
