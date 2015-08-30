@@ -17,21 +17,21 @@ describe "http", ->
         path: '/hello'
         config:
           description: 'Hello World'
-          handler: (req, reply) -> reply 'hello world'
+        handler: (req, reply) -> reply 'hello world'
       server.http.route
         method: 'GET'
         path: '/500'
         config:
           description: 'Test Call with 500 error'
-          handler: (req, reply) -> throw new Error "Poopsie"
+        handler: (req, reply) -> throw new Error "Poopsie"
       server.http.route
         method: 'GET'
         path: '/log'
         config:
           description: 'Log an error message'
-          handler: (req, reply) ->
-            @server.log 'error', 'TEST'
-            reply 'done'
+        handler: (req, reply) ->
+          @server.log 'error', 'TEST'
+          reply 'done'
       cb()
 
   describe "start", ->
@@ -51,4 +51,14 @@ describe "http", ->
       , (err, response, body) ->
         expect(err, 'server error').to.not.exist
         expect(response.statusCode, 'status code').to.equal 200
+        cb()
+
+    it "should get error", (cb) ->
+      conf = config.get 'server/http/listener/default'
+      request
+        method: 'GET'
+        uri: "#{if conf.ssl then 'https' else 'http'}://#{conf.host ? os.hostname()}:#{conf.port}/500"
+      , (err, response, body) ->
+        expect(err, 'server error').to.not.exist
+        expect(response.statusCode, 'status code').to.equal 500
         cb()

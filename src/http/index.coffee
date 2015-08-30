@@ -58,7 +58,43 @@ class HttpServer extends EventEmitter
   # ### add route
   # add routes directly
   route: (setup, cb = -> ) =>
-    @server.route setup
+    listener = false
+    if bind = setup.bind?
+      # context
+      setup.path = bind.context + '/' + (setup.path ? '') if bind.context?
+      # space
+      if bind.space?
+        space = @conf.space[bind.space]?.bind
+        if space?
+          listener = space.listener if space.listener?
+          setup.vhost = space.domain if space.domain?
+          setup.path = space.context + '/' + (setup.path ? '') if space.context
+      # listener
+      if bind.listener?
+        if listener?
+          # only use domains which are in both space and domain setting
+          listener = [listener] if typeof listener is 'string'
+          bind.listener = [bind.listener] if typeof bind.listener is 'string'
+          listener = bind.listener.filter (e) -> e in listener
+        else
+          listener = bind.listener
+      # domain
+      if bind.domain?
+        if setup.vhost?
+          # only use domains which are in both space and domain setting
+          setup.vhost = [setup.vhost] if typeof setup.vhost is 'string'
+          bind.domain = [bind.domain] if typeof bind.domain is 'string'
+          setup.vhost = bind.domain.filter (e) -> e in setup.vhost
+        else
+          setup.vhost = bind.domain
+      # optimize path
+      setup.path = setup.path.replace /\/\/+/, '/'
+    # set route
+    if listener?
+      # add to specific server
+      @server.select(listen).route setup for listen in listener
+    else
+      @server.route setup
     cb()
 
   # ### add plugin
