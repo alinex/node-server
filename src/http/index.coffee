@@ -58,7 +58,7 @@ class HttpServer extends EventEmitter
   # ### add route
   # add routes directly
   route: (setup, cb = -> ) =>
-    listener = false
+    listener = null
     if bind = setup.bind?
       # context
       setup.path = bind.context + '/' + (setup.path ? '') if bind.context?
@@ -90,6 +90,7 @@ class HttpServer extends EventEmitter
       # optimize path
       setup.path = setup.path.replace /\/\/+/, '/'
     # set route
+    debug "adding route \"#{setup.config.description ? setup.path} \""
     if listener?
       # add to specific server
       @server.select(listen).route setup for listen in listener
