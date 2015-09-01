@@ -170,11 +170,11 @@ describe "http", ->
 
     it "should succeed on ssl", (cb) ->
       test [
-        'https://localhost:23174/ssl'
+        'https://localhost:23175/ssl'
       ], 200, 'ssl', cb
     it "should fail on ssl", (cb) ->
       test [
-        'http://localhost:23175/ssl'
+        'http://localhost:23174/ssl'
       ], 404, null, cb
 
   describe "routes bind to space", ->
