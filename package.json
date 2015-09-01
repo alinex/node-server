@@ -47,7 +47,6 @@
     "alinex-builder": "^1.1.2",
     "alinex-validator": "^1.0.2",
     "chai": "^3.2.0",
-    "decache": "^3.0.3",
     "request": "2.x"
   },
   "optionalDependencies": {},
