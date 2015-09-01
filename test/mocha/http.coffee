@@ -178,6 +178,37 @@ describe "http", ->
       ], 404, null, cb
 
   describe "routes bind to space", ->
+
+    it "should succeed on s1", (cb) ->
+      test [
+        'http://localhost:23174/s1'
+        'http://127.0.0.1:23174/s1'
+      ], 200, 's1', cb
+    it "should fail on s1", (cb) ->
+      test [
+        'https://localhost:23175/s1'
+      ], 404, null, cb
+
+    it "should succeed on s2", (cb) ->
+      test [
+        'http://localhost:23174/s2'
+        'https://localhost:23175/s2'
+      ], 200, 's2', cb
+    it "should fail on s2", (cb) ->
+      test [
+        'http://127.0.0.1:23174/s2'
+      ], 404, null, cb
+
+    it "should succeed on s3", (cb) ->
+      test [
+        'http://localhost:23174/test/s3'
+        'http://127.0.0.1:23174/test/s3'
+      ], 200, 's3', cb
+    it "should fail on s3", (cb) ->
+      test [
+        'http://localhost:23174/s3'
+      ], 404, null, cb
+
 # s1      /s1           http://localhost:23174/s1       200  s1
 #                       http://127.0.0.1:23174/s1       200  s1
 #                       https://localhost:23175/s1      404
