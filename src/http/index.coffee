@@ -160,14 +160,17 @@ class HttpServer extends EventEmitter
             spaces[name].push base + context for context in space.bind.context ? ['']
         else
           spaces[name].push conn.info.uri + context for context in space.bind.context ? ['']
+    slist = Object.keys(spaces).sort (a, b) ->
+      return 1 unless spaces[b][0]?
+      spaces[b][0].length - spaces[a][0].length
     # uris = base:[route]
     uris = {}
     for uri, app of routes
       # search in spaces
       found = false
-      for name, checks of spaces
+      for name in slist
         break if found
-        for check in checks
+        for check in spaces[name]
           if string.starts uri, check
             uris[check] ?= []
             uris[check].push app
