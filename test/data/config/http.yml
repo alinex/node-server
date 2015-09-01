@@ -19,6 +19,12 @@ log:
       compress: true
 
 space:
-  all:
+  s1:
     bind:
-     context: '/'
+      listener: default
+  s2:
+    bind:
+      domain: localhost
+  s3:
+    bind:
+      context: /test

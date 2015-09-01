@@ -59,7 +59,8 @@ class HttpServer extends EventEmitter
   # add routes directly
   route: (setup, cb = -> ) =>
     listener = null
-    if bind = setup.bind?
+    if setup.bind?
+      bind = setup.bind
       # context
       setup.path = bind.context + '/' + (setup.path ? '') if bind.context?
       # space
@@ -77,7 +78,7 @@ class HttpServer extends EventEmitter
           bind.listener = [bind.listener] if typeof bind.listener is 'string'
           listener = bind.listener.filter (e) -> e in listener
         else
-          listener = bind.listener
+          listener = if typeof bind.listener is 'string' then [bind.listener] else bind.listener
       # domain
       if bind.domain?
         if setup.vhost?
@@ -89,11 +90,20 @@ class HttpServer extends EventEmitter
           setup.vhost = bind.domain
       # optimize path
       setup.path = setup.path.replace /\/\/+/, '/'
+    delete setup.bind
     # set route
     debug "adding route \"#{setup.config.description ? setup.path} \""
+    debug chalk.grey "listener: #{listener}"
+    debug chalk.grey util.inspect setup, {depth: null}
     if listener?
       # add to specific server
-      @server.select(listen).route setup for listen in listener
+      for listen in listener
+        server = @server.select listen
+        if server.connections.length
+          server.route setup
+        else
+          debug chalk.magenta "No connections for listener '#{listen}' to add route
+          \"#{setup.config.description ? setup.path}\""
     else
       @server.route setup
     cb()
@@ -207,11 +217,22 @@ setup =
   events: ->
     # unused events
     @server.on 'log', (data) ->
-      color = switch data.tags[0]
-        when 'error' then 'red'
-        when 'warn' then 'magenta'
-        else 'gray'
-      debug chalk[color] "#{data.tags[0].toUpperCase()}: #{data.data}"
+      level = 'info'
+      color = 'gray'
+      switch
+        when 'error' in data.tags
+          color = 'red'
+          level = 'error'
+        when 'warn' in data.tags
+          color = 'magenta'
+          level = 'warn'
+      msg = "#{level.toUpperCase()}:"
+      if data.data instanceof Error
+        msg += " #{data.data.message}"
+        msg += " (#{data.data.code})" if data.data.code
+      else
+        msg += " #{data.data}"
+      debug chalk[color] msg
     @server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
     @server.on 'request-internal', -> debug chalk.grey 'Unhandled INTERNAL event'#, arguments
     @server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments
