@@ -53,16 +53,31 @@ The usage is very simple, you have to load the server module first:
 server = require 'alinex-server'
 ```
 
+### Setup
+
 After that in your code you have to initialize the server:
 
 ``` coffee
 server.init (err) ->
   return cb err if err
-  server.http.start ->
-    # server is running
+  # go on
 ```
 
-> Inclusion of your own routes are not supported, yet.
+Now you may add some specific routes:
+
+``` coffee
+server.route
+  path: '/my-path'
+  handler: (request, reply) ->
+    # function handling this request
+```
+
+### Start
+
+``` coffee
+server.http.start ->
+  # server is running
+```
 
 
 Webserver Architecture
@@ -125,6 +140,20 @@ module so that the end user may easily configure the server without changing the
 code.
 
 See the files for `server/http' configuration to get a list of all possibilities.
+
+
+Routes
+-------------------------------------------------
+The following settings may be given:
+
+- space
+- listener
+- domain
+- context
+- path
+- method
+- handler
+
 
 
 Server start
