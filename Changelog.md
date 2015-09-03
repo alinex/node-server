@@ -4,6 +4,30 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.0.2 (2015-09-03)
+-------------------------------------------------
+- Fixed changelog.
+- Fix http server start to use callbacks.
+- Added information for version 0.0.2
+- Updated readme.
+- Remove unused development package.
+- Updated mindmap.
+- Fix routing table to display routes of subspaces only on them.
+- Added space tests.
+- Fixed ssl tests.
+- Make http listener work but bug in ssl is open.
+- Fix route to work without listener.
+- Add support for bindings in route setup.
+- Added route() and plugin() interfaces.
+- Added ssl test suite with self signed server.
+- MOved configuration files and made special one for tests.
+- Fixed space display in routing output.
+- Allow multiple listeners.
+- Run setup only once.
+- Rename listen configuration to listener.
+- Added architecture overview to documentation with new spaces concept.
+- Added plan for application configs.
+
 Version 0.0.1 (2015-08-19)
 -------------------------------------------------
 - Upgrade hapi server to 9.0.1.
