@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>http.yml</title>
+  <title>index.yml</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
-  <script src="../../../../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
+  <script src="../../../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../../", thisFile = "home/alex/a3/node-server/var/src/config/server/httpyml", defaultSidebar = true;
+    var relativeDir = "../../../../../", thisFile = "home/alex/a3/node-server/var/src/config/server/http/indexyml", defaultSidebar = true;
   </script>
-  <script src="../../../../doc-script.js"></script>
-  <script src="../../../../fileSearch.js"></script>
-  <script src="../../../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../../../fileSearch.css" />
-  <link rel="stylesheet" href="../../../../goToLine.css" />
+  <script src="../../../../../doc-script.js"></script>
+  <script src="../../../../../fileSearch.js"></script>
+  <script src="../../../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../../../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -39,37 +39,34 @@
         <a href="#server%20connections">Server Connections</a>
       </div>
       <div class="heading h3">
-        <a href="#host">Host</a>
+        <a href="#host">host</a>
       </div>
       <div class="heading h3">
-        <a href="#port">Port</a>
+        <a href="#port">port</a>
       </div>
       <div class="heading h3">
-        <a href="#tls">TLS</a>
+        <a href="#tls">tls</a>
       </div>
       <div class="heading h3">
-        <a href="#load">Load</a>
+        <a href="#load">load</a>
       </div>
       <div class="heading h2">
         <a href="#log%20settings">Log Settings</a>
       </div>
       <div class="heading h3">
-        <a href="#trust%20proxy">trust proxy</a>
+        <a href="#bind">bind</a>
       </div>
       <div class="heading h3">
-        <a href="#server%20nodes">Server nodes</a>
-      </div>
-      <div class="heading h2">
-        <a href="#access%20restrictions">Access restrictions</a>
+        <a href="#data">data</a>
       </div>
       <div class="heading h3">
-        <a href="#whitelist">Whitelist</a>
+        <a href="#file">file</a>
       </div>
       <div class="heading h3">
-        <a href="#blacklist">Blacklist</a>
+        <a href="#http">http</a>
       </div>
-      <div class="heading h2">
-        <a href="#session%20handling">Session handling</a>
+      <div class="heading h3">
+        <a href="#mail">mail</a>
       </div>
     </div>
   </div>
@@ -115,7 +112,7 @@ with specific labels, vhost and context paths.</p>
 <div class="pilwrap" id="host">
   <h3>
     <a href="#host" name="host" class="pilcrow">&#182;</a>
-    Host
+    host
   </h3>
 </div>
 
@@ -133,7 +130,7 @@ with specific labels, vhost and context paths.</p>
 <div class="pilwrap" id="port">
   <h3>
     <a href="#port" name="port" class="pilcrow">&#182;</a>
-    Port
+    port
   </h3>
 </div>
 
@@ -170,7 +167,7 @@ HTTPS. Defaults to port 23174 if not set.</p>
 <div class="pilwrap" id="tls">
   <h3>
     <a href="#tls" name="tls" class="pilcrow">&#182;</a>
-    TLS
+    tls
   </h3>
 </div>
 
@@ -205,7 +202,7 @@ are defined in the constant SSL_METHODS)"</li>
 <div class="pilwrap" id="load">
   <h3>
     <a href="#load" name="load" class="pilcrow">&#182;</a>
-    Load
+    load
   </h3>
 </div>
 
@@ -250,157 +247,107 @@ are defined in the constant SSL_METHODS)"</li>
   </h2>
 </div>
 
+
+<p>The log settings are defined as array of possible loggers.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">log</span><span class="p-Indicator">:</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="bind">
+  <h3>
+    <a href="#bind" name="bind" class="pilcrow">&#182;</a>
+    bind
+  </h3>
+</div>
+
+
+<p>Like described above this will define the area of requests to log.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="data">
+  <h3>
+    <a href="#data" name="data" class="pilcrow">&#182;</a>
+    data
+  </h3>
+</div>
+
+
+<p>This is a specific format selected of the possible formats: 'error', 'event'
+'common', 'commonvhost', 'combined', 'referrer', 'extended', 'object'.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="file">
+  <h3>
+    <a href="#file" name="file" class="pilcrow">&#182;</a>
+    file
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="http">
+  <h3>
+    <a href="#http" name="http" class="pilcrow">&#182;</a>
+    http
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="mail">
+  <h3>
+    <a href="#mail" name="mail" class="pilcrow">&#182;</a>
+    mail
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="l-Scalar-Plain">log</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">combined</span>
     <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">access.log</span>
+      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http-access.log</span>
       <span class="l-Scalar-Plain">datePattern</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">.yyyy-MM-dd</span>
       <span class="l-Scalar-Plain">compress</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
-
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">error</span>
     <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">error.log</span>
+      <span class="l-Scalar-Plain">filename</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http-error.log</span>
       <span class="l-Scalar-Plain">maxSize</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100MB</span>
       <span class="l-Scalar-Plain">compress</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
-
-
-
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="trust%20proxy">
-  <h3>
-    <a href="#trust%20proxy" name="trust%20proxy" class="pilcrow">&#182;</a>
-    trust proxy
-  </h3>
-</div>
-
-
-<p>Indicate that the app is sitting behind a front-facing proxy, and the X-Forwarded-*
-headers may be trusted for determining the connection and the IP address of
-the client. It must, however, be noted that, the X-Forwarded-* headers are
-easily spoofed and the detected IP addresses are unreliable.
-trustProxy: false</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="server%20nodes">
-  <h3>
-    <a href="#server%20nodes" name="server%20nodes" class="pilcrow">&#182;</a>
-    Server nodes
-  </h3>
-</div>
-
-
-<p>If set this will define how much nodes to start. 0 means no cluster support
-running with one process. 1 means cluster support running with one forked node
-which will be restarted from the master on kill. And higher values mean more
-nodes but not more will be used than the number of cpu cores.
-nodes: 0</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="access%20restrictions">
-  <h2>
-    <a href="#access%20restrictions" name="access%20restrictions" class="pilcrow">&#182;</a>
-    Access restrictions
-  </h2>
-</div>
-
-
-<p>The following restrictions are possible:</p>
-
-<ul>
-<li><code>ip</code> give an ip address or list of addresses</li>
-</ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="whitelist">
-  <h3>
-    <a href="#whitelist" name="whitelist" class="pilcrow">&#182;</a>
-    Whitelist
-  </h3>
-</div>
-
-
-<p>To only allow access from specific clients they have to be listed here:
-allow:
- ip:</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="blacklist">
-  <h3>
-    <a href="#blacklist" name="blacklist" class="pilcrow">&#182;</a>
-    Blacklist
-  </h3>
-</div>
-
-
-<p>To disallow access from specific clients list them here:
-disallow:
- ip:</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="session%20handling">
-  <h2>
-    <a href="#session%20handling" name="session%20handling" class="pilcrow">&#182;</a>
-    Session handling
-  </h2>
-</div>
-
-
-<p>session:
-The secret is used to hash the session with HMAC. The session is then
-protected against session hijacking by checking the fingerprint against the
-hash with the secret.
-secret: R4FCaOCutWGN.GfVym9ag3yyPM
-After the following time of inactivity (no server request) the session will
-be outdated.
-expire: 3600s</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>

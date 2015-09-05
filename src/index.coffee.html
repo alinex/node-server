@@ -270,7 +270,7 @@ to be set up on top.</p>
 <p>setup log directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s">&#39;/../log&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="nf">(cb) -&gt;</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s">&#39;/../var/log&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
         <span class="nx">cb</span><span class="p">()</span>
     <span class="p">],</span> <span class="nf">(err) -&gt;</span>

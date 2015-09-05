@@ -148,6 +148,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/server/http/log&#39;</span>
+  <span class="k">return</span> <span class="nx">next</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span>
 
 </pre></div>
         </td>
@@ -214,7 +215,6 @@
 <p>done</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">server</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="s">&#39;have to be logged&#39;</span>
   <span class="k">return</span> <span class="nx">next</span><span class="p">()</span>
 
 <span class="nv">exports.register.attributes =</span>
@@ -256,7 +256,7 @@
     <span class="nv">trans = </span><span class="k">new</span> <span class="p">(</span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">datePattern</span> <span class="k">then</span> <span class="nx">t</span><span class="p">.</span><span class="nx">DailyRotateFile</span> <span class="k">else</span> <span class="nx">t</span><span class="p">.</span><span class="nx">File</span><span class="p">)</span>
       <span class="nv">level: </span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;error&#39;</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span> <span class="k">else</span> <span class="k">if</span> <span class="s">&#39;all&#39;</span> <span class="k">then</span> <span class="s">&#39;debug&#39;</span> <span class="k">else</span> <span class="s">&#39;info&#39;</span>
       <span class="nv">showLevel: </span><span class="kc">true</span>
-      <span class="nv">filename: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/../../../log/</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">filename</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nv">filename: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/../../../var/log/</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">filename</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nv">colorize: </span><span class="kc">false</span>
       <span class="nv">json: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;all&#39;</span>
       <span class="nv">maxsize: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">maxSize</span>
@@ -265,8 +265,26 @@
       <span class="nv">zippedArchive: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">compress</span>
       <span class="nv">datePattern: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">datePattern</span>
       <span class="nv">formatter: </span><span class="nx">formatter</span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">data</span><span class="p">]</span>
-    <span class="nv">logger = </span><span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">Logger</span>
-      <span class="nv">transports: </span><span class="p">[</span><span class="nx">trans</span><span class="p">]</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="o">?</span>
+    <span class="nv">trans = </span><span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span><span class="p">.</span><span class="nx">Http</span>
+      <span class="nv">level: </span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;error&#39;</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span> <span class="k">else</span> <span class="k">if</span> <span class="s">&#39;all&#39;</span> <span class="k">then</span> <span class="s">&#39;debug&#39;</span> <span class="k">else</span> <span class="s">&#39;info&#39;</span>
+      <span class="nv">host: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">host</span>
+      <span class="nv">port: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">port</span>
+      <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">path</span>
+      <span class="nv">auth: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">auth</span>
+      <span class="nv">ssl: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">secure</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="o">?</span>
+    <span class="nv">trans = </span><span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="s">&#39;winston-mail&#39;</span><span class="p">).</span><span class="nx">Mail</span>
+      <span class="nv">level: </span><span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;error&#39;</span> <span class="k">then</span> <span class="s">&#39;warn&#39;</span> <span class="k">else</span> <span class="k">if</span> <span class="s">&#39;all&#39;</span> <span class="k">then</span> <span class="s">&#39;debug&#39;</span> <span class="k">else</span> <span class="s">&#39;info&#39;</span>
+      <span class="nv">to: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">to</span>
+      <span class="nv">from: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">from</span>
+      <span class="nv">host: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">host</span>
+      <span class="nv">port: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">port</span>
+      <span class="nv">auth: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">auth</span>
+      <span class="nv">secure: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">mail</span><span class="p">.</span><span class="nx">secure</span>
+  <span class="nv">logger = </span><span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">Logger</span>
+    <span class="nv">transports: </span><span class="p">[</span><span class="nx">trans</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">file</span><span class="o">?</span>
     <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;extended&#39;</span>
 
 </pre></div>

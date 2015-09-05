@@ -39,10 +39,22 @@
         <a href="#connection%20settings">Connection Settings</a>
       </div>
       <div class="heading h2">
+        <a href="#binding%20of%20spaces%20and%20plugins">Binding of Spaces and Plugins</a>
+      </div>
+      <div class="heading h2">
         <a href="#log%20settings">Log Settings</a>
       </div>
       <div class="heading h2">
-        <a href="#connection%20settings">Connection Settings</a>
+        <a href="#authentication">Authentication</a>
+      </div>
+      <div class="heading h2">
+        <a href="#application%20routes">Application routes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#spaces">Spaces</a>
+      </div>
+      <div class="heading h2">
+        <a href="#server%20settings">Server Settings</a>
       </div>
     </div>
   </div>
@@ -181,6 +193,52 @@
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="binding%20of%20spaces%20and%20plugins">
+  <h2>
+    <a href="#binding%20of%20spaces%20and%20plugins" name="binding%20of%20spaces%20and%20plugins" class="pilcrow">&#182;</a>
+    Binding of Spaces and Plugins
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">bind =</span>
+  <span class="nv">title: </span><span class="s">&quot;Binding&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the connection, domain and context to only bind to&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">listener:</span>
+      <span class="nv">title: </span><span class="s">&quot;Listener&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name of the defined listener&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+      <span class="nv">toArray: </span><span class="kc">true</span>
+      <span class="nv">entries:</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">values: </span><span class="s">&#39;&lt;&lt;&lt;listener&gt;&gt;&gt;&#39;</span>
+    <span class="nv">domain:</span>
+      <span class="nv">title: </span><span class="s">&quot;Domain Name&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the hostname to bind to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+      <span class="nv">toArray: </span><span class="kc">true</span>
+      <span class="nv">entries:</span>
+        <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+    <span class="nv">context:</span>
+      <span class="nv">title: </span><span class="s">&quot;Context&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the context path to bind to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+      <span class="nv">toArray: </span><span class="kc">true</span>
+      <span class="nv">entries:</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">startsWith: </span><span class="s">&#39;/&#39;</span>
+        <span class="nv">minLength: </span><span class="mi">1</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="log%20settings">
   <h2>
     <a href="#log%20settings" name="log%20settings" class="pilcrow">&#182;</a>
@@ -194,6 +252,7 @@
   <span class="nv">title: </span><span class="s">&quot;Log Settigs&quot;</span>
   <span class="nv">description: </span><span class="s">&quot;the host and port to bind to by label&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+  <span class="nv">toArray: </span><span class="kc">true</span>
   <span class="nv">entries:</span>
     <span class="nv">title: </span><span class="s">&quot;Log Transport&quot;</span>
     <span class="nv">description: </span><span class="s">&quot;the configuration of a log transporter&quot;</span>
@@ -211,27 +270,7 @@
           <span class="s">&#39;extended&#39;</span>
           <span class="s">&#39;object&#39;</span>
         <span class="p">]</span>
-      <span class="nv">bind:</span>
-        <span class="nv">title: </span><span class="s">&quot;Binding&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the connection, domain and context to only bind to&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">allowedKeys: </span><span class="kc">true</span>
-        <span class="nv">keys:</span>
-          <span class="nv">listener:</span>
-            <span class="nv">title: </span><span class="s">&quot;Listener&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the name of the defined listener&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-            <span class="nv">values: </span><span class="s">&#39;&lt;&lt;&lt;listener&gt;&gt;&gt;&#39;</span>
-          <span class="nv">domain:</span>
-            <span class="nv">title: </span><span class="s">&quot;Domain Name&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the hostname to bind to&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-          <span class="nv">context:</span>
-            <span class="nv">title: </span><span class="s">&quot;Context&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the context path to bind to&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-            <span class="nv">startsWith: </span><span class="s">&#39;/&#39;</span>
-            <span class="nv">minLength: </span><span class="mi">2</span>
+      <span class="nv">bind: </span><span class="nx">bind</span>
       <span class="nv">file:</span>
         <span class="nv">title: </span><span class="s">&quot;File Logger&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the setup of an file logger&quot;</span>
@@ -351,16 +390,88 @@
                 <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
 
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="authentication">
+  <h2>
+    <a href="#authentication" name="authentication" class="pilcrow">&#182;</a>
+    Authentication
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">auth =</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">keys:</span>
+    <span class="nv">bind: </span><span class="nx">bind</span>
+
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="connection%20settings">
+<div class="pilwrap" id="application%20routes">
   <h2>
-    <a href="#connection%20settings" name="connection%20settings" class="pilcrow">&#182;</a>
-    Connection Settings
+    <a href="#application%20routes" name="application%20routes" class="pilcrow">&#182;</a>
+    Application routes
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">app =</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="spaces">
+  <h2>
+    <a href="#spaces" name="spaces" class="pilcrow">&#182;</a>
+    Spaces
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">space =</span>
+  <span class="nv">title: </span><span class="s">&quot;Spaces&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the server spaces which are an abstraction of the listener&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Space&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;the server space which is an abstraction of the listener&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;bind&#39;</span><span class="p">]</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">keys:</span>
+      <span class="nv">bind: </span><span class="nx">bind</span>
+      <span class="nv">theme:</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">default: </span><span class="s">&#39;default&#39;</span>
+      <span class="nv">log: </span><span class="nx">log</span>
+      <span class="nv">auth: </span><span class="nx">auth</span>
+      <span class="nv">app: </span><span class="nx">app</span>
+  <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="server%20settings">
+  <h2>
+    <a href="#server%20settings" name="server%20settings" class="pilcrow">&#182;</a>
+    Server Settings
   </h2>
 </div>
 
@@ -381,6 +492,9 @@
       <span class="nv">keys:</span>
         <span class="nv">listener: </span><span class="nx">listener</span>
         <span class="nv">log: </span><span class="nx">log</span>
+        <span class="nv">auth: </span><span class="nx">auth</span>
+        <span class="nv">app: </span><span class="nx">app</span>
+        <span class="nv">space: </span><span class="nx">space</span>
 </pre></div>
         </td>
       </tr>

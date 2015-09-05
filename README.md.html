@@ -41,6 +41,12 @@
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+      <div class="heading h3">
+        <a href="#setup">Setup</a>
+      </div>
+      <div class="heading h3">
+        <a href="#start">Start</a>
+      </div>
       <div class="heading h2">
         <a href="#webserver%20architecture">Webserver Architecture</a>
       </div>
@@ -55,6 +61,9 @@
       </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#routes">Routes</a>
       </div>
       <div class="heading h2">
         <a href="#server%20start">Server start</a>
@@ -87,9 +96,12 @@ other server protocols like ftp later.</p>
 
 <ul>
 <li>full configurable</li>
-<li>supports also SSL and multiple IPs</li>
-<li>full debug and logging support</li>
+<li>supports multiple IPs, ports, ssl</li>
 <li>support vhost and spaces</li>
+<li>full debug and logging support</li>
+<li>authentication</li>
+<li>forwarding and redirects</li>
+<li>proxy support</li>
 </ul>
 
 <blockquote>
@@ -146,20 +158,51 @@ other server protocols like ftp later.</p>
 
 
 
+
+<div class="pilwrap" id="setup">
+  <h3>
+    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
+    Setup
+  </h3>
+</div>
+
+
 <p>After that in your code you have to initialize the server:</p>
 
 
 <div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-  <span class="nx">server</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">start</span> <span class="nf">-&gt;</span>
-    <span class="c1"># server is running</span>
+  <span class="c1"># go on</span>
 </code></pre></div>
 
 
 
-<blockquote>
-  <p>Inclusion of your own routes are not supported, yet.</p>
-</blockquote>
+<p>Now you may add some specific routes:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">route</span>
+  <span class="nv">path: </span><span class="s">&#39;/my-path&#39;</span>
+  <span class="nv">handler: </span><span class="nf">(request, reply) -&gt;</span>
+    <span class="c1"># function handling this request</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="start">
+  <h3>
+    <a href="#start" name="start" class="pilcrow">&#182;</a>
+    Start
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">start</span> <span class="nf">-&gt;</span>
+  <span class="c1"># server is running</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="webserver%20architecture">
@@ -179,6 +222,9 @@ it includes the basic server technology without specific applications.</p>
 to customize it to your needs.</p>
 
 <p><img src="src/doc/architecture.png" alt="Architecture" title="" /></p>
+
+<p>The server has two different bindings, first it should bind to the network to get
+the requests. Second it allows binding plugins to specific requests.</p>
 
 <p>The arrows will show you some of the possibilities to connect the different server
 parts together. Because of the possibilities it may look complex at first.</p>
@@ -252,6 +298,27 @@ module so that the end user may easily configure the server without changing the
 code.</p>
 
 <p>See the files for `server/http' configuration to get a list of all possibilities.</p>
+
+
+<div class="pilwrap" id="routes">
+  <h2>
+    <a href="#routes" name="routes" class="pilcrow">&#182;</a>
+    Routes
+  </h2>
+</div>
+
+
+<p>The following settings may be given:</p>
+
+<ul>
+<li>space</li>
+<li>listener</li>
+<li>domain</li>
+<li>context</li>
+<li>path</li>
+<li>method</li>
+<li>handler</li>
+</ul>
 
 
 <div class="pilwrap" id="server%20start">
