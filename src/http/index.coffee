@@ -58,54 +58,33 @@ class HttpServer extends EventEmitter
   # ### add route
   # add routes directly
   route: (setup, cb = -> ) =>
-    listener = null
-    if setup.bind?
-      bind = setup.bind
-      # context
-      setup.path = bind.context + '/' + (setup.path ? '') if bind.context?
-      # space
-      if bind.space?
-        space = @conf.space[bind.space]?.bind
-        if space?
-          listener = space.listener if space.listener?
-          setup.vhost = space.domain if space.domain?
-          setup.path = space.context + '/' + (setup.path ? '') if space.context
-      # listener
-      if bind.listener?
-        if listener?
-          # only use domains which are in both space and domain setting
-          listener = [listener] if typeof listener is 'string'
-          bind.listener = [bind.listener] if typeof bind.listener is 'string'
-          listener = bind.listener.filter (e) -> e in listener
-        else
-          listener = if typeof bind.listener is 'string' then [bind.listener] else bind.listener
-      # domain
-      if bind.domain?
-        if setup.vhost?
-          # only use domains which are in both space and domain setting
-          setup.vhost = [setup.vhost] if typeof setup.vhost is 'string'
-          bind.domain = [bind.domain] if typeof bind.domain is 'string'
-          setup.vhost = bind.domain.filter (e) -> e in setup.vhost
-        else
-          setup.vhost = bind.domain
-      # optimize path
-      setup.path = setup.path.replace /\/\/+/, '/'
+    # resolve space settings
+    console.log '--->', setup
+    setup = resolveSpace setup
+    console.log '<---', setup
+    # remove bindings from setup
+    bind = setup.bind
     delete setup.bind
     # set route
-    debug "adding route \"#{setup.config.description ? setup.path} \""
-    debug chalk.grey "listener: #{listener}"
-    debug chalk.grey util.inspect setup, {depth: null}
-    if listener?
-      # add to specific server
-      for listen in listener
-        server = @server.select listen
-        if server.connections.length
-          server.route setup
-        else
-          debug chalk.magenta "No connections for listener '#{listen}' to add route
-          \"#{setup.config.description ? setup.path}\""
-    else
-      @server.route setup
+    setup.vhost = bind.domain if bind.domain?
+    path = setup.path
+    bind.context ?= ['']
+    for cpath in bind.context
+      setup.path = "#{bind.context}#{path ? '/'}"
+      debug "adding route \"#{setup.config.description ? setup.path} \""
+      debug chalk.grey "listener: #{util.inspect(bind.listener ? 'ALL')}"
+      debug chalk.grey util.inspect setup, {depth: null}
+      if bind.listener?
+        # add to specific server
+        for listen in bind.listener
+          server = @server.select listen
+          if server.connections.length
+            server.route setup
+          else
+            debug chalk.magenta "No connections for listener '#{listen}' to add route
+            \"#{setup.config.description ? setup.path}\""
+      else
+        @server.route setup
     cb()
 
   # ### add plugin
@@ -268,7 +247,7 @@ setup =
           time = switch
             when time < 50 then chalk.green "#{time}ms"
             when time < 200 then chalk.yellow "#{time}ms"
-            when time < 1000 then chalk.orange "#{time}ms"
+            when time < 1000 then chalk.magenta "#{time}ms"
             else chalk.red "#{Math.round time/1000}s"
           response = "-> #{chalk[color] code} #{time}"
           debugAccess client + access + response
@@ -300,6 +279,63 @@ setup =
 # The following plugins will be loaded automatically. The implementation is in
 # the extra files.
 plugins = [
-  register: require "../http/plugin/log"
+#  register: require '../http/plugin/log'
+#  options: ....
+  require '../http/plugin/log'
+  require 'inert'
 ]
+
+# Resolve space bindings
+# -------------------------------------------------
+resolveSpace = (setup) ->
+  conf = config.get '/server/http'
+  resolve =
+    listener: []
+    domain: []
+    context: []
+  if setup.bind?
+    bind = setup.bind
+    # prefer array notation everythere
+    for att in ['space', 'listener', 'domain', 'context']
+      bind[att] = [bind[att]] if typeof bind[att] is 'string'
+      bind[att] ?= []
+    # space
+    if bind.space.length
+      for spacename in bind.space
+        space = conf.space?[spacename]?.bind
+        if space?
+          resolve.listener = space.listener if space.listener?
+          resolve.domain = space.domain if space.domain?
+          resolve.context = space.context if space.context?
+    # listener
+    if bind.listener.length
+      if resolve.listener.length
+        # only use listeners which are in both space and listener setting
+        resolve.listener = bind.listener.filter (e) -> e in resolve.listener
+      else
+        resolve.listener = bind.listener
+    # domain
+    if bind.domain.length
+      if resolve.domain.length
+        # only use domains which are in both space and domain setting
+        resolve.domain = bind.domain.filter (e) -> e in resolve.domain
+      else
+        resolve.domain = bind.domain
+    # context
+    if bind.context.length
+      if resolve.context.length
+        # combine together while space context is higher
+        combined = []
+        for a in resolve.context
+          for b in bind.context
+            combined.push "#{a}/#{b}".replace /\/\/+/, '/'
+        resolve.context = combined
+      else
+        resolve.context = bind.context
+  # cleanup
+  delete resolve.space
+  for att in ['listener', 'domain', 'context']
+    delete resolve[att] unless resolve[att].length
+  setup.bind = resolve
+  return setup
 

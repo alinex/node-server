@@ -6,9 +6,7 @@ individual versions:
 
 Version 0.0.2 (2015-09-03)
 -------------------------------------------------
-- Fixed changelog.
 - Fix http server start to use callbacks.
-- Added information for version 0.0.2
 - Updated readme.
 - Remove unused development package.
 - Updated mindmap.

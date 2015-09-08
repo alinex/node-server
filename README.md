@@ -132,6 +132,12 @@ below the `http` element to directly bind to the listeners. If you want a plugin
 be bound to multiple spaces you have to bind it directly to the listener or make
 multiple entries for it.
 
+### Routes
+
+The route specifies the handler for a specific URI scheme. Use it to add functionality
+to the server. Or you may collect some routes together in a plugin which you may
+add.
+
 
 Configuration
 -------------------------------------------------
@@ -144,16 +150,27 @@ See the files for `server/http' configuration to get a list of all possibilities
 
 Routes
 -------------------------------------------------
-The following settings may be given:
+A route can be bind to one of the following (bind params):
 
 - space
 - listener
 - domain
 - context
+
+And it will work on one of the following:
+
 - path
 - method
+
+What to do will be set up using:
+
+- config
 - handler
 
+As handler you may also use the predefined ones:
+
+- file
+- directory
 
 
 Server start
