@@ -57,14 +57,14 @@ class HttpServer extends EventEmitter
           maxRssBytes: listen.load.maxRss
           maxEventLoopDelay: listen.load.eventLoopDelay
       @server.connection options
+    # register plugins (defined below)
+    async.each plugins, (setup, cb) =>
+      @server.register setup, cb
     # message after start/stop
     @server.on 'start', ->
       console.log chalk.bold "Server started!"
     @server.on 'stop', ->
       console.log chalk.bold "Server stopped!"
-    # register plugins (defined below)
-    async.each plugins, (setup, cb) =>
-      @server.register setup, cb
     , cb
 
   # ### add route
@@ -99,6 +99,7 @@ class HttpServer extends EventEmitter
 
   # ### add plugin
   plugin: (setup, cb = -> ) =>
+    debug "add plugin #{setup}"
     # resolve space settings
     setup = resolveSpace setup
     @server.register setup, cb
@@ -113,6 +114,7 @@ class HttpServer extends EventEmitter
 
   # ### stop
   stop: (cb) ->
+    debug "stop hapi server"
     @server.root.stop()
     cb()
 
