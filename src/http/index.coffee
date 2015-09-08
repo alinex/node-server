@@ -37,7 +37,7 @@ class HttpServer extends EventEmitter
     @conf = config.get '/server/http'
     # configure server
     options = {}
-    options.debug = false unless process.env.DEBUG?
+    options.debug = false
     for key, value of @conf.listener
       if value.load?
         options.load =

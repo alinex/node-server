@@ -42,20 +42,25 @@ exports.register = (server, options, cb) ->
     else
       msg += " #{data.data}"
     debug chalk[color] msg
+
   server.on 'request', -> debug chalk.grey 'Unhandled REQUEST event'#, arguments
   server.on 'request-internal', -> debug chalk.grey 'Unhandled INTERNAL event'#, arguments
   server.on 'tail', -> debug chalk.grey 'Unhandled TAIL event'#, arguments
+
   # debug requests errors
   server.on 'request-error', (request, err) ->
-    keys = ['domainThrown', 'isBoom', 'isServer', 'isDeveloperError', 'data']
-    debug chalk.red "#{err.message} #{obj2str object.filter err, (v, k) -> v? and k in keys}"
+    msg = err.stack.split /\n/
+    debug "#{chalk.red msg[0]}\n#{chalk.grey msg[1..].join '\n'}"
+
   # display routing table after start
   server.on 'start', ->
     debug "hapi server started"
     printRouting server
+
   # short message after stop
   server.on 'stop', ->
     debug "hapi server stopped"
+
   # debug requests with payload and response
   if debugAccess.enabled or debugHeader.enabled or debugPayload.enabled
     server.on 'response', (data) ->
