@@ -18,13 +18,18 @@ log:
       datePattern: .yyyy-MM-dd
       compress: true
 
+heapdump: true
+
 space:
+
   s1:
     bind:
       listener: default
+
   s2:
     bind:
       domain: localhost
+
   s3:
     bind:
       context: /test

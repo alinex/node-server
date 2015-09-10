@@ -22,7 +22,7 @@ describe "server", ->
       validator.selfcheck schema, cb
 
     it "should load configuration", (cb) ->
-      @timeout 15000
+      @timeout 45000
       server.init (err) ->
         expect(err, 'init error').to.not.exist
         expect(config.get '/server').to.exist

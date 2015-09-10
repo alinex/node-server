@@ -330,6 +330,10 @@ module.exports =
       keys:
         listener: listener
         log: log
+        heapdump:
+          title: "Write HEAP dumps"
+          description: "a flag defining if HEAP dumps should be written"
+          type: 'boolean'
         auth: auth
         app: app
         space: space

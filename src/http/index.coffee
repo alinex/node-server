@@ -57,14 +57,14 @@ class HttpServer extends EventEmitter
           maxRssBytes: listen.load.maxRss
           maxEventLoopDelay: listen.load.eventLoopDelay
       @server.connection options
-    # register plugins (defined below)
-    async.each plugins, (setup, cb) =>
-      @server.register setup, cb
     # message after start/stop
     @server.on 'start', ->
       console.log chalk.bold "Server started!"
     @server.on 'stop', ->
       console.log chalk.bold "Server stopped!"
+    # register plugins (defined below)
+    async.each plugins, (setup, cb) =>
+      @server.register setup, cb
     , cb
 
   # ### add route

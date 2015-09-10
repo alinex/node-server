@@ -51,6 +51,11 @@ exports.register = (server, options, cb) ->
   server.on 'request-error', (request, err) ->
     msg = err.stack.split /\n/
     debug "#{chalk.red msg[0]}\n#{chalk.grey msg[1..].join '\n'}"
+    if string.starts err.message, 'Uncaught error:'
+      conf = config.get '/server/http'
+      if conf.heapdump
+        filename = "#{__dirname}/../../../var/log/#{Date.now()}.heapsnapshot"
+        require('heapdump').writeSnapshot filename
 
   # display routing table after start
   server.on 'start', ->

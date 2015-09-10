@@ -102,3 +102,9 @@ log:
       filename: http-error.log
       maxSize: 100MB
       compress: true
+
+# ### HEAP dump
+#
+# Should a HEAP dump be written in var/log?
+
+heapdump: false
