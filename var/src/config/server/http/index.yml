@@ -105,6 +105,7 @@ log:
 
 # ### HEAP dump
 #
-# Should a HEAP dump be written in var/log?
+# Should a HEAP dump be written in var/log? But keep in mind they take a lot of
+# space and you should remove them later.
 
 heapdump: false

@@ -24,6 +24,8 @@ obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 # -------------------------------------------------
 
 exports.register = (server, options, cb) ->
+  conf = config.get '/server/http'
+  heapdump = require 'heapdump' if conf.heapdump
   # unused events
   server.on 'log', (data) ->
     level = 'info'
@@ -51,11 +53,8 @@ exports.register = (server, options, cb) ->
   server.on 'request-error', (request, err) ->
     msg = err.stack.split /\n/
     debug "#{chalk.red msg[0]}\n#{chalk.grey msg[1..].join '\n'}"
-    if string.starts err.message, 'Uncaught error:'
-      conf = config.get '/server/http'
-      if conf.heapdump
-        filename = "#{__dirname}/../../../var/log/#{Date.now()}.heapsnapshot"
-        require('heapdump').writeSnapshot filename
+    if heapdump? and string.starts err.message, 'Uncaught error:'
+      heapdump.writeSnapshot "#{__dirname}/../../../var/log/#{Date.now()}.heapsnapshot"
 
   # display routing table after start
   server.on 'start', ->

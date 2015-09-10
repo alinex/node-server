@@ -147,6 +147,7 @@ describe "http", ->
       ], 404, null, cb
 
     it "should get custom 500 error", (cb) ->
+      @timeout 15000
       test [
         'http://localhost:23174/500'
         'https://localhost:23175/500'

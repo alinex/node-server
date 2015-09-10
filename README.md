@@ -180,6 +180,18 @@ The server will response after a short time with it's routing table on the conso
 You are now able to access the server.
 
 
+Debugging
+-------------------------------------------------
+This is done the common way like all my modules using the debug module. So you
+may start the server using the environment variable `DEBUG=server*` to show them
+all.
+
+Additionally heapdumps will be written to the log dir on unhandled errors if you
+enabled it in the configuration. They can be examined using the chrome developer
+tools: Press F12, go to the Profiles Tab, right click on Profiles, Load... and select
+the file to load.
+
+
 API
 -------------------------------------------------
 
