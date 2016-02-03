@@ -2,7 +2,7 @@
   "name": "alinex-server",
   "version": "0.0.2",
   "description": "Web server platform for attachable apps.",
-  "copyright": "Alexander Schilling 2014",
+  "copyright": "Alexander Schilling 2015-2016",
   "private": false,
   "keywords": [
     "server",

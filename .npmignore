@@ -10,3 +10,7 @@
 /var/lib
 /var/local
 /var/log
+.travis.yml
+.npmignore
+.gitignore
+coffeelint.json
