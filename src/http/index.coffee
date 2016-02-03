@@ -16,10 +16,6 @@ hapi = require 'hapi'
 # alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
-{object, string} = require 'alinex-util'
-
-# helper for debug output formatting
-obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
 # Define singleton instance
 # -------------------------------------------------
@@ -77,9 +73,8 @@ class HttpServer extends EventEmitter
     delete setup.bind
     # set route
     setup.vhost = bind.domain if bind.domain?
-    path = setup.path
     bind.context ?= ['']
-    for cpath in bind.context
+    for path in bind.context
       setup.path = "#{bind.context}#{path ? '/'}"
       debug "adding route \"#{setup.config.description ? setup.path} \""
       debug chalk.grey "listener: #{util.inspect(bind.listener ? 'ALL')}"
@@ -118,7 +113,7 @@ class HttpServer extends EventEmitter
     @server.root.stop()
     cb()
 
-module.exports = http = new HttpServer()
+module.exports = new HttpServer()
 
 # Plugin configurations
 # -------------------------------------------------
@@ -185,4 +180,3 @@ resolveSpace = (setup) ->
     delete resolve[att] unless resolve[att].length
   setup.bind = resolve
   return setup
-

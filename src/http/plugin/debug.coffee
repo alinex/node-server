@@ -14,8 +14,7 @@ chalk = require 'chalk'
 util = require 'util'
 # alinex modules
 config = require 'alinex-config'
-async = require 'alinex-async'
-{string, object} = require 'alinex-util'
+{string} = require 'alinex-util'
 
 
 obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
@@ -131,7 +130,7 @@ printRouting = (server, cb = -> ) ->
         conn = server.select listen
         if space.domain?
           for domain in space.bind.domain
-            base = "#{conn.info.protocol}://#{route.settings.vhost}:#{conn.info.port}"
+            base = "#{conn.info.protocol}://#{domain}:#{conn.info.port}"
             spaces[name].push base + context for context in space.bind.context ? ['']
         else
           spaces[name].push conn.info.uri + context for context in space.bind.context ? ['']

@@ -6,17 +6,12 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('server:http:log')
 winston = require 'winston'
 moment = require 'moment'
-util = require 'util'
 # alinex modules
 config = require 'alinex-config'
-async = require 'alinex-async'
 {string, object} = require 'alinex-util'
 
-
-obj2str = (o) -> util.inspect(o).replace /\s+/g, ' '
 
 # Plugin Interface
 # -------------------------------------------------
