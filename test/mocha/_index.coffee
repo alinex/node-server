@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-path = require 'path'
+### eslint-env node, mocha ###
 
 server = require '../../src/index'
 config = require 'alinex-config'

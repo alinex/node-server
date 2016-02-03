@@ -1,11 +1,10 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 request = require 'request'
 async = require 'alinex-async'
 
 server = require '../../src/index'
-config = require 'alinex-config'
-os = require 'os'
 
 # host      *           localhost
 # port      23174       23175
@@ -71,7 +70,7 @@ describe "http", ->
         path: '/500'
         config:
           description: 'Test Call with 500 error'
-        handler: (req, reply) -> throw new Error "Poopsie"
+        handler: -> throw new Error "Poopsie"
       server.http.route
         method: 'GET'
         path: '/log'
