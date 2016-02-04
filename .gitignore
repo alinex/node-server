@@ -2,7 +2,7 @@
 .settings
 .DS_Store
 *.sublime-*
-/coverage/
+/report/
 /data/
 /doc/
 /lib/
@@ -10,4 +10,4 @@
 /node_modules/
 /var/lib/
 /var/local/
-var/log/
+/var/log/
