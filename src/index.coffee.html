@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-server/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-server/src/index.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,273 +39,295 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#startup%20alinex%20server">Startup Alinex Server</a>
+        <a href="#startup-alinex-server">Startup Alinex Server</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#data%20container">Data container</a>
+        <a href="#data-container">Data container</a>
       </div>
+
       <div class="heading h2">
-        <a href="#define%20singleton%20instance">Define singleton instance</a>
+        <a href="#define-singleton-instance">Define singleton instance</a>
       </div>
+
       <div class="heading h2">
         <a href="#initialization">Initialization</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="startup%20alinex%20server">
+          <div class="pilwrap" id="startup-alinex-server">
   <h1>
-    <a href="#startup%20alinex%20server" name="startup%20alinex%20server" class="pilcrow">&#182;</a>
-    Startup Alinex Server
+    <a href="#startup-alinex-server" name="startup-alinex-server" class="pilcrow"></a>
+Startup Alinex Server
   </h1>
 </div>
-
-
 <p>This file is used to start the whole system. It will start as single server
 or cluster server depending on the <code>NODE_ENV</code> setting.</p>
-
 <p>For productive system the server starts as cluster to use the power of
 multi core architectures. It is not aimed for multi server cluster, this have
 to be set up on top.</p>
-
 <p>To configure the system use the <code>config/server</code> files.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server&#39;</span><span class="p">)</span>
-<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server'</span>)
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="data%20container">
+          <div class="pilwrap" id="data-container">
   <h2>
-    <a href="#data%20container" name="data%20container" class="pilcrow">&#182;</a>
-    Data container
+    <a href="#data-container" name="data-container" class="pilcrow"></a>
+Data container
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">types = </span><span class="p">[]</span> <span class="c1"># list of possible server types</span>
-<span class="nv">conf = </span><span class="kc">null</span> <span class="c1"># configuration</span>
+        <td class="code highlight">
+          <pre class="coffeescript">types = [] <span class="hljs-comment"># list of possible server types</span>
+conf = <span class="hljs-literal">null</span> <span class="hljs-comment"># configuration</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="define%20singleton%20instance">
+          <div class="pilwrap" id="define-singleton-instance">
   <h2>
-    <a href="#define%20singleton%20instance" name="define%20singleton%20instance" class="pilcrow">&#182;</a>
-    Define singleton instance
+    <a href="#define-singleton-instance" name="define-singleton-instance" class="pilcrow"></a>
+Define singleton instance
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports = server =</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = server =
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialization">
+          <div class="pilwrap" id="initialization">
   <h2>
-    <a href="#initialization" name="initialization" class="pilcrow">&#182;</a>
-    Initialization
+    <a href="#initialization" name="initialization" class="pilcrow"></a>
+Initialization
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>set the modules config paths and validation schema</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">setup: </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: async.once (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>set module search path</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>add schema for module's configuration</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/server&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./configSchema&#39;</span><span class="p">),</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/server'</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">'./configSchema'</span>), cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>set the modules config paths, validation schema and initialize the configuration</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">init: </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="nf">(cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;initialize server&quot;</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">init</span>: async.once (cb) -&gt;
+    debug <span class="hljs-string">"initialize server"</span>
+    async.parallel [
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>load types</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">__dirname</span><span class="p">,</span>
-        <span class="nv">type: </span><span class="s">&#39;dir&#39;</span>
-        <span class="nv">mindepth: </span><span class="mi">1</span>
-        <span class="nv">maxdepth: </span><span class="mi">1</span>
-        <span class="nv">exclude: </span><span class="s">&#39;doc&#39;</span>
-      <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
-        <span class="nv">types = </span><span class="nx">list</span><span class="o">?</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">extname</span> <span class="nx">e</span>
-        <span class="nx">cb</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      (cb) -&gt; fs.find __dirname,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'dir'</span>
+        <span class="hljs-attribute">mindepth</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">exclude</span>: <span class="hljs-string">'doc'</span>
+      , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
+        types = list?.map (e) -&gt; fspath.basename e, fspath.extname e
+        cb err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>set module search path and init config</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">server</span><span class="p">.</span><span class="nx">setup</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      (cb) -&gt; server.setup (err) -&gt;
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        config.init cb
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>setup log directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s">&#39;/../var/log&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
-        <span class="nx">cb</span><span class="p">()</span>
-    <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      (cb) -&gt; fs.mkdir __dirname + <span class="hljs-string">'/../var/log'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
+        cb()
+    ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>initialize individual servers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">types</span><span class="p">,</span> <span class="nf">(type, cb) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">server</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span><span class="o">?</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">conf</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span><span class="o">?</span>
-        <span class="nx">debug</span> <span class="s">&quot;initialize </span><span class="si">#{</span><span class="nx">type</span><span class="si">}</span><span class="s"> server part&quot;</span>
-        <span class="nv">server.http = </span><span class="nx">require</span> <span class="s">&quot;./</span><span class="si">#{</span><span class="nx">type</span><span class="si">}</span><span class="s">/index&quot;</span>
-        <span class="nx">server</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-      <span class="p">,</span> <span class="nx">cb</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">      conf = config.get <span class="hljs-string">'server'</span>
+      async.each types, <span class="hljs-function"><span class="hljs-params">(type, cb)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> server[type]? <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> conf[type]?
+        debug <span class="hljs-string">"initialize <span class="hljs-subst">#{type}</span> server part"</span>
+        server.http = <span class="hljs-built_in">require</span> <span class="hljs-string">"./<span class="hljs-subst">#{type}</span>/index"</span>
+        server.http.init cb
+      , cb
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

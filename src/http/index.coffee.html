@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-server/src/http/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-server/src/http/index.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,898 +39,662 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#startup%20http%20server">Startup Http Server</a>
+        <a href="#startup-http-server">Startup Http Server</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#define%20singleton%20instance">Define singleton instance</a>
+        <a href="#define-singleton-instance">Define singleton instance</a>
       </div>
+
       <div class="heading h2">
-        <a href="#data%20container">Data container</a>
+        <a href="#data-container">Data container</a>
       </div>
+
       <div class="heading h3">
         <a href="#initialize">initialize</a>
       </div>
+
       <div class="heading h3">
-        <a href="#add%20route">add route</a>
+        <a href="#add-route">add route</a>
       </div>
+
       <div class="heading h3">
-        <a href="#add%20plugin">add plugin</a>
+        <a href="#add-plugin">add plugin</a>
       </div>
+
       <div class="heading h2">
-        <a href="#server%20start%20and%20stop">Server Start and Stop</a>
+        <a href="#server-start-and-stop">Server Start and Stop</a>
       </div>
+
       <div class="heading h3">
         <a href="#start">start</a>
       </div>
+
       <div class="heading h3">
         <a href="#stop">stop</a>
       </div>
-      <div class="heading h3">
-        <a href="#printout%20routing">printout routing</a>
-      </div>
+
       <div class="heading h2">
-        <a href="#server%20setup%20functions">Server setup functions</a>
+        <a href="#plugin-configurations">Plugin configurations</a>
       </div>
-      <div class="heading h3">
-        <a href="#events%20for%20debugging">Events for debugging</a>
-      </div>
-      <div class="heading h3">
-        <a href="#add%20connections">Add Connections</a>
-      </div>
+
       <div class="heading h2">
-        <a href="#plugin%20configurations">Plugin configurations</a>
+        <a href="#resolve-space-bindings">Resolve space bindings</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="startup%20http%20server">
+          <div class="pilwrap" id="startup-http-server">
   <h1>
-    <a href="#startup%20http%20server" name="startup%20http%20server" class="pilcrow">&#182;</a>
-    Startup Http Server
+    <a href="#startup-http-server" name="startup-http-server" class="pilcrow"></a>
+Startup Http Server
   </h1>
 </div>
-
-
 <p>This file is used to start the real http server.</p>
-
 <p>To configure the system use the <code>config/server/http</code> file.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server:http&#39;</span><span class="p">)</span>
-<span class="nv">debugAccess = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server:http:access&#39;</span><span class="p">)</span>
-<span class="nv">debugHeader = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server:http:header&#39;</span><span class="p">)</span>
-<span class="nv">debugPayload = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;server:http:payload&#39;</span><span class="p">)</span>
-<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
-<span class="nv">hapi = </span><span class="nx">require</span> <span class="s">&#39;hapi&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:control'</span>)
+EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+hapi = <span class="hljs-built_in">require</span> <span class="hljs-string">'hapi'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
-</div>
-<p>helper for debug output formatting</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">obj2str = </span><span class="nf">(o) -&gt;</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">o</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="define%20singleton%20instance">
+          <div class="pilwrap" id="define-singleton-instance">
   <h2>
-    <a href="#define%20singleton%20instance" name="define%20singleton%20instance" class="pilcrow">&#182;</a>
-    Define singleton instance
+    <a href="#define-singleton-instance" name="define-singleton-instance" class="pilcrow"></a>
+Define singleton instance
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">HttpServer</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="data%20container">
+          <div class="pilwrap" id="data-container">
   <h2>
-    <a href="#data%20container" name="data%20container" class="pilcrow">&#182;</a>
-    Data container
+    <a href="#data-container" name="data-container" class="pilcrow"></a>
+Data container
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@conf: </span><span class="kc">null</span> <span class="c1"># configuration</span>
-  <span class="vi">@server: </span><span class="kc">null</span> <span class="c1"># server</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@conf</span>: <span class="hljs-literal">null</span> <span class="hljs-comment"># configuration</span>
+  <span class="hljs-property">@server</span>: <span class="hljs-literal">null</span> <span class="hljs-comment"># server</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize">
+          <div class="pilwrap" id="initialize">
   <h3>
-    <a href="#initialize" name="initialize" class="pilcrow">&#182;</a>
-    initialize
+    <a href="#initialize" name="initialize" class="pilcrow"></a>
+initialize
   </h3>
 </div>
-
-
 <p>setup connections, debugging and base plugins</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">init: </span><span class="nf">(cb) =&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;setup server connections and plugins&quot;</span>
-    <span class="vi">@conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/server/http&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> =&gt;</span>
+    debug <span class="hljs-string">"setup server connections and plugins"</span>
+    <span class="hljs-property">@conf</span> = config.get <span class="hljs-string">'/server/http'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>configure server</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">options = </span><span class="p">{}</span>
-    <span class="nv">options.debug = </span><span class="kc">false</span> <span class="k">unless</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DEBUG</span><span class="o">?</span>
-    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listener</span>
-      <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">load</span><span class="o">?</span>
-        <span class="nv">options.load =</span>
-          <span class="nv">sampleInterval: </span><span class="mi">1000</span>
-        <span class="k">break</span>
-    <span class="vi">@server = </span><span class="k">new</span> <span class="nx">hapi</span><span class="p">.</span><span class="nx">Server</span> <span class="nx">options</span>
-    <span class="nx">setup</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    options = {}
+    options.debug = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.listener
+      <span class="hljs-keyword">if</span> value.load?
+        options.load =
+          <span class="hljs-attribute">sampleInterval</span>: <span class="hljs-number">1000</span>
+        <span class="hljs-keyword">break</span>
+    <span class="hljs-property">@server</span> = <span class="hljs-keyword">new</span> hapi.Server options
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>setup connections to use</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">setup</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> label, listen <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.listener
+      options =
+        <span class="hljs-attribute">labels</span>: [label]
+        <span class="hljs-attribute">host</span>: listen.host
+        <span class="hljs-attribute">port</span>: listen.port
+        <span class="hljs-attribute">tls</span>: listen.tls
+      <span class="hljs-keyword">if</span> listen.load?
+        options.load =
+          <span class="hljs-attribute">maxHeapUsedBytes</span>: listen.load.maxHeap
+          <span class="hljs-attribute">maxRssBytes</span>: listen.load.maxRss
+          <span class="hljs-attribute">maxEventLoopDelay</span>: listen.load.eventLoopDelay
+      <span class="hljs-property">@server</span>.connection options
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>message after start/stop</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@server</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'start'</span>, <span class="hljs-function">-&gt;</span>
+      <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Server started!"</span>
+    <span class="hljs-property">@server</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'stop'</span>, <span class="hljs-function">-&gt;</span>
+      <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Server stopped!"</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>register plugins (defined below)</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">plugins</span><span class="p">,</span> <span class="nf">(setup, cb) =&gt;</span>
-      <span class="nx">@server</span><span class="p">.</span><span class="nx">register</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    async.each plugins, <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> =&gt;</span>
+      <span class="hljs-property">@server</span>.register setup, cb
+    , cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="add%20route">
+          <div class="pilwrap" id="add-route">
   <h3>
-    <a href="#add%20route" name="add%20route" class="pilcrow">&#182;</a>
-    add route
+    <a href="#add-route" name="add-route" class="pilcrow"></a>
+add route
   </h3>
 </div>
-
-
 <p>add routes directly</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">route: </span><span class="nf">(setup, cb = -&gt; ) =&gt;</span>
-    <span class="nv">listener = </span><span class="kc">null</span>
-    <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span><span class="o">?</span>
-      <span class="nv">bind = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">route</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb = -&gt; )</span> =&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
-<p>context</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">setup.path = </span><span class="nx">bind</span><span class="p">.</span><span class="nx">context</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">context</span><span class="o">?</span>
+<p>resolve space settings</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    setup = resolveSpace setup
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
-<p>space</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">space</span><span class="o">?</span>
-        <span class="nv">space = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">space</span><span class="p">[</span><span class="nx">bind</span><span class="p">.</span><span class="nx">space</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">bind</span>
-        <span class="k">if</span> <span class="nx">space</span><span class="o">?</span>
-          <span class="nv">listener = </span><span class="nx">space</span><span class="p">.</span><span class="nx">listener</span> <span class="k">if</span> <span class="nx">space</span><span class="p">.</span><span class="nx">listener</span><span class="o">?</span>
-          <span class="nv">setup.vhost = </span><span class="nx">space</span><span class="p">.</span><span class="nx">domain</span> <span class="k">if</span> <span class="nx">space</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span>
-          <span class="nv">setup.path = </span><span class="nx">space</span><span class="p">.</span><span class="nx">context</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nx">space</span><span class="p">.</span><span class="nx">context</span>
+<p>remove bindings from setup</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    bind = setup.bind
+    <span class="hljs-keyword">delete</span> setup.bind
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
-</div>
-<p>listener</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span><span class="o">?</span>
-        <span class="k">if</span> <span class="nx">listener</span><span class="o">?</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
-</div>
-<p>only use domains which are in both space and domain setting</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">listener = </span><span class="p">[</span><span class="nx">listener</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">listener</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-          <span class="nv">bind.listener = </span><span class="p">[</span><span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-          <span class="nv">listener = </span><span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">listener</span>
-        <span class="k">else</span>
-          <span class="nv">listener = </span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span> <span class="k">then</span> <span class="p">[</span><span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span><span class="p">]</span> <span class="k">else</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>domain</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span>
-        <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">vhost</span><span class="o">?</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
-</div>
-<p>only use domains which are in both space and domain setting</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">setup.vhost = </span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">vhost</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">vhost</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-          <span class="nv">bind.domain = </span><span class="p">[</span><span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-          <span class="nv">setup.vhost = </span><span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">vhost</span>
-        <span class="k">else</span>
-          <span class="nv">setup.vhost = </span><span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
-</div>
-<p>optimize path</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">setup.path = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\/\/+/</span><span class="p">,</span> <span class="s">&#39;/&#39;</span>
-    <span class="k">delete</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">bind</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>set route</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;adding route \&quot;</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">description</span> <span class="o">?</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">path</span><span class="si">}</span><span class="s"> \&quot;&quot;</span>
-    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;listener: </span><span class="si">#{</span><span class="nx">listener</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">setup</span><span class="p">,</span> <span class="p">{</span><span class="nv">depth: </span><span class="kc">null</span><span class="p">}</span>
-    <span class="k">if</span> <span class="nx">listener</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    setup.vhost = bind.domain <span class="hljs-keyword">if</span> bind.domain?
+    bind.context ?= [<span class="hljs-string">''</span>]
+    <span class="hljs-keyword">for</span> path <span class="hljs-keyword">in</span> bind.context
+      setup.path = <span class="hljs-string">"<span class="hljs-subst">#{bind.context}</span><span class="hljs-subst">#{path ? <span class="hljs-string">'/'</span>}</span>"</span>
+      debug <span class="hljs-string">"adding route \"<span class="hljs-subst">#{setup.config.description ? setup.path}</span> \""</span>
+      debug chalk.grey <span class="hljs-string">"listener: <span class="hljs-subst">#{util.inspect(bind.listener ? <span class="hljs-string">'ALL'</span>)}</span>"</span>
+      debug chalk.grey util.inspect setup, {<span class="hljs-attribute">depth</span>: <span class="hljs-literal">null</span>}
+      <span class="hljs-keyword">if</span> bind.listener?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>add to specific server</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">for</span> <span class="nx">listen</span> <span class="k">in</span> <span class="nx">listener</span>
-        <span class="nv">server = </span><span class="nx">@server</span><span class="p">.</span><span class="nx">select</span> <span class="nx">listen</span>
-        <span class="k">if</span> <span class="nx">server</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">length</span>
-          <span class="nx">server</span><span class="p">.</span><span class="nx">route</span> <span class="nx">setup</span>
-        <span class="k">else</span>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;No connections for listener &#39;</span><span class="si">#{</span><span class="nx">listen</span><span class="si">}</span><span class="s">&#39; to add route</span>
-<span class="s">          \&quot;</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">description</span> <span class="o">?</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">path</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
-    <span class="k">else</span>
-      <span class="nx">@server</span><span class="p">.</span><span class="nx">route</span> <span class="nx">setup</span>
-    <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">for</span> listen <span class="hljs-keyword">in</span> bind.listener
+          server = <span class="hljs-property">@server</span>.select listen
+          <span class="hljs-keyword">if</span> server.connections.length
+            server.route setup
+          <span class="hljs-keyword">else</span>
+            debug chalk.magenta <span class="hljs-string">"No connections for listener '<span class="hljs-subst">#{listen}</span>' to add route
+            \"<span class="hljs-subst">#{setup.config.description ? setup.path}</span>\""</span>
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-property">@server</span>.route setup
+    cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="add%20plugin">
+          <div class="pilwrap" id="add-plugin">
   <h3>
-    <a href="#add%20plugin" name="add%20plugin" class="pilcrow">&#182;</a>
-    add plugin
+    <a href="#add-plugin" name="add-plugin" class="pilcrow"></a>
+add plugin
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">plugin: </span><span class="nf">(setup, cb = -&gt; ) =&gt;</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">register</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">plugin</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb = -&gt; )</span> =&gt;</span>
+    debug <span class="hljs-string">"add plugin <span class="hljs-subst">#{setup}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="server%20start%20and%20stop">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>resolve space settings</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    setup = resolveSpace setup
+    <span class="hljs-property">@server</span>.register setup, cb
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="server-start-and-stop">
   <h2>
-    <a href="#server%20start%20and%20stop" name="server%20start%20and%20stop" class="pilcrow">&#182;</a>
-    Server Start and Stop
+    <a href="#server-start-and-stop" name="server-start-and-stop" class="pilcrow"></a>
+Server Start and Stop
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="start">
+          <div class="pilwrap" id="start">
   <h3>
-    <a href="#start" name="start" class="pilcrow">&#182;</a>
-    start
+    <a href="#start" name="start" class="pilcrow"></a>
+start
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">start: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;start hapi server V</span><span class="si">#{</span><span class="nx">@server</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">start</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">start</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    debug <span class="hljs-string">"start hapi server V<span class="hljs-subst">#{<span class="hljs-property">@server</span>.version}</span>"</span>
+    <span class="hljs-property">@server</span>.root.start cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="stop">
+          <div class="pilwrap" id="stop">
   <h3>
-    <a href="#stop" name="stop" class="pilcrow">&#182;</a>
-    stop
+    <a href="#stop" name="stop" class="pilcrow"></a>
+stop
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">stop: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
-    <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">stop</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    debug <span class="hljs-string">"stop hapi server"</span>
+    <span class="hljs-property">@server</span>.root.stop()
+    cb()
 
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> HttpServer()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="printout%20routing">
-  <h3>
-    <a href="#printout%20routing" name="printout%20routing" class="pilcrow">&#182;</a>
-    printout routing
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">printRouting: </span><span class="nf">(cb = -&gt; ) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Server started:&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
-</div>
-<p>collect routing data
-routes = uri:{app}
-listen = name:base</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">routes = </span><span class="p">{}</span>
-    <span class="nv">listener = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">conn</span> <span class="k">in</span> <span class="nx">@server</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
-      <span class="nx">listener</span><span class="p">[</span><span class="nx">conn</span><span class="p">.</span><span class="nx">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span>
-      <span class="k">for</span> <span class="nx">route</span> <span class="k">in</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">table</span>
-        <span class="nv">base = </span><span class="k">if</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span>
-          <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">else</span>
-          <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span>
-        <span class="nx">routes</span><span class="p">[</span><span class="nx">base</span> <span class="o">+</span> <span class="nx">route</span><span class="p">.</span><span class="nx">path</span><span class="p">]</span> <span class="o">=</span>
-          <span class="nv">method: </span><span class="nx">route</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span>
-          <span class="nv">host: </span><span class="nx">base</span>
-          <span class="nv">path: </span><span class="nx">route</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/({.*?})/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">gray</span> <span class="s">&#39;$1&#39;</span>
-          <span class="nv">auth: </span><span class="k">if</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span> <span class="k">then</span> <span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">strategies</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="k">else</span> <span class="kc">false</span>
-          <span class="nv">description: </span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">description</span> <span class="o">?</span> <span class="s">&#39;&#39;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
-</div>
-<p>spaces = name:[base]</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">spaces = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">space</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">space</span>
-      <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">listen</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">bind</span><span class="p">.</span><span class="nx">listener</span> <span class="o">?</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">listener</span>
-        <span class="nv">conn = </span><span class="nx">@server</span><span class="p">.</span><span class="nx">select</span> <span class="nx">listen</span>
-        <span class="k">if</span> <span class="nx">space</span><span class="p">.</span><span class="nx">domain</span><span class="o">?</span>
-          <span class="k">for</span> <span class="nx">domain</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">bind</span><span class="p">.</span><span class="nx">domain</span>
-            <span class="nv">base = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">route</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">vhost</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
-            <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">base</span> <span class="o">+</span> <span class="nx">context</span> <span class="k">for</span> <span class="nx">context</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">bind</span><span class="p">.</span><span class="nx">context</span> <span class="o">?</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]</span>
-        <span class="k">else</span>
-          <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span> <span class="o">+</span> <span class="nx">context</span> <span class="k">for</span> <span class="nx">context</span> <span class="k">in</span> <span class="nx">space</span><span class="p">.</span><span class="nx">bind</span><span class="p">.</span><span class="nx">context</span> <span class="o">?</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]</span>
-    <span class="nv">slist = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">spaces</span><span class="p">).</span><span class="nx">sort</span> <span class="nf">(a, b) -&gt;</span>
-      <span class="k">return</span> <span class="mi">1</span> <span class="k">unless</span> <span class="nx">spaces</span><span class="p">[</span><span class="nx">b</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span>
-      <span class="nx">spaces</span><span class="p">[</span><span class="nx">b</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">-</span> <span class="nx">spaces</span><span class="p">[</span><span class="nx">a</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
-</div>
-<p>uris = base:[route]</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">uris = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">app</span> <span class="k">of</span> <span class="nx">routes</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
-</div>
-<p>search in spaces</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">found = </span><span class="kc">false</span>
-      <span class="k">for</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">slist</span>
-        <span class="k">break</span> <span class="k">if</span> <span class="nx">found</span>
-        <span class="k">for</span> <span class="nx">check</span> <span class="k">in</span> <span class="nx">spaces</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
-          <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">check</span>
-            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
-            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">].</span><span class="nx">push</span> <span class="nx">app</span>
-            <span class="nv">found = </span><span class="kc">true</span>
-            <span class="k">break</span>
-      <span class="k">unless</span> <span class="nx">found</span>
-        <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">check</span> <span class="k">of</span> <span class="nx">listener</span>
-          <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">check</span>
-            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
-            <span class="nx">uris</span><span class="p">[</span><span class="nx">check</span><span class="p">].</span><span class="nx">push</span> <span class="nx">app</span>
-            <span class="k">break</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
-</div>
-<p>sort routing</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">uris</span>
-      <span class="nx">uris</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">sort</span> <span class="nf">(a, b) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">localeCompare</span> <span class="nx">b</span><span class="p">.</span><span class="nx">path</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
-</div>
-<p>write routing table listeners</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">base</span> <span class="k">of</span> <span class="nx">listener</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">cyan</span> <span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">base</span><span class="p">,</span> <span class="mi">41</span><span class="si">}</span><span class="s"></span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
-</div>
-<p>{chalk.magenta name + ' listener'}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      for uri, route of uris[base]</span>
-<span class="s">        console.log &quot;</span>    <span class="c1">#{chalk.green string.rpad route.method, 8}</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
-</div>
-<p>{string.rpad route.path, 30}
-{if route.auth then chalk.green route.auth else chalk.red 'public'}
-{chalk.yellow route.description}"    #   - with apps
-spaces</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">spaces</span>
-      <span class="nx">list</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
-      <span class="k">for</span> <span class="nx">base</span> <span class="k">in</span> <span class="nx">list</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">cyan</span> <span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">base</span><span class="p">,</span> <span class="mi">41</span><span class="si">}</span><span class="s"></span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
-</div>
-<p>{chalk.magenta name + ' space'}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">        for uri, route of uris[base]</span>
-<span class="s">          console.log &quot;</span>    <span class="c1">#{chalk.green string.rpad route.method, 8}</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
-</div>
-<p>{string.rpad route.path, 30}
-{if route.auth then chalk.green route.auth else chalk.red 'public'}
-{chalk.yellow route.description}"    #   - with apps</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">cb</span><span class="p">()</span>
-
-<span class="nv">module.exports = http = </span><span class="k">new</span> <span class="nx">HttpServer</span><span class="p">()</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="server%20setup%20functions">
+          <div class="pilwrap" id="plugin-configurations">
   <h2>
-    <a href="#server%20setup%20functions" name="server%20setup%20functions" class="pilcrow">&#182;</a>
-    Server setup functions
+    <a href="#plugin-configurations" name="plugin-configurations" class="pilcrow"></a>
+Plugin configurations
   </h2>
 </div>
-
-
-<p>They are called within the init() method and do some specific steps.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">setup =</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="events%20for%20debugging">
-  <h3>
-    <a href="#events%20for%20debugging" name="events%20for%20debugging" class="pilcrow">&#182;</a>
-    Events for debugging
-  </h3>
-</div>
-
-
-<p>Event handling for debug and output</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">events: </span><span class="nf">-&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
-</div>
-<p>unused events</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-      <span class="nv">level = </span><span class="s">&#39;info&#39;</span>
-      <span class="nv">color = </span><span class="s">&#39;gray&#39;</span>
-      <span class="k">switch</span>
-        <span class="k">when</span> <span class="s">&#39;error&#39;</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tags</span>
-          <span class="nv">color = </span><span class="s">&#39;red&#39;</span>
-          <span class="nv">level = </span><span class="s">&#39;error&#39;</span>
-        <span class="k">when</span> <span class="s">&#39;warn&#39;</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">tags</span>
-          <span class="nv">color = </span><span class="s">&#39;magenta&#39;</span>
-          <span class="nv">level = </span><span class="s">&#39;warn&#39;</span>
-      <span class="nv">msg = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">level</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s">:&quot;</span>
-      <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span> <span class="k">instanceof</span> <span class="nb">Error</span>
-        <span class="nx">msg</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nx">msg</span> <span class="o">+=</span> <span class="s">&quot; (</span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">)&quot;</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">code</span>
-      <span class="k">else</span>
-        <span class="nx">msg</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="nx">msg</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;request&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;Unhandled REQUEST event&#39;</span><span class="c1">#, arguments</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;request-internal&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;Unhandled INTERNAL event&#39;</span><span class="c1">#, arguments</span>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;tail&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;Unhandled TAIL event&#39;</span><span class="c1">#, arguments</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
-</div>
-<p>debug requests errors</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;request-error&#39;</span><span class="p">,</span> <span class="nf">(request, err) -&gt;</span>
-      <span class="nv">keys = </span><span class="p">[</span><span class="s">&#39;domainThrown&#39;</span><span class="p">,</span> <span class="s">&#39;isBoom&#39;</span><span class="p">,</span> <span class="s">&#39;isServer&#39;</span><span class="p">,</span> <span class="s">&#39;isDeveloperError&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">]</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">obj2str</span> <span class="nx">object</span><span class="p">.</span><span class="nx">filter</span> <span class="nx">err</span><span class="p">,</span> <span class="nf">(v, k) -&gt;</span> <span class="nx">v</span><span class="o">?</span> <span class="o">and</span> <span class="nx">k</span> <span class="k">in</span> <span class="nx">keys</span><span class="si">}</span><span class="s">&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
-</div>
-<p>display routing table after start</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
-      <span class="nx">debug</span> <span class="s">&quot;hapi server started&quot;</span>
-      <span class="nx">@printRouting</span><span class="p">()</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
-</div>
-<p>short message after stop</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;stop&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-      <span class="nx">debug</span> <span class="s">&quot;hapi server stopped&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
-</div>
-<p>debug requests with payload and response</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">debugAccess</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugHeader</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugPayload</span><span class="p">.</span><span class="nx">enabled</span>
-      <span class="nx">@server</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;response&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-        <span class="nv">raw = </span><span class="nx">data</span><span class="p">.</span><span class="nx">raw</span><span class="p">.</span><span class="nx">req</span>
-        <span class="nv">url = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">protocol</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="si">}#{</span><span class="nx">raw</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">if</span> <span class="nx">debugAccess</span><span class="p">.</span><span class="nx">enabled</span>
-          <span class="nv">client = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">raw</span><span class="p">[</span><span class="s">&#39;x-forwarded-for&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">remoteAddress</span><span class="si">}</span><span class="s"> &quot;</span>
-          <span class="nv">access = </span><span class="s">&quot;-&gt; </span><span class="si">#{</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">url</span><span class="si">}</span><span class="s"> &quot;</span>
-          <span class="nv">code = </span><span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
-          <span class="nv">color = </span><span class="k">switch</span>
-            <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="k">then</span> <span class="s">&#39;white&#39;</span>
-            <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;green&#39;</span>
-            <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">400</span> <span class="k">then</span> <span class="s">&#39;cyan&#39;</span>
-            <span class="k">when</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">500</span> <span class="k">then</span> <span class="s">&#39;yellow&#39;</span>
-            <span class="k">else</span> <span class="s">&#39;red&#39;</span>
-          <span class="nv">time = </span><span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">responded</span> <span class="o">-</span> <span class="nx">data</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">received</span>
-          <span class="nv">time = </span><span class="k">switch</span>
-            <span class="k">when</span> <span class="nx">time</span> <span class="o">&lt;</span> <span class="mi">50</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">time</span><span class="si">}</span><span class="s">ms&quot;</span>
-            <span class="k">when</span> <span class="nx">time</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">time</span><span class="si">}</span><span class="s">ms&quot;</span>
-            <span class="k">when</span> <span class="nx">time</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">orange</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">time</span><span class="si">}</span><span class="s">ms&quot;</span>
-            <span class="k">else</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">time</span><span class="o">/</span><span class="mi">1000</span><span class="si">}</span><span class="s">s&quot;</span>
-          <span class="nv">response = </span><span class="s">&quot;-&gt; </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="nx">code</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">time</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">debugAccess</span> <span class="nx">client</span> <span class="o">+</span> <span class="nx">access</span> <span class="o">+</span> <span class="nx">response</span>
-        <span class="k">if</span> <span class="nx">debugHeader</span><span class="p">.</span><span class="nx">enabled</span>
-          <span class="nx">debugHeader</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;request </span><span class="si">#{</span><span class="nx">obj2str</span> <span class="nx">data</span><span class="p">.</span><span class="nx">headers</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">debugHeader</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;response </span><span class="si">#{</span><span class="nx">obj2str</span> <span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">if</span> <span class="nx">debugPayload</span><span class="p">.</span><span class="nx">enabled</span>
-          <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">payload</span>
-            <span class="nx">debugPayload</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;request </span><span class="si">#{</span><span class="nx">obj2str</span> <span class="nx">data</span><span class="p">.</span><span class="nx">payload</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">debugPayload</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;response </span><span class="si">#{</span><span class="nx">obj2str</span> <span class="nx">data</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">source</span><span class="si">}</span><span class="s">&quot;</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="add%20connections">
-  <h3>
-    <a href="#add%20connections" name="add%20connections" class="pilcrow">&#182;</a>
-    Add Connections
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">connections: </span><span class="nf">-&gt;</span>
-    <span class="k">for</span> <span class="nx">label</span><span class="p">,</span> <span class="nx">listen</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">listener</span>
-      <span class="nv">options =</span>
-        <span class="nv">labels: </span><span class="p">[</span><span class="nx">label</span><span class="p">]</span>
-        <span class="nv">host: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">host</span>
-        <span class="nv">port: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">port</span>
-        <span class="nv">tls: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">tls</span>
-      <span class="k">if</span> <span class="nx">listen</span><span class="p">.</span><span class="nx">load</span><span class="o">?</span>
-        <span class="nv">options.load =</span>
-          <span class="nv">maxHeapUsedBytes: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">maxHeap</span>
-          <span class="nv">maxRssBytes: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">maxRss</span>
-          <span class="nv">maxEventLoopDelay: </span><span class="nx">listen</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">eventLoopDelay</span>
-      <span class="nx">@server</span><span class="p">.</span><span class="nx">connection</span> <span class="nx">options</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="plugin%20configurations">
-  <h2>
-    <a href="#plugin%20configurations" name="plugin%20configurations" class="pilcrow">&#182;</a>
-    Plugin configurations
-  </h2>
-</div>
-
-
 <p>The following plugins will be loaded automatically. The implementation is in
 the extra files.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">plugins = </span><span class="p">[</span>
-  <span class="nv">register: </span><span class="nx">require</span> <span class="s">&quot;../http/plugin/log&quot;</span>
-<span class="p">]</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">plugins = [
+</pre>
         </td>
       </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>register: require '../http/plugin/log'
+options: ....</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">require</span> <span class="hljs-string">'../http/plugin/debug'</span>
+  <span class="hljs-built_in">require</span> <span class="hljs-string">'../http/plugin/log'</span>
+  <span class="hljs-built_in">require</span> <span class="hljs-string">'inert'</span>
+]
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="resolve-space-bindings">
+  <h2>
+    <a href="#resolve-space-bindings" name="resolve-space-bindings" class="pilcrow"></a>
+Resolve space bindings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">resolveSpace</span> = <span class="hljs-params">(setup)</span> -&gt;</span>
+  conf = config.get <span class="hljs-string">'/server/http'</span>
+  resolve =
+    <span class="hljs-attribute">listener</span>: []
+    <span class="hljs-attribute">domain</span>: []
+    <span class="hljs-attribute">context</span>: []
+  <span class="hljs-keyword">if</span> setup.bind?
+    bind = setup.bind
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>prefer array notation everythere</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> att <span class="hljs-keyword">in</span> [<span class="hljs-string">'space'</span>, <span class="hljs-string">'listener'</span>, <span class="hljs-string">'domain'</span>, <span class="hljs-string">'context'</span>]
+      bind[att] = [bind[att]] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> bind[att] <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      bind[att] ?= []
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>space</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.space.length
+      <span class="hljs-keyword">for</span> spacename <span class="hljs-keyword">in</span> bind.space
+        space = conf.space?[spacename]?.bind
+        <span class="hljs-keyword">if</span> space?
+          resolve.listener = space.listener <span class="hljs-keyword">if</span> space.listener?
+          resolve.domain = space.domain <span class="hljs-keyword">if</span> space.domain?
+          resolve.context = space.context <span class="hljs-keyword">if</span> space.context?
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>listener</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.listener.length
+      <span class="hljs-keyword">if</span> resolve.listener.length
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
+</div>
+<p>only use listeners which are in both space and listener setting</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        resolve.listener = bind.listener.filter (e) -&gt; e <span class="hljs-keyword">in</span> resolve.listener
+      <span class="hljs-keyword">else</span>
+        resolve.listener = bind.listener
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
+</div>
+<p>domain</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.domain.length
+      <span class="hljs-keyword">if</span> resolve.domain.length
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>only use domains which are in both space and domain setting</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        resolve.domain = bind.domain.filter (e) -&gt; e <span class="hljs-keyword">in</span> resolve.domain
+      <span class="hljs-keyword">else</span>
+        resolve.domain = bind.domain
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>context</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.context.length
+      <span class="hljs-keyword">if</span> resolve.context.length
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
+</div>
+<p>combine together while space context is higher</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        combined = []
+        <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> resolve.context
+          <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> bind.context
+            combined.push <span class="hljs-string">"<span class="hljs-subst">#{a}</span>/<span class="hljs-subst">#{b}</span>"</span>.replace <span class="hljs-regexp">/\/\/+/</span>, <span class="hljs-string">'/'</span>
+        resolve.context = combined
+      <span class="hljs-keyword">else</span>
+        resolve.context = bind.context
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
+</div>
+<p>cleanup</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">delete</span> resolve.space
+  <span class="hljs-keyword">for</span> att <span class="hljs-keyword">in</span> [<span class="hljs-string">'listener'</span>, <span class="hljs-string">'domain'</span>, <span class="hljs-string">'context'</span>]
+    <span class="hljs-keyword">delete</span> resolve[att] <span class="hljs-keyword">unless</span> resolve[att].length
+  setup.bind = resolve
+  <span class="hljs-keyword">return</span> setup
+
+</pre>
+        </td>
+      </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

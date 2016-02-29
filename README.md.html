@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-server/READMEmd", defaultSidebar = true;
+    var relativeDir = "";
+    var thisFile = "home/alex/github/node-server/README.md";
+    var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-  <script src="fileSearch.js"></script>
-  <script src="goToLine.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
-  <link rel="stylesheet" href="goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,68 +39,87 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#alinex%20web%20server">Alinex web server</a>
+        <a href="#alinex-web-server">Alinex web server</a>
       </div>
+
       <div class="heading h2">
         <a href="#install">Install</a>
       </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+
       <div class="heading h3">
         <a href="#setup">Setup</a>
       </div>
+
       <div class="heading h3">
         <a href="#start">Start</a>
       </div>
+
       <div class="heading h2">
-        <a href="#webserver%20architecture">Webserver Architecture</a>
+        <a href="#webserver-architecture">Webserver Architecture</a>
       </div>
+
       <div class="heading h3">
         <a href="#listener">Listener</a>
       </div>
+
       <div class="heading h3">
         <a href="#spaces">Spaces</a>
       </div>
+
       <div class="heading h3">
         <a href="#plugins">Plugins</a>
       </div>
+
+      <div class="heading h3">
+        <a href="#routes">Routes</a>
+      </div>
+
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
+
       <div class="heading h2">
-        <a href="#routes">Routes</a>
+        <a href="#routes-1">Routes</a>
       </div>
+
       <div class="heading h2">
-        <a href="#server%20start">Server start</a>
+        <a href="#server-start">Server start</a>
       </div>
+
+      <div class="heading h2">
+        <a href="#debugging">Debugging</a>
+      </div>
+
       <div class="heading h2">
         <a href="#api">API</a>
       </div>
+
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="alinex%20web%20server">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="alinex-web-server">
   <h1>
-    <a href="#alinex%20web%20server" name="alinex%20web%20server" class="pilcrow">&#182;</a>
-    Alinex web server
+    <a href="#alinex-web-server" name="alinex-web-server" class="pilcrow"></a>
+Alinex web server
   </h1>
 </div>
-
-
-<p><a href="https://travis-ci.org/alinex/node-server"><img src="https://travis-ci.org/alinex/node-server.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-server?branch=master"><img src="https://coveralls.io/repos/alinex/node-server/badge.png?branch=master" alt="Coverage Status" title="" /></a>
-<a href="https://gemnasium.com/alinex/node-server"><img src="https://gemnasium.com/alinex/node-server.png" alt="Dependency Status" title="" /></a></p>
-
+<p><a href="https://travis-ci.org/alinex/node-server"><img src="https://travis-ci.org/alinex/node-server.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-server?branch=master"><img src="https://coveralls.io/repos/alinex/node-server/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-server"><img src="https://gemnasium.com/alinex/node-server.png" alt="Dependency Status"></a></p>
 <p>The alinex server is a simple base system making it possible to easily use it for
 any application. The main part is it's HTTP/HTTPS server part but it may also include
 other server protocols like ftp later.</p>
-
 <ul>
 <li>full configurable</li>
 <li>supports multiple IPs, ports, ssl</li>
@@ -103,268 +129,210 @@ other server protocols like ftp later.</p>
 <li>forwarding and redirects</li>
 <li>proxy support</li>
 </ul>
-
 <blockquote>
-  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
 </blockquote>
-
-
 <div class="pilwrap" id="install">
   <h2>
-    <a href="#install" name="install" class="pilcrow">&#182;</a>
-    Install
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
   </h2>
 </div>
-
-
-<p><a href="https://www.npmjs.com/package/alinex-server"><img src="https://nodei.co/npm/alinex-server.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
- <img src="https://nodei.co/npm-dl/alinex-server.png?months=9&amp;height=3" alt="Downloads" title="" />
+<p><a href="https://www.npmjs.com/package/alinex-server"><img src="https://nodei.co/npm/alinex-server.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-server.png?months=9&amp;height=3" alt="Downloads">
 </a></p>
-
 <p>The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):</p>
-
-
-<div class="highlight"><pre><code>npm install alinex-server --save
-</code></pre></div>
-
-
-
+<pre><code class="sh">npm install alinex-server --save
+</code></pre>
 <p>And update it to the latest version later:</p>
-
-
-<div class="highlight"><pre><code>npm update alinex-server --save
-</code></pre></div>
-
-
-
-<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-
-
+<pre><code class="sh">npm update alinex-server --save
+</code></pre>
+<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
   </h2>
 </div>
-
-
 <p>The usage is very simple, you have to load the server module first:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">server = </span><span class="nx">require</span> <span class="s">&#39;alinex-server&#39;</span>
-</code></pre></div>
-
-
-
-
+<pre><code class="coffee">server = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-server'</span>
+</code></pre>
 <div class="pilwrap" id="setup">
   <h3>
-    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
-    Setup
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h3>
 </div>
-
-
 <p>After that in your code you have to initialize the server:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-  <span class="c1"># go on</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">server.init (err) -&gt;
+  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+  <span class="hljs-comment"># go on</span>
+</code></pre>
 <p>Now you may add some specific routes:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">route</span>
-  <span class="nv">path: </span><span class="s">&#39;/my-path&#39;</span>
-  <span class="nv">handler: </span><span class="nf">(request, reply) -&gt;</span>
-    <span class="c1"># function handling this request</span>
-</code></pre></div>
-
-
-
-
+<pre><code class="coffee">server.route
+  <span class="hljs-attribute">path</span>: <span class="hljs-string">'/my-path'</span>
+  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(request, reply)</span> -&gt;</span>
+    <span class="hljs-comment"># function handling this request</span>
+</code></pre>
 <div class="pilwrap" id="start">
   <h3>
-    <a href="#start" name="start" class="pilcrow">&#182;</a>
-    Start
+    <a href="#start" name="start" class="pilcrow"></a>
+Start
   </h3>
 </div>
-
-
-
-<div class="highlight"><pre><code><span class="nx">server</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">start</span> <span class="nf">-&gt;</span>
-  <span class="c1"># server is running</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="webserver%20architecture">
+<pre><code class="coffee">server.http.start -&gt;
+  <span class="hljs-comment"># server is running</span>
+</code></pre>
+<div class="pilwrap" id="webserver-architecture">
   <h2>
-    <a href="#webserver%20architecture" name="webserver%20architecture" class="pilcrow">&#182;</a>
-    Webserver Architecture
+    <a href="#webserver-architecture" name="webserver-architecture" class="pilcrow"></a>
+Webserver Architecture
   </h2>
 </div>
-
-
 <p>At the base this module manages any server like an HTTP or HTTPS server. Therefore
 it includes the basic server technology without specific applications.</p>
-
 <p>Just now the only possible server is an http server.</p>
-
 <p>The following architecture shows you how it is organized internally to learn how
 to customize it to your needs.</p>
-
-<p><img src="src/doc/architecture.png" alt="Architecture" title="" /></p>
-
+<p><img src="src/doc/architecture.png" alt="Architecture"></p>
 <p>The server has two different bindings, first it should bind to the network to get
 the requests. Second it allows binding plugins to specific requests.</p>
-
 <p>The arrows will show you some of the possibilities to connect the different server
 parts together. Because of the possibilities it may look complex at first.</p>
-
-
 <div class="pilwrap" id="listener">
   <h3>
-    <a href="#listener" name="listener" class="pilcrow">&#182;</a>
-    Listener
+    <a href="#listener" name="listener" class="pilcrow"></a>
+Listener
   </h3>
 </div>
-
-
 <p>The basic part of the connection to the network are the listeners. The server may
 listen on multiple or all IP addresses of the local host and may bind to multiple
 ports with HTTP or HTTPS protocols. For each Port binding and specific IP an extra
 listener has to be created.</p>
-
 <p>The different listeners bundle all the used network connections for the server
 together and their names may be used later to bind spaces or apps to it.
 It also defines if an SSL protocol (HTTPS) will be used.</p>
-
 <p>The concrete listener, virtual host (used Domain) and context (path) may be used
 to bind spaces and plugin to them.</p>
-
-
 <div class="pilwrap" id="spaces">
   <h3>
-    <a href="#spaces" name="spaces" class="pilcrow">&#182;</a>
-    Spaces
+    <a href="#spaces" name="spaces" class="pilcrow"></a>
+Spaces
   </h3>
 </div>
-
-
 <p>To make administration of complex and big servers easier you may use spaces. They
 define an area over some parts of one or multiple listeners which belongs together.
 It is not necessary to do so but it helps you to make configuration easier and
 put all configurations of one space together.</p>
-
 <p>If spaces are used and you bind a plugin to them the plugin will be bound only to
 this area or a subpart of it if specified.</p>
-
-
 <div class="pilwrap" id="plugins">
   <h3>
-    <a href="#plugins" name="plugins" class="pilcrow">&#182;</a>
-    Plugins
+    <a href="#plugins" name="plugins" class="pilcrow"></a>
+Plugins
   </h3>
 </div>
-
-
 <p>Everything a user can use is specified using some plugins which may have their own
 configuration. They will be bound to a space, listener, domain and context path.</p>
-
 <p>In the configuration you define them below the spaces to bind them to it or directly
 below the <code>http</code> element to directly bind to the listeners. If you want a plugin to
 be bound to multiple spaces you have to bind it directly to the listener or make
 multiple entries for it.</p>
-
-
+<div class="pilwrap" id="routes">
+  <h3>
+    <a href="#routes" name="routes" class="pilcrow"></a>
+Routes
+  </h3>
+</div>
+<p>The route specifies the handler for a specific URI scheme. Use it to add functionality
+to the server. Or you may collect some routes together in a plugin which you may
+add.</p>
 <div class="pilwrap" id="configuration">
   <h2>
-    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
   </h2>
 </div>
-
-
 <p>The main configuration is done using the <a href="http://alinex.github.io/node-config">Config</a>
 module so that the end user may easily configure the server without changing the
 code.</p>
-
 <p>See the files for `server/http' configuration to get a list of all possibilities.</p>
-
-
-<div class="pilwrap" id="routes">
+<div class="pilwrap" id="routes-1">
   <h2>
-    <a href="#routes" name="routes" class="pilcrow">&#182;</a>
-    Routes
+    <a href="#routes-1" name="routes-1" class="pilcrow"></a>
+Routes
   </h2>
 </div>
-
-
-<p>The following settings may be given:</p>
-
+<p>A route can be bind to one of the following (bind params):</p>
 <ul>
 <li>space</li>
 <li>listener</li>
 <li>domain</li>
 <li>context</li>
+</ul>
+<p>And it will work on one of the following:</p>
+<ul>
 <li>path</li>
 <li>method</li>
+</ul>
+<p>What to do will be set up using:</p>
+<ul>
+<li>config</li>
 <li>handler</li>
 </ul>
-
-
-<div class="pilwrap" id="server%20start">
+<p>As handler you may also use the predefined ones:</p>
+<ul>
+<li>file</li>
+<li>directory</li>
+</ul>
+<div class="pilwrap" id="server-start">
   <h2>
-    <a href="#server%20start" name="server%20start" class="pilcrow">&#182;</a>
-    Server start
+    <a href="#server-start" name="server-start" class="pilcrow"></a>
+Server start
   </h2>
 </div>
-
-
 <p>The server will response after a short time with it's routing table on the console.
 You are now able to access the server.</p>
-
-
+<div class="pilwrap" id="debugging">
+  <h2>
+    <a href="#debugging" name="debugging" class="pilcrow"></a>
+Debugging
+  </h2>
+</div>
+<p>This is done the common way like all my modules using the debug module. So you
+may start the server using the environment variable <code>DEBUG=server*</code> to show them
+all.</p>
+<p>Additionally heapdumps will be written to the log dir on unhandled errors if you
+enabled it in the configuration. They can be examined using the chrome developer
+tools: Press F12, go to the Profiles Tab, right click on Profiles, Load... and select
+the file to load.</p>
 <div class="pilwrap" id="api">
   <h2>
-    <a href="#api" name="api" class="pilcrow">&#182;</a>
-    API
+    <a href="#api" name="api" class="pilcrow"></a>
+API
   </h2>
 </div>
-
-
-
 <div class="pilwrap" id="license">
   <h2>
-    <a href="#license" name="license" class="pilcrow">&#182;</a>
-    License
+    <a href="#license" name="license" class="pilcrow"></a>
+License
   </h2>
 </div>
-
-
-<p>Copyright 2015 Alexander Schilling</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<p>Copyright 2015-2016 Alexander Schilling</p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p></div>
+limitations under the License.</p>
+</div>
   </div>
 </body>
 </html>

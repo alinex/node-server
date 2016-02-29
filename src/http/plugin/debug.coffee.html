@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>debug.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "home/alex/github/node-server/src/http/plugin/debug.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#logging-plugin">Logging plugin</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#plugin-interface">Plugin Interface</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#printout-routing">printout routing</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-server" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="logging-plugin">
+  <h1>
+    <a href="#logging-plugin" name="logging-plugin" class="pilcrow"></a>
+Logging plugin
+  </h1>
+</div>
+<p>To add logging capabilities using the winston logger.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http'</span>)
+debugAccess = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:access'</span>)
+debugHeader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:header'</span>)
+debugPayload = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:payload'</span>)
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+<span class="hljs-function">
+
+<span class="hljs-title">obj2str</span> = <span class="hljs-params">(o)</span> -&gt;</span> util.inspect(o).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="plugin-interface">
+  <h2>
+    <a href="#plugin-interface" name="plugin-interface" class="pilcrow"></a>
+Plugin Interface
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.register = <span class="hljs-function"><span class="hljs-params">(server, options, cb)</span> -&gt;</span>
+  conf = config.get <span class="hljs-string">'/server/http'</span>
+  heapdump = <span class="hljs-built_in">require</span> <span class="hljs-string">'heapdump'</span> <span class="hljs-keyword">if</span> conf.heapdump
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>unused events</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'log'</span>, <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+    level = <span class="hljs-string">'info'</span>
+    color = <span class="hljs-string">'gray'</span>
+    <span class="hljs-keyword">switch</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">in</span> data.tags
+        color = <span class="hljs-string">'red'</span>
+        level = <span class="hljs-string">'error'</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">in</span> data.tags
+        color = <span class="hljs-string">'magenta'</span>
+        level = <span class="hljs-string">'warn'</span>
+    msg = <span class="hljs-string">"<span class="hljs-subst">#{level.toUpperCase()}</span>:"</span>
+    <span class="hljs-keyword">if</span> data.data <span class="hljs-keyword">instanceof</span> Error
+      msg += <span class="hljs-string">" <span class="hljs-subst">#{data.data.message}</span>"</span>
+      msg += <span class="hljs-string">" (<span class="hljs-subst">#{data.data.code}</span>)"</span> <span class="hljs-keyword">if</span> data.data.code
+    <span class="hljs-keyword">else</span>
+      msg += <span class="hljs-string">" <span class="hljs-subst">#{data.data}</span>"</span>
+    debug chalk[color] msg
+
+  server.<span class="hljs-literal">on</span> <span class="hljs-string">'request'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled REQUEST event'</span><span class="hljs-comment">#, arguments</span>
+  server.<span class="hljs-literal">on</span> <span class="hljs-string">'request-internal'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled INTERNAL event'</span><span class="hljs-comment">#, arguments</span>
+  server.<span class="hljs-literal">on</span> <span class="hljs-string">'tail'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled TAIL event'</span><span class="hljs-comment">#, arguments</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>debug requests errors</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'request-error'</span>, <span class="hljs-function"><span class="hljs-params">(request, err)</span> -&gt;</span>
+    msg = err.stack.split <span class="hljs-regexp">/\n/</span>
+    debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.red msg[<span class="hljs-number">0</span>]}</span>\n<span class="hljs-subst">#{chalk.grey msg[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>}</span>"</span>
+    <span class="hljs-keyword">if</span> heapdump? <span class="hljs-keyword">and</span> string.starts err.message, <span class="hljs-string">'Uncaught error:'</span>
+      heapdump.writeSnapshot <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../../../var/log/<span class="hljs-subst">#{Date.now()}</span>.heapsnapshot"</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>display routing table after start</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'start'</span>, <span class="hljs-function">-&gt;</span>
+    debug <span class="hljs-string">"hapi server started"</span>
+    printRouting server
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>short message after stop</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'stop'</span>, <span class="hljs-function">-&gt;</span>
+    debug <span class="hljs-string">"hapi server stopped"</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>debug requests with payload and response</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> debugAccess.enabled <span class="hljs-keyword">or</span> debugHeader.enabled <span class="hljs-keyword">or</span> debugPayload.enabled
+    server.<span class="hljs-literal">on</span> <span class="hljs-string">'response'</span>, <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+      raw = data.raw.req
+      url = <span class="hljs-string">"<span class="hljs-subst">#{data.connection.info.protocol}</span>://<span class="hljs-subst">#{raw.headers.host}</span><span class="hljs-subst">#{raw.url}</span>"</span>
+      <span class="hljs-keyword">if</span> debugAccess.enabled
+        client = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{raw[<span class="hljs-string">'x-forwarded-for'</span>] ? data.info.remoteAddress}</span> "</span>
+        access = <span class="hljs-string">"-&gt; <span class="hljs-subst">#{data.method.toUpperCase()}</span> <span class="hljs-subst">#{url}</span> "</span>
+        code = data.response.statusCode
+        color = <span class="hljs-keyword">switch</span>
+          <span class="hljs-keyword">when</span> code &lt; <span class="hljs-number">200</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'white'</span>
+          <span class="hljs-keyword">when</span> code &lt; <span class="hljs-number">300</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'green'</span>
+          <span class="hljs-keyword">when</span> code &lt; <span class="hljs-number">400</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'cyan'</span>
+          <span class="hljs-keyword">when</span> code &lt; <span class="hljs-number">500</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'yellow'</span>
+          <span class="hljs-keyword">else</span> <span class="hljs-string">'red'</span>
+        time = data.info.responded - data.info.received
+        time = <span class="hljs-keyword">switch</span>
+          <span class="hljs-keyword">when</span> time &lt; <span class="hljs-number">50</span> <span class="hljs-keyword">then</span> chalk.green <span class="hljs-string">"<span class="hljs-subst">#{time}</span>ms"</span>
+          <span class="hljs-keyword">when</span> time &lt; <span class="hljs-number">200</span> <span class="hljs-keyword">then</span> chalk.yellow <span class="hljs-string">"<span class="hljs-subst">#{time}</span>ms"</span>
+          <span class="hljs-keyword">when</span> time &lt; <span class="hljs-number">1000</span> <span class="hljs-keyword">then</span> chalk.magenta <span class="hljs-string">"<span class="hljs-subst">#{time}</span>ms"</span>
+          <span class="hljs-keyword">else</span> chalk.red <span class="hljs-string">"<span class="hljs-subst">#{Math.round time/<span class="hljs-number">1000</span>}</span>s"</span>
+        response = <span class="hljs-string">"-&gt; <span class="hljs-subst">#{chalk[color] code}</span> <span class="hljs-subst">#{time}</span>"</span>
+        debugAccess client + access + response
+      <span class="hljs-keyword">if</span> debugHeader.enabled
+        debugHeader chalk.grey <span class="hljs-string">"request <span class="hljs-subst">#{obj2str data.headers}</span>"</span>
+        debugHeader chalk.grey <span class="hljs-string">"response <span class="hljs-subst">#{obj2str data.response.headers}</span>"</span>
+      <span class="hljs-keyword">if</span> debugPayload.enabled
+        <span class="hljs-keyword">if</span> data.payload
+          debugPayload chalk.grey <span class="hljs-string">"request <span class="hljs-subst">#{obj2str data.payload}</span>"</span>
+        debugPayload chalk.grey <span class="hljs-string">"response <span class="hljs-subst">#{obj2str data.response.source}</span>"</span>
+  cb()
+
+exports.register.attributes =
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'debug'</span>
+  <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span>
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="printout-routing">
+  <h3>
+    <a href="#printout-routing" name="printout-routing" class="pilcrow"></a>
+printout routing
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">printRouting</span> = <span class="hljs-params">(server, cb = -&gt; )</span> -&gt;</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>collect routing data
+routes = uri:{app}
+listen = name:base</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  routes = {}
+  listener = {}
+  <span class="hljs-keyword">for</span> conn <span class="hljs-keyword">in</span> server.table()
+    listener[conn.labels[<span class="hljs-number">0</span>]] = conn.info.uri
+    <span class="hljs-keyword">for</span> route <span class="hljs-keyword">in</span> conn.table
+      base = <span class="hljs-keyword">if</span> route.settings.vhost
+        <span class="hljs-string">"<span class="hljs-subst">#{conn.info.protocol}</span>://<span class="hljs-subst">#{route.settings.vhost}</span>:<span class="hljs-subst">#{conn.info.port}</span>"</span>
+      <span class="hljs-keyword">else</span>
+        conn.info.uri
+      routes[base + route.path] =
+        <span class="hljs-attribute">method</span>: route.method.toUpperCase()
+        <span class="hljs-attribute">host</span>: base
+        <span class="hljs-attribute">path</span>: route.path.replace <span class="hljs-regexp">/({.*?})/g</span>, chalk.gray <span class="hljs-string">'$1'</span>
+        <span class="hljs-attribute">auth</span>: <span class="hljs-keyword">if</span> route.settings.auth <span class="hljs-keyword">then</span> route.settings.auth.strategies.toString() <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
+        <span class="hljs-attribute">description</span>: route.settings.description ? <span class="hljs-string">''</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>spaces = name:[base]</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  spaces = {}
+  conf = config.get <span class="hljs-string">'/server/http'</span>
+  <span class="hljs-keyword">if</span> conf.space
+    <span class="hljs-keyword">for</span> name, space <span class="hljs-keyword">of</span> conf.space
+      spaces[name] = []
+      <span class="hljs-keyword">for</span> listen <span class="hljs-keyword">in</span> space.bind.listener ? Object.keys listener
+        conn = server.select listen
+        <span class="hljs-keyword">if</span> space.domain?
+          <span class="hljs-keyword">for</span> domain <span class="hljs-keyword">in</span> space.bind.domain
+            base = <span class="hljs-string">"<span class="hljs-subst">#{conn.info.protocol}</span>://<span class="hljs-subst">#{domain}</span>:<span class="hljs-subst">#{conn.info.port}</span>"</span>
+            spaces[name].push base + context <span class="hljs-keyword">for</span> context <span class="hljs-keyword">in</span> space.bind.context ? [<span class="hljs-string">''</span>]
+        <span class="hljs-keyword">else</span>
+          spaces[name].push conn.info.uri + context <span class="hljs-keyword">for</span> context <span class="hljs-keyword">in</span> space.bind.context ? [<span class="hljs-string">''</span>]
+    slist = Object.keys(spaces).sort (a, b) -&gt;
+      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> spaces[b][<span class="hljs-number">0</span>]?
+      spaces[b][<span class="hljs-number">0</span>].length - spaces[a][<span class="hljs-number">0</span>].length
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>uris = base:[route]</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  uris = {}
+  <span class="hljs-keyword">for</span> uri, app <span class="hljs-keyword">of</span> routes
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>search in spaces</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    found = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> slist
+      <span class="hljs-keyword">break</span> <span class="hljs-keyword">if</span> found
+      <span class="hljs-keyword">for</span> check <span class="hljs-keyword">in</span> spaces[name]
+        <span class="hljs-keyword">if</span> string.starts uri, check
+          uris[check] ?= []
+          uris[check].push app
+          found = <span class="hljs-literal">true</span>
+          <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">unless</span> found
+      <span class="hljs-keyword">for</span> name, check <span class="hljs-keyword">of</span> listener
+        <span class="hljs-keyword">if</span> string.starts uri, check
+          uris[check] ?= []
+          uris[check].push app
+          <span class="hljs-keyword">break</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>sort routing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> uris
+    uris[name].sort (a, b) -&gt; a.path.localeCompare b.path
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>write routing table listeners</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  table = [chalk.underline <span class="hljs-string">"Routing table:"</span>]
+  <span class="hljs-keyword">for</span> name, base <span class="hljs-keyword">of</span> listener
+    table.push <span class="hljs-string">"  <span class="hljs-subst">#{chalk.bold.cyan string.rpad base, <span class="hljs-number">41</span>}</span>
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>{chalk.magenta name + ' listener'}&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> uri, route <span class="hljs-keyword">of</span> uris[base]
+      table.push <span class="hljs-string">"    <span class="hljs-subst">#{chalk.green string.rpad route.method, <span class="hljs-number">8</span>}</span>
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>{string.rpad route.path, 30}
+{if route.auth then chalk.green route.auth else chalk.red 'public'}
+{chalk.yellow route.description}&quot;    #   - with apps
+spaces</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> name, list <span class="hljs-keyword">of</span> spaces
+    list.sort()
+    <span class="hljs-keyword">for</span> base <span class="hljs-keyword">in</span> list
+      table.push <span class="hljs-string">"  <span class="hljs-subst">#{chalk.bold.cyan string.rpad base, <span class="hljs-number">41</span>}</span>
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>{chalk.magenta name + ' space'}&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">for</span> uri, route <span class="hljs-keyword">of</span> uris[base]
+        table.push <span class="hljs-string">"    <span class="hljs-subst">#{chalk.green string.rpad route.method, <span class="hljs-number">8</span>}</span>
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>{string.rpad route.path, 30}
+{if route.auth then chalk.green route.auth else chalk.red 'public'}
+{chalk.yellow route.description}&quot;    #   - with apps</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  debug table.join <span class="hljs-string">'\n'</span>
+  cb()
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
