@@ -114,8 +114,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">winston = <span class="hljs-built_in">require</span> <span class="hljs-string">'winston'</span>
-moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
-</pre>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span></pre>
         </td>
       </tr>
     
@@ -129,10 +128,7 @@ moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'m
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-
-
-</pre>
+{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -148,8 +144,7 @@ Plugin Interface
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-exports.register = <span class="hljs-function"><span class="hljs-params">(server, options, next)</span> -&gt;</span>
-</pre>
+exports.register = <span class="hljs-function"><span class="hljs-params">(server, options, next)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -163,8 +158,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  conf = config.get <span class="hljs-string">'/server/http/log'</span>
-  <span class="hljs-keyword">return</span> next() <span class="hljs-keyword">unless</span> conf
-</pre>
+  <span class="hljs-keyword">return</span> next() <span class="hljs-keyword">unless</span> conf</pre>
         </td>
       </tr>
     
@@ -188,8 +182,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
         [<span class="hljs-string">'log'</span>]
       <span class="hljs-keyword">else</span>
         [<span class="hljs-string">'response'</span>]
-    <span class="hljs-keyword">if</span> setup.listener?
-</pre>
+    <span class="hljs-keyword">if</span> setup.listener?</pre>
         </td>
       </tr>
     
@@ -205,8 +198,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
           <pre class="coffeescript">      <span class="hljs-keyword">for</span> listen <span class="hljs-keyword">in</span> setup.bind.listener
         <span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> events
           server.select(listen).<span class="hljs-literal">on</span> event, addLogger server, setup
-    <span class="hljs-keyword">else</span>
-</pre>
+    <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -220,8 +212,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> events
-        server.<span class="hljs-literal">on</span> event, addLogger server, setup
-</pre>
+        server.<span class="hljs-literal">on</span> event, addLogger server, setup</pre>
         </td>
       </tr>
     
@@ -239,9 +230,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
 exports.register.attributes =
   <span class="hljs-attribute">name</span>: <span class="hljs-string">'log'</span>
   <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span>
-  <span class="hljs-attribute">multiple</span>: <span class="hljs-literal">true</span>
-
-</pre>
+  <span class="hljs-attribute">multiple</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -257,8 +246,7 @@ Helper methods
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function">
-<span class="hljs-title">addLogger</span> = <span class="hljs-params">(server, setup)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">addLogger</span> = <span class="hljs-params">(server, setup)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -305,8 +293,7 @@ Helper methods
   logger = <span class="hljs-keyword">new</span> winston.Logger
     <span class="hljs-attribute">transports</span>: [trans]
   <span class="hljs-keyword">if</span> setup.file?
-    <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'extended'</span>
-</pre>
+    <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'extended'</span></pre>
         </td>
       </tr>
     
@@ -362,8 +349,7 @@ Helper methods
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'event'</span> <span class="hljs-keyword">or</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span>
     <span class="hljs-keyword">return</span> (data, err) -&gt;
-      <span class="hljs-keyword">if</span> data.raw?
-</pre>
+      <span class="hljs-keyword">if</span> data.raw?</pre>
         </td>
       </tr>
     
@@ -391,8 +377,7 @@ console.log 1, err</p>
           data.column = err.columnNumber
           data.name = err.name
           data.stack = err.stack
-      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> data.tags
-</pre>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> data.tags</pre>
         </td>
       </tr>
     
@@ -408,8 +393,7 @@ console.log 2, data</p>
         <td class="code highlight">
           <pre class="coffeescript">        level = <span class="hljs-keyword">if</span> data.tags?[<span class="hljs-number">0</span>] <span class="hljs-keyword">in</span> [<span class="hljs-string">'error'</span>, <span class="hljs-string">'warn'</span>] <span class="hljs-keyword">then</span> data.tags[<span class="hljs-number">0</span>] <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
         data = data.data
-      <span class="hljs-keyword">else</span>
-</pre>
+      <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -425,8 +409,7 @@ console.log 3, data</p>
         <td class="code highlight">
           <pre class="coffeescript">        level = data.level
       logger.log level, data
-  (data) -&gt;
-</pre>
+  (data) -&gt;</pre>
         </td>
       </tr>
     
@@ -440,8 +423,7 @@ console.log 3, data</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    raw = data.raw.req
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> filterContext setup, data
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> filterContext setup, data</pre>
         </td>
       </tr>
     
@@ -455,8 +437,7 @@ console.log 3, data</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    code = data.response.statusCode
-    diff = data.info.responded - data.info.received
-</pre>
+    diff = data.info.responded - data.info.received</pre>
         </td>
       </tr>
     
@@ -500,9 +481,7 @@ console.log 3, data</p>
         <span class="hljs-attribute">duration</span>: diff
         <span class="hljs-attribute">durationString</span>: <span class="hljs-keyword">switch</span>
           <span class="hljs-keyword">when</span> diff &lt; <span class="hljs-number">1000</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"<span class="hljs-subst">#{diff}</span>ms"</span>
-          <span class="hljs-keyword">else</span> <span class="hljs-string">"<span class="hljs-subst">#{Math.round diff/<span class="hljs-number">1000</span>}</span>s"</span>
-
-</pre>
+          <span class="hljs-keyword">else</span> <span class="hljs-string">"<span class="hljs-subst">#{Math.round diff/<span class="hljs-number">1000</span>}</span>s"</span></pre>
         </td>
       </tr>
     
@@ -525,9 +504,7 @@ Check bind settings
   <span class="hljs-keyword">if</span> setup.bind?.context?
     context = setup.bind.context.filter (d) -&gt; <span class="hljs-keyword">return</span> string.starts data.raw.req.url, d
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> context.length
-  <span class="hljs-literal">true</span>
-
-</pre>
+  <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -543,8 +520,7 @@ Formatter
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">formatter =
-</pre>
+          <pre class="coffeescript">formatter =</pre>
         </td>
       </tr>
     
@@ -559,8 +535,7 @@ Formatter
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">error</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     m = <span class="hljs-keyword">if</span> data.message <span class="hljs-keyword">then</span> data.message <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
-    d = data.meta ? <span class="hljs-literal">null</span>
-</pre>
+    d = data.meta ? <span class="hljs-literal">null</span></pre>
         </td>
       </tr>
     
@@ -667,8 +642,7 @@ apache referrer access log</p>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">referrer</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"<span class="hljs-subst">#{d.client.referrer}</span> -&gt; <span class="hljs-subst">#{d.request.pathname}</span>"</span>
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"<span class="hljs-subst">#{d.client.referrer}</span> -&gt; <span class="hljs-subst">#{d.request.pathname}</span>"</span></pre>
         </td>
       </tr>
     
@@ -704,9 +678,7 @@ apache combined access log</p>
           <pre class="coffeescript">  <span class="hljs-attribute">object</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     m = <span class="hljs-keyword">if</span> data.message <span class="hljs-keyword">then</span> data.message <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
     d = data.meta ? <span class="hljs-literal">null</span>
-    m ? JSON.stringify d
-
-</pre>
+    m ? JSON.stringify d</pre>
         </td>
       </tr>
     

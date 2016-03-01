@@ -110,8 +110,7 @@ debugAccess = <span class="hljs-built_in">require</span>(<span class="hljs-strin
 debugHeader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:header'</span>)
 debugPayload = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server:http:payload'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-</pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre>
         </td>
       </tr>
     
@@ -128,9 +127,7 @@ util = <span class="hljs-built_in">require</span> <span class="hljs-string">'uti
 {string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 <span class="hljs-function">
 
-<span class="hljs-title">obj2str</span> = <span class="hljs-params">(o)</span> -&gt;</span> util.inspect(o).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
-
-</pre>
+<span class="hljs-title">obj2str</span> = <span class="hljs-params">(o)</span> -&gt;</span> util.inspect(o).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span></pre>
         </td>
       </tr>
     
@@ -148,8 +145,7 @@ Plugin Interface
           <pre class="coffeescript">
 exports.register = <span class="hljs-function"><span class="hljs-params">(server, options, cb)</span> -&gt;</span>
   conf = config.get <span class="hljs-string">'/server/http'</span>
-  heapdump = <span class="hljs-built_in">require</span> <span class="hljs-string">'heapdump'</span> <span class="hljs-keyword">if</span> conf.heapdump
-</pre>
+  heapdump = <span class="hljs-built_in">require</span> <span class="hljs-string">'heapdump'</span> <span class="hljs-keyword">if</span> conf.heapdump</pre>
         </td>
       </tr>
     
@@ -182,9 +178,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
 
   server.<span class="hljs-literal">on</span> <span class="hljs-string">'request'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled REQUEST event'</span><span class="hljs-comment">#, arguments</span>
   server.<span class="hljs-literal">on</span> <span class="hljs-string">'request-internal'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled INTERNAL event'</span><span class="hljs-comment">#, arguments</span>
-  server.<span class="hljs-literal">on</span> <span class="hljs-string">'tail'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled TAIL event'</span><span class="hljs-comment">#, arguments</span>
-
-</pre>
+  server.<span class="hljs-literal">on</span> <span class="hljs-string">'tail'</span>, <span class="hljs-function">-&gt;</span> debug chalk.grey <span class="hljs-string">'Unhandled TAIL event'</span><span class="hljs-comment">#, arguments</span></pre>
         </td>
       </tr>
     
@@ -201,9 +195,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
     msg = err.stack.split <span class="hljs-regexp">/\n/</span>
     debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.red msg[<span class="hljs-number">0</span>]}</span>\n<span class="hljs-subst">#{chalk.grey msg[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>}</span>"</span>
     <span class="hljs-keyword">if</span> heapdump? <span class="hljs-keyword">and</span> string.starts err.message, <span class="hljs-string">'Uncaught error:'</span>
-      heapdump.writeSnapshot <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../../../var/log/<span class="hljs-subst">#{Date.now()}</span>.heapsnapshot"</span>
-
-</pre>
+      heapdump.writeSnapshot <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../../../var/log/<span class="hljs-subst">#{Date.now()}</span>.heapsnapshot"</span></pre>
         </td>
       </tr>
     
@@ -218,9 +210,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
         <td class="code highlight">
           <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'start'</span>, <span class="hljs-function">-&gt;</span>
     debug <span class="hljs-string">"hapi server started"</span>
-    printRouting server
-
-</pre>
+    printRouting server</pre>
         </td>
       </tr>
     
@@ -234,9 +224,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  server.<span class="hljs-literal">on</span> <span class="hljs-string">'stop'</span>, <span class="hljs-function">-&gt;</span>
-    debug <span class="hljs-string">"hapi server stopped"</span>
-
-</pre>
+    debug <span class="hljs-string">"hapi server stopped"</span></pre>
         </td>
       </tr>
     
@@ -282,9 +270,7 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
 
 exports.register.attributes =
   <span class="hljs-attribute">name</span>: <span class="hljs-string">'debug'</span>
-  <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span>
-
-</pre>
+  <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span></pre>
         </td>
       </tr>
     
@@ -299,8 +285,7 @@ printout routing
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">printRouting</span> = <span class="hljs-params">(server, cb = -&gt; )</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">printRouting</span> = <span class="hljs-params">(server, cb = -&gt; )</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -329,8 +314,7 @@ listen = name:base</p>
         <span class="hljs-attribute">host</span>: base
         <span class="hljs-attribute">path</span>: route.path.replace <span class="hljs-regexp">/({.*?})/g</span>, chalk.gray <span class="hljs-string">'$1'</span>
         <span class="hljs-attribute">auth</span>: <span class="hljs-keyword">if</span> route.settings.auth <span class="hljs-keyword">then</span> route.settings.auth.strategies.toString() <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-        <span class="hljs-attribute">description</span>: route.settings.description ? <span class="hljs-string">''</span>
-</pre>
+        <span class="hljs-attribute">description</span>: route.settings.description ? <span class="hljs-string">''</span></pre>
         </td>
       </tr>
     
@@ -358,8 +342,7 @@ listen = name:base</p>
           spaces[name].push conn.info.uri + context <span class="hljs-keyword">for</span> context <span class="hljs-keyword">in</span> space.bind.context ? [<span class="hljs-string">''</span>]
     slist = Object.keys(spaces).sort (a, b) -&gt;
       <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> spaces[b][<span class="hljs-number">0</span>]?
-      spaces[b][<span class="hljs-number">0</span>].length - spaces[a][<span class="hljs-number">0</span>].length
-</pre>
+      spaces[b][<span class="hljs-number">0</span>].length - spaces[a][<span class="hljs-number">0</span>].length</pre>
         </td>
       </tr>
     
@@ -373,8 +356,7 @@ listen = name:base</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  uris = {}
-  <span class="hljs-keyword">for</span> uri, app <span class="hljs-keyword">of</span> routes
-</pre>
+  <span class="hljs-keyword">for</span> uri, app <span class="hljs-keyword">of</span> routes</pre>
         </td>
       </tr>
     
@@ -401,8 +383,7 @@ listen = name:base</p>
         <span class="hljs-keyword">if</span> string.starts uri, check
           uris[check] ?= []
           uris[check].push app
-          <span class="hljs-keyword">break</span>
-</pre>
+          <span class="hljs-keyword">break</span></pre>
         </td>
       </tr>
     
@@ -416,8 +397,7 @@ listen = name:base</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> uris
-    uris[name].sort (a, b) -&gt; a.path.localeCompare b.path
-</pre>
+    uris[name].sort (a, b) -&gt; a.path.localeCompare b.path</pre>
         </td>
       </tr>
     
@@ -499,9 +479,7 @@ spaces</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  debug table.join <span class="hljs-string">'\n'</span>
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

@@ -115,8 +115,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'server'</span>)
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-</pre>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
     
@@ -131,9 +130,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-
-</pre>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
         </td>
       </tr>
     
@@ -149,9 +146,7 @@ Data container
         </td>
         <td class="code highlight">
           <pre class="coffeescript">types = [] <span class="hljs-comment"># list of possible server types</span>
-conf = <span class="hljs-literal">null</span> <span class="hljs-comment"># configuration</span>
-
-</pre>
+conf = <span class="hljs-literal">null</span> <span class="hljs-comment"># configuration</span></pre>
         </td>
       </tr>
     
@@ -166,9 +161,7 @@ Define singleton instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = server =
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = server =</pre>
         </td>
       </tr>
     
@@ -196,8 +189,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: async.once (cb) -&gt;
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: async.once (cb) -&gt;</pre>
         </td>
       </tr>
     
@@ -210,8 +202,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
-</pre>
+          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname</pre>
         </td>
       </tr>
     
@@ -224,9 +215,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/server'</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">'./configSchema'</span>), cb
-
-</pre>
+          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/server'</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">'./configSchema'</span>), cb</pre>
         </td>
       </tr>
     
@@ -241,8 +230,7 @@ Initialization
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">init</span>: async.once (cb) -&gt;
     debug <span class="hljs-string">"initialize server"</span>
-    async.parallel [
-</pre>
+    async.parallel [</pre>
         </td>
       </tr>
     
@@ -262,8 +250,7 @@ Initialization
         <span class="hljs-attribute">exclude</span>: <span class="hljs-string">'doc'</span>
       , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
         types = list?.map (e) -&gt; fspath.basename e, fspath.extname e
-        cb err
-</pre>
+        cb err</pre>
         </td>
       </tr>
     
@@ -278,8 +265,7 @@ Initialization
         <td class="code highlight">
           <pre class="coffeescript">      (cb) -&gt; server.setup (err) -&gt;
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-        config.init cb
-</pre>
+        config.init cb</pre>
         </td>
       </tr>
     
@@ -296,8 +282,7 @@ Initialization
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
         cb()
     ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -316,9 +301,7 @@ Initialization
         debug <span class="hljs-string">"initialize <span class="hljs-subst">#{type}</span> server part"</span>
         server.http = <span class="hljs-built_in">require</span> <span class="hljs-string">"./<span class="hljs-subst">#{type}</span>/index"</span>
         server.http.init cb
-      , cb
-
-</pre>
+      , cb</pre>
         </td>
       </tr>
     

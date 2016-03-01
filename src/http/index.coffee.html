@@ -142,8 +142,7 @@ Node Modules
 EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-hapi = <span class="hljs-built_in">require</span> <span class="hljs-string">'hapi'</span>
-</pre>
+hapi = <span class="hljs-built_in">require</span> <span class="hljs-string">'hapi'</span></pre>
         </td>
       </tr>
     
@@ -157,9 +156,7 @@ hapi = <span class="hljs-built_in">require</span> <span class="hljs-string">'hap
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-
-</pre>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
         </td>
       </tr>
     
@@ -174,9 +171,7 @@ Define singleton instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span></pre>
         </td>
       </tr>
     
@@ -192,9 +187,7 @@ Data container
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@conf</span>: <span class="hljs-literal">null</span> <span class="hljs-comment"># configuration</span>
-  <span class="hljs-property">@server</span>: <span class="hljs-literal">null</span> <span class="hljs-comment"># server</span>
-
-</pre>
+  <span class="hljs-property">@server</span>: <span class="hljs-literal">null</span> <span class="hljs-comment"># server</span></pre>
         </td>
       </tr>
     
@@ -212,8 +205,7 @@ initialize
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> =&gt;</span>
     debug <span class="hljs-string">"setup server connections and plugins"</span>
-    <span class="hljs-property">@conf</span> = config.get <span class="hljs-string">'/server/http'</span>
-</pre>
+    <span class="hljs-property">@conf</span> = config.get <span class="hljs-string">'/server/http'</span></pre>
         </td>
       </tr>
     
@@ -233,8 +225,7 @@ initialize
         options.load =
           <span class="hljs-attribute">sampleInterval</span>: <span class="hljs-number">1000</span>
         <span class="hljs-keyword">break</span>
-    <span class="hljs-property">@server</span> = <span class="hljs-keyword">new</span> hapi.Server options
-</pre>
+    <span class="hljs-property">@server</span> = <span class="hljs-keyword">new</span> hapi.Server options</pre>
         </td>
       </tr>
     
@@ -258,8 +249,7 @@ initialize
           <span class="hljs-attribute">maxHeapUsedBytes</span>: listen.load.maxHeap
           <span class="hljs-attribute">maxRssBytes</span>: listen.load.maxRss
           <span class="hljs-attribute">maxEventLoopDelay</span>: listen.load.eventLoopDelay
-      <span class="hljs-property">@server</span>.connection options
-</pre>
+      <span class="hljs-property">@server</span>.connection options</pre>
         </td>
       </tr>
     
@@ -275,8 +265,7 @@ initialize
           <pre class="coffeescript">    <span class="hljs-property">@server</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'start'</span>, <span class="hljs-function">-&gt;</span>
       <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Server started!"</span>
     <span class="hljs-property">@server</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'stop'</span>, <span class="hljs-function">-&gt;</span>
-      <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Server stopped!"</span>
-</pre>
+      <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Server stopped!"</span></pre>
         </td>
       </tr>
     
@@ -291,9 +280,7 @@ initialize
         <td class="code highlight">
           <pre class="coffeescript">    async.each plugins, <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> =&gt;</span>
       <span class="hljs-property">@server</span>.register setup, cb
-    , cb
-
-</pre>
+    , cb</pre>
         </td>
       </tr>
     
@@ -309,8 +296,7 @@ add route
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">route</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb = -&gt; )</span> =&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">route</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb = -&gt; )</span> =&gt;</span></pre>
         </td>
       </tr>
     
@@ -323,8 +309,7 @@ add route
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    setup = resolveSpace setup
-</pre>
+          <pre class="coffeescript">    setup = resolveSpace setup</pre>
         </td>
       </tr>
     
@@ -338,8 +323,7 @@ add route
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    bind = setup.bind
-    <span class="hljs-keyword">delete</span> setup.bind
-</pre>
+    <span class="hljs-keyword">delete</span> setup.bind</pre>
         </td>
       </tr>
     
@@ -359,8 +343,7 @@ add route
       debug <span class="hljs-string">"adding route \"<span class="hljs-subst">#{setup.config.description ? setup.path}</span> \""</span>
       debug chalk.grey <span class="hljs-string">"listener: <span class="hljs-subst">#{util.inspect(bind.listener ? <span class="hljs-string">'ALL'</span>)}</span>"</span>
       debug chalk.grey util.inspect setup, {<span class="hljs-attribute">depth</span>: <span class="hljs-literal">null</span>}
-      <span class="hljs-keyword">if</span> bind.listener?
-</pre>
+      <span class="hljs-keyword">if</span> bind.listener?</pre>
         </td>
       </tr>
     
@@ -382,9 +365,7 @@ add route
             \"<span class="hljs-subst">#{setup.config.description ? setup.path}</span>\""</span>
       <span class="hljs-keyword">else</span>
         <span class="hljs-property">@server</span>.route setup
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     
@@ -400,8 +381,7 @@ add plugin
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">plugin</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb = -&gt; )</span> =&gt;</span>
-    debug <span class="hljs-string">"add plugin <span class="hljs-subst">#{setup}</span>"</span>
-</pre>
+    debug <span class="hljs-string">"add plugin <span class="hljs-subst">#{setup}</span>"</span></pre>
         </td>
       </tr>
     
@@ -415,9 +395,7 @@ add plugin
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    setup = resolveSpace setup
-    <span class="hljs-property">@server</span>.register setup, cb
-
-</pre>
+    <span class="hljs-property">@server</span>.register setup, cb</pre>
         </td>
       </tr>
     
@@ -449,9 +427,7 @@ start
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">start</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
     debug <span class="hljs-string">"start hapi server V<span class="hljs-subst">#{<span class="hljs-property">@server</span>.version}</span>"</span>
-    <span class="hljs-property">@server</span>.root.start cb
-
-</pre>
+    <span class="hljs-property">@server</span>.root.start cb</pre>
         </td>
       </tr>
     
@@ -471,9 +447,7 @@ stop
     <span class="hljs-property">@server</span>.root.stop()
     cb()
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> HttpServer()
-
-</pre>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> HttpServer()</pre>
         </td>
       </tr>
     
@@ -490,8 +464,7 @@ the extra files.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">plugins = [
-</pre>
+          <pre class="coffeescript">plugins = [</pre>
         </td>
       </tr>
     
@@ -508,9 +481,7 @@ options: ....</p>
           <pre class="coffeescript">  <span class="hljs-built_in">require</span> <span class="hljs-string">'../http/plugin/debug'</span>
   <span class="hljs-built_in">require</span> <span class="hljs-string">'../http/plugin/log'</span>
   <span class="hljs-built_in">require</span> <span class="hljs-string">'inert'</span>
-]
-
-</pre>
+]</pre>
         </td>
       </tr>
     
@@ -532,8 +503,7 @@ Resolve space bindings
     <span class="hljs-attribute">domain</span>: []
     <span class="hljs-attribute">context</span>: []
   <span class="hljs-keyword">if</span> setup.bind?
-    bind = setup.bind
-</pre>
+    bind = setup.bind</pre>
         </td>
       </tr>
     
@@ -548,8 +518,7 @@ Resolve space bindings
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">for</span> att <span class="hljs-keyword">in</span> [<span class="hljs-string">'space'</span>, <span class="hljs-string">'listener'</span>, <span class="hljs-string">'domain'</span>, <span class="hljs-string">'context'</span>]
       bind[att] = [bind[att]] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> bind[att] <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-      bind[att] ?= []
-</pre>
+      bind[att] ?= []</pre>
         </td>
       </tr>
     
@@ -568,8 +537,7 @@ Resolve space bindings
         <span class="hljs-keyword">if</span> space?
           resolve.listener = space.listener <span class="hljs-keyword">if</span> space.listener?
           resolve.domain = space.domain <span class="hljs-keyword">if</span> space.domain?
-          resolve.context = space.context <span class="hljs-keyword">if</span> space.context?
-</pre>
+          resolve.context = space.context <span class="hljs-keyword">if</span> space.context?</pre>
         </td>
       </tr>
     
@@ -583,8 +551,7 @@ Resolve space bindings
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.listener.length
-      <span class="hljs-keyword">if</span> resolve.listener.length
-</pre>
+      <span class="hljs-keyword">if</span> resolve.listener.length</pre>
         </td>
       </tr>
     
@@ -599,8 +566,7 @@ Resolve space bindings
         <td class="code highlight">
           <pre class="coffeescript">        resolve.listener = bind.listener.filter (e) -&gt; e <span class="hljs-keyword">in</span> resolve.listener
       <span class="hljs-keyword">else</span>
-        resolve.listener = bind.listener
-</pre>
+        resolve.listener = bind.listener</pre>
         </td>
       </tr>
     
@@ -614,8 +580,7 @@ Resolve space bindings
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.domain.length
-      <span class="hljs-keyword">if</span> resolve.domain.length
-</pre>
+      <span class="hljs-keyword">if</span> resolve.domain.length</pre>
         </td>
       </tr>
     
@@ -630,8 +595,7 @@ Resolve space bindings
         <td class="code highlight">
           <pre class="coffeescript">        resolve.domain = bind.domain.filter (e) -&gt; e <span class="hljs-keyword">in</span> resolve.domain
       <span class="hljs-keyword">else</span>
-        resolve.domain = bind.domain
-</pre>
+        resolve.domain = bind.domain</pre>
         </td>
       </tr>
     
@@ -645,8 +609,7 @@ Resolve space bindings
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> bind.context.length
-      <span class="hljs-keyword">if</span> resolve.context.length
-</pre>
+      <span class="hljs-keyword">if</span> resolve.context.length</pre>
         </td>
       </tr>
     
@@ -665,8 +628,7 @@ Resolve space bindings
             combined.push <span class="hljs-string">"<span class="hljs-subst">#{a}</span>/<span class="hljs-subst">#{b}</span>"</span>.replace <span class="hljs-regexp">/\/\/+/</span>, <span class="hljs-string">'/'</span>
         resolve.context = combined
       <span class="hljs-keyword">else</span>
-        resolve.context = bind.context
-</pre>
+        resolve.context = bind.context</pre>
         </td>
       </tr>
     
@@ -683,9 +645,7 @@ Resolve space bindings
   <span class="hljs-keyword">for</span> att <span class="hljs-keyword">in</span> [<span class="hljs-string">'listener'</span>, <span class="hljs-string">'domain'</span>, <span class="hljs-string">'context'</span>]
     <span class="hljs-keyword">delete</span> resolve[att] <span class="hljs-keyword">unless</span> resolve[att].length
   setup.bind = resolve
-  <span class="hljs-keyword">return</span> setup
-
-</pre>
+  <span class="hljs-keyword">return</span> setup</pre>
         </td>
       </tr>
     
