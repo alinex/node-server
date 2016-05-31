@@ -7,7 +7,7 @@
   <script src="../../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../../";
-    var thisFile = "home/alex/github/node-server/src/http/plugin/debug.coffee";
+    var thisFile = "src/http/plugin/debug.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
@@ -269,8 +269,8 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
   cb()
 
 exports.register.attributes =
-  <span class="hljs-attribute">name</span>: <span class="hljs-string">'debug'</span>
-  <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span></pre>
+  name: <span class="hljs-string">'debug'</span>
+  version: <span class="hljs-string">'1.0.0'</span></pre>
         </td>
       </tr>
     
@@ -310,11 +310,11 @@ listen = name:base</p>
       <span class="hljs-keyword">else</span>
         conn.info.uri
       routes[base + route.path] =
-        <span class="hljs-attribute">method</span>: route.method.toUpperCase()
-        <span class="hljs-attribute">host</span>: base
-        <span class="hljs-attribute">path</span>: route.path.replace <span class="hljs-regexp">/({.*?})/g</span>, chalk.gray <span class="hljs-string">'$1'</span>
-        <span class="hljs-attribute">auth</span>: <span class="hljs-keyword">if</span> route.settings.auth <span class="hljs-keyword">then</span> route.settings.auth.strategies.toString() <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-        <span class="hljs-attribute">description</span>: route.settings.description ? <span class="hljs-string">''</span></pre>
+        method: route.method.toUpperCase()
+        host: base
+        path: route.path.replace <span class="hljs-regexp">/({.*?})/g</span>, chalk.gray <span class="hljs-string">'$1'</span>
+        auth: <span class="hljs-keyword">if</span> route.settings.auth <span class="hljs-keyword">then</span> route.settings.auth.strategies.toString() <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
+        description: route.settings.description ? <span class="hljs-string">''</span></pre>
         </td>
       </tr>
     

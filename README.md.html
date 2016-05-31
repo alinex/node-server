@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-server/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -131,7 +131,7 @@ other server protocols like ftp later.</p>
 </ul>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
 <div class="pilwrap" id="install">
   <h2>
@@ -149,7 +149,7 @@ Install
 <p>And update it to the latest version later:</p>
 <pre><code class="sh">npm update alinex-server --save
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -172,8 +172,8 @@ Setup
 </code></pre>
 <p>Now you may add some specific routes:</p>
 <pre><code class="coffee">server.route
-  <span class="hljs-attribute">path</span>: <span class="hljs-string">'/my-path'</span>
-  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(request, reply)</span> -&gt;</span>
+  path: <span class="hljs-string">'/my-path'</span>
+  handler: <span class="hljs-function"><span class="hljs-params">(request, reply)</span> -&gt;</span>
     <span class="hljs-comment"># function handling this request</span>
 </code></pre>
 <div class="pilwrap" id="start">

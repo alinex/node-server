@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-server/src/configSchema.coffee";
+    var thisFile = "src/configSchema.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -111,99 +111,99 @@ Connection Settings
         <td class="code highlight">
           <pre class="coffeescript">
 listener =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Listen"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the host and port to bind to by label"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">entries</span>: [
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'port'</span>]
-    <span class="hljs-attribute">keys</span>:
-      <span class="hljs-attribute">host</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Host or IP"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname or ip address to bind to"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-        <span class="hljs-attribute">or</span>: [
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'ipaddr'</span>
+  title: <span class="hljs-string">"Listen"</span>
+  description: <span class="hljs-string">"the host and port to bind to by label"</span>
+  type: <span class="hljs-string">'object'</span>
+  entries: [
+    type: <span class="hljs-string">'object'</span>
+    allowedKeys: <span class="hljs-literal">true</span>
+    mandatoryKeys: [<span class="hljs-string">'port'</span>]
+    keys:
+      host:
+        title: <span class="hljs-string">"Host or IP"</span>
+        description: <span class="hljs-string">"the hostname or ip address to bind to"</span>
+        type: <span class="hljs-string">'or'</span>
+        or: [
+          type: <span class="hljs-string">'ipaddr'</span>
         ,
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+          type: <span class="hljs-string">'hostname'</span>
         ,
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
-          <span class="hljs-attribute">filetype</span>: <span class="hljs-string">'socket'</span>
-          <span class="hljs-attribute">exists</span>: <span class="hljs-literal">true</span>
+          type: <span class="hljs-string">'file'</span>
+          filetype: <span class="hljs-string">'socket'</span>
+          exists: <span class="hljs-literal">true</span>
         ]
-      <span class="hljs-attribute">port</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port to listen on"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'port'</span>
-        <span class="hljs-attribute">default</span>: <span class="hljs-number">23174</span>
-      <span class="hljs-attribute">tls</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"HTTPS Server"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the settings to have listen using SSL"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">pfx</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"PKCS#12 Certificate"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the PKCS#12 certificate, private key and CA
+      port:
+        title: <span class="hljs-string">"Port"</span>
+        description: <span class="hljs-string">"the port to listen on"</span>
+        type: <span class="hljs-string">'port'</span>
+        default: <span class="hljs-number">23174</span>
+      tls:
+        title: <span class="hljs-string">"HTTPS Server"</span>
+        description: <span class="hljs-string">"the settings to have listen using SSL"</span>
+        type: <span class="hljs-string">'object'</span>
+        allowedKeys: <span class="hljs-literal">true</span>
+        keys:
+          pfx:
+            title: <span class="hljs-string">"PKCS#12 Certificate"</span>
+            description: <span class="hljs-string">"the PKCS#12 certificate, private key and CA
             certificates to use for SSL"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">cert</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"x509 Certificate"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the public x509 certificate to use"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">key</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Private Key"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the private key to use for SSL"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">passphrase</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Passphrase"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the passphrase for the private key or pfx if necessary"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">ca</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Authority Certificate"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"an authority certificate or array of authority certificates
+            type: <span class="hljs-string">'string'</span>
+          cert:
+            title: <span class="hljs-string">"x509 Certificate"</span>
+            description: <span class="hljs-string">"the public x509 certificate to use"</span>
+            type: <span class="hljs-string">'string'</span>
+          key:
+            title: <span class="hljs-string">"Private Key"</span>
+            description: <span class="hljs-string">"the private key to use for SSL"</span>
+            type: <span class="hljs-string">'string'</span>
+          passphrase:
+            title: <span class="hljs-string">"Passphrase"</span>
+            description: <span class="hljs-string">"the passphrase for the private key or pfx if necessary"</span>
+            type: <span class="hljs-string">'string'</span>
+          ca:
+            title: <span class="hljs-string">"Authority Certificate"</span>
+            description: <span class="hljs-string">"an authority certificate or array of authority certificates
             to check the remote host against"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">ciphers</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Ciphers"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a string describing the ciphers to use or exclude
+            type: <span class="hljs-string">'string'</span>
+          ciphers:
+            title: <span class="hljs-string">"Ciphers"</span>
+            description: <span class="hljs-string">"a string describing the ciphers to use or exclude
             (http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">rejectUnauthorized</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Reject Unathorized"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag to check server certificate against the
+            type: <span class="hljs-string">'string'</span>
+          rejectUnauthorized:
+            title: <span class="hljs-string">"Reject Unathorized"</span>
+            description: <span class="hljs-string">"a flag to check server certificate against the
             list of supplied CAs"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-          <span class="hljs-attribute">secureProtocol</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"SSL Method"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the SSL method to use, e.g. TLSv1_method to force TLS version 1
+            type: <span class="hljs-string">'boolean'</span>
+          secureProtocol:
+            title: <span class="hljs-string">"SSL Method"</span>
+            description: <span class="hljs-string">"the SSL method to use, e.g. TLSv1_method to force TLS version 1
             (the possible values depend on your installation of OpenSSL and
             are defined in the constant SSL_METHODS)"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">load</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Load Limit"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the limit after which the server will respond with
+            type: <span class="hljs-string">'string'</span>
+      load:
+        title: <span class="hljs-string">"Load Limit"</span>
+        description: <span class="hljs-string">"the limit after which the server will respond with
         503 code to incoming requests"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">maxHeap</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Maximum Heap"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum V8 heap size over which incoming
+        type: <span class="hljs-string">'object'</span>
+        allowedKeys: <span class="hljs-literal">true</span>
+        keys:
+          maxHeap:
+            title: <span class="hljs-string">"Maximum Heap"</span>
+            description: <span class="hljs-string">"the maximum V8 heap size over which incoming
             requests are rejected"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-          <span class="hljs-attribute">maxRss</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Maximum RSS"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum process RSS size over which incoming
+            type: <span class="hljs-string">'byte'</span>
+          maxRss:
+            title: <span class="hljs-string">"Maximum RSS"</span>
+            description: <span class="hljs-string">"the maximum process RSS size over which incoming
             requests are rejected"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-          <span class="hljs-attribute">eventLoopDelay</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Maximum Event Loop Delay"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum event loop delay duration in milliseconds
+            type: <span class="hljs-string">'byte'</span>
+          eventLoopDelay:
+            title: <span class="hljs-string">"Maximum Event Loop Delay"</span>
+            description: <span class="hljs-string">"the maximum event loop delay duration in milliseconds
             over which incoming requests are rejected"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-            <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+            type: <span class="hljs-string">'interval'</span>
+            unit: <span class="hljs-string">'ms'</span>
   ]</pre>
         </td>
       </tr>
@@ -220,35 +220,35 @@ Binding of Spaces and Plugins
         </td>
         <td class="code highlight">
           <pre class="coffeescript">bind =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Binding"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the connection, domain and context to only bind to"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">listener</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Listener"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of the defined listener"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-        <span class="hljs-attribute">values</span>: <span class="hljs-string">'&lt;&lt;&lt;listener&gt;&gt;&gt;'</span>
-    <span class="hljs-attribute">domain</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Domain Name"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname to bind to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
-    <span class="hljs-attribute">context</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Context"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the context path to bind to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-        <span class="hljs-attribute">startsWith</span>: <span class="hljs-string">'/'</span>
-        <span class="hljs-attribute">minLength</span>: <span class="hljs-number">1</span></pre>
+  title: <span class="hljs-string">"Binding"</span>
+  description: <span class="hljs-string">"the connection, domain and context to only bind to"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    listener:
+      title: <span class="hljs-string">"Listener"</span>
+      description: <span class="hljs-string">"the name of the defined listener"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'string'</span>
+        values: <span class="hljs-string">'&lt;&lt;&lt;listener&gt;&gt;&gt;'</span>
+    domain:
+      title: <span class="hljs-string">"Domain Name"</span>
+      description: <span class="hljs-string">"the hostname to bind to"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'hostname'</span>
+    context:
+      title: <span class="hljs-string">"Context"</span>
+      description: <span class="hljs-string">"the context path to bind to"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'string'</span>
+        startsWith: <span class="hljs-string">'/'</span>
+        minLength: <span class="hljs-number">1</span></pre>
         </td>
       </tr>
     
@@ -264,145 +264,145 @@ Log Settings
         </td>
         <td class="code highlight">
           <pre class="coffeescript">log =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Log Settigs"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the host and port to bind to by label"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-  <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">entries</span>:
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Log Transport"</span>
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration of a log transporter"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'data'</span>]
-    <span class="hljs-attribute">keys</span>:
-      <span class="hljs-attribute">data</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Data Type"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the type of data to log"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-        <span class="hljs-attribute">list</span>: [
+  title: <span class="hljs-string">"Log Settigs"</span>
+  description: <span class="hljs-string">"the host and port to bind to by label"</span>
+  type: <span class="hljs-string">'array'</span>
+  toArray: <span class="hljs-literal">true</span>
+  entries:
+    title: <span class="hljs-string">"Log Transport"</span>
+    description: <span class="hljs-string">"the configuration of a log transporter"</span>
+    type: <span class="hljs-string">'object'</span>
+    allowedKeys: <span class="hljs-literal">true</span>
+    mandatoryKeys: [<span class="hljs-string">'data'</span>]
+    keys:
+      data:
+        title: <span class="hljs-string">"Data Type"</span>
+        description: <span class="hljs-string">"the type of data to log"</span>
+        type: <span class="hljs-string">'string'</span>
+        list: [
           <span class="hljs-string">'error'</span>, <span class="hljs-string">'event'</span>
           <span class="hljs-string">'common'</span>, <span class="hljs-string">'commonvhost'</span>, <span class="hljs-string">'combined'</span>, <span class="hljs-string">'referrer'</span>
           <span class="hljs-string">'extended'</span>
           <span class="hljs-string">'object'</span>
         ]
-      <span class="hljs-attribute">bind</span>: bind
-      <span class="hljs-attribute">file</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"File Logger"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup of an file logger"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">filename</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Filename"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the filename within the log directory"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
-          <span class="hljs-attribute">datePattern</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rotation Pattern"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the date pattern to be used for rotating files"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-            <span class="hljs-attribute">minLength</span>: <span class="hljs-number">1</span>
-          <span class="hljs-attribute">maxSize</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"max. Size"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum file size before file rotation"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-            <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-          <span class="hljs-attribute">maxFiles</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"max. Files"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum number of files (older ones will be deleted on rotation)"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-            <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-          <span class="hljs-attribute">compress</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Compress"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag indicating rotated files should be compressed"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-      <span class="hljs-attribute">http</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"HTTP Webservice"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a service to send log entries to"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">host</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname or IP"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname or ip address to send to"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-            <span class="hljs-attribute">or</span>: [
-              <span class="hljs-attribute">type</span>: <span class="hljs-string">'ipaddr'</span>
+      bind: bind
+      file:
+        title: <span class="hljs-string">"File Logger"</span>
+        description: <span class="hljs-string">"the setup of an file logger"</span>
+        type: <span class="hljs-string">'object'</span>
+        allowedKeys: <span class="hljs-literal">true</span>
+        keys:
+          filename:
+            title: <span class="hljs-string">"Filename"</span>
+            description: <span class="hljs-string">"the filename within the log directory"</span>
+            type: <span class="hljs-string">'file'</span>
+          datePattern:
+            title: <span class="hljs-string">"Rotation Pattern"</span>
+            description: <span class="hljs-string">"the date pattern to be used for rotating files"</span>
+            type: <span class="hljs-string">'string'</span>
+            minLength: <span class="hljs-number">1</span>
+          maxSize:
+            title: <span class="hljs-string">"max. Size"</span>
+            description: <span class="hljs-string">"the maximum file size before file rotation"</span>
+            type: <span class="hljs-string">'byte'</span>
+            min: <span class="hljs-number">1</span>
+          maxFiles:
+            title: <span class="hljs-string">"max. Files"</span>
+            description: <span class="hljs-string">"the maximum number of files (older ones will be deleted on rotation)"</span>
+            type: <span class="hljs-string">'integer'</span>
+            min: <span class="hljs-number">1</span>
+          compress:
+            title: <span class="hljs-string">"Compress"</span>
+            description: <span class="hljs-string">"a flag indicating rotated files should be compressed"</span>
+            type: <span class="hljs-string">'boolean'</span>
+      http:
+        title: <span class="hljs-string">"HTTP Webservice"</span>
+        description: <span class="hljs-string">"a service to send log entries to"</span>
+        type: <span class="hljs-string">'object'</span>
+        allowedKeys: <span class="hljs-literal">true</span>
+        keys:
+          host:
+            title: <span class="hljs-string">"Hostname or IP"</span>
+            description: <span class="hljs-string">"the hostname or ip address to send to"</span>
+            type: <span class="hljs-string">'or'</span>
+            or: [
+              type: <span class="hljs-string">'ipaddr'</span>
             ,
-              <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+              type: <span class="hljs-string">'hostname'</span>
             ]
-          <span class="hljs-attribute">port</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port of the service to use"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'port'</span>
-          <span class="hljs-attribute">path</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Request URI Path"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the uri path to send request to"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-            <span class="hljs-attribute">startsWith</span>: <span class="hljs-string">'/'</span>
-            <span class="hljs-attribute">minLength</span>: <span class="hljs-number">2</span>
-          <span class="hljs-attribute">auth</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Authentication"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the basic authentication settings"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-            <span class="hljs-attribute">mandatoryKeys</span>: <span class="hljs-literal">true</span>
-            <span class="hljs-attribute">keys</span>:
-              <span class="hljs-attribute">username</span>:
-                <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
-                <span class="hljs-attribute">description</span>: <span class="hljs-string">"the username to use for basic authentication"</span>
-                <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-              <span class="hljs-attribute">password</span>:
-                <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
-                <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password used for basic authentication"</span>
-                <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">secure</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Secure Connection"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag indicating to user https protocol"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-      <span class="hljs-attribute">mail</span>:
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Mail Logger"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for a mail logger"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">to</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"To"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the email address to send email to"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">from</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"From"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the origin email address used as sender"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">host</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"SMTP Host"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the SMTO hostname if needed"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-            <span class="hljs-attribute">or</span>: [
-              <span class="hljs-attribute">type</span>: <span class="hljs-string">'ipaddr'</span>
+          port:
+            title: <span class="hljs-string">"Port"</span>
+            description: <span class="hljs-string">"the port of the service to use"</span>
+            type: <span class="hljs-string">'port'</span>
+          path:
+            title: <span class="hljs-string">"Request URI Path"</span>
+            description: <span class="hljs-string">"the uri path to send request to"</span>
+            type: <span class="hljs-string">'string'</span>
+            startsWith: <span class="hljs-string">'/'</span>
+            minLength: <span class="hljs-number">2</span>
+          auth:
+            title: <span class="hljs-string">"Authentication"</span>
+            description: <span class="hljs-string">"the basic authentication settings"</span>
+            type: <span class="hljs-string">'object'</span>
+            mandatoryKeys: <span class="hljs-literal">true</span>
+            keys:
+              username:
+                title: <span class="hljs-string">"Username"</span>
+                description: <span class="hljs-string">"the username to use for basic authentication"</span>
+                type: <span class="hljs-string">'string'</span>
+              password:
+                title: <span class="hljs-string">"Password"</span>
+                description: <span class="hljs-string">"the password used for basic authentication"</span>
+                type: <span class="hljs-string">'string'</span>
+          secure:
+            title: <span class="hljs-string">"Secure Connection"</span>
+            description: <span class="hljs-string">"a flag indicating to user https protocol"</span>
+            type: <span class="hljs-string">'boolean'</span>
+      mail:
+        title: <span class="hljs-string">"Mail Logger"</span>
+        description: <span class="hljs-string">"the configuration for a mail logger"</span>
+        type: <span class="hljs-string">'object'</span>
+        allowedKeys: <span class="hljs-literal">true</span>
+        keys:
+          to:
+            title: <span class="hljs-string">"To"</span>
+            description: <span class="hljs-string">"the email address to send email to"</span>
+            type: <span class="hljs-string">'string'</span>
+          from:
+            title: <span class="hljs-string">"From"</span>
+            description: <span class="hljs-string">"the origin email address used as sender"</span>
+            type: <span class="hljs-string">'string'</span>
+          host:
+            title: <span class="hljs-string">"SMTP Host"</span>
+            description: <span class="hljs-string">"the SMTO hostname if needed"</span>
+            type: <span class="hljs-string">'or'</span>
+            or: [
+              type: <span class="hljs-string">'ipaddr'</span>
             ,
-              <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+              type: <span class="hljs-string">'hostname'</span>
             ]
-          <span class="hljs-attribute">port</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"SMTP Port"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port of the SMTP host is listening"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'port'</span>
-          <span class="hljs-attribute">secure</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Secure Protocol"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag indicating to use secure connections"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-          <span class="hljs-attribute">auth</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Authentication"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the smtp authentication settings"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-            <span class="hljs-attribute">mandatoryKeys</span>: <span class="hljs-literal">true</span>
-            <span class="hljs-attribute">keys</span>:
-              <span class="hljs-attribute">username</span>:
-                <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
-                <span class="hljs-attribute">description</span>: <span class="hljs-string">"the username to use for smtp authentication"</span>
-                <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-              <span class="hljs-attribute">password</span>:
-                <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
-                <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password used for smtp authentication"</span>
-                <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
+          port:
+            title: <span class="hljs-string">"SMTP Port"</span>
+            description: <span class="hljs-string">"the port of the SMTP host is listening"</span>
+            type: <span class="hljs-string">'port'</span>
+          secure:
+            title: <span class="hljs-string">"Secure Protocol"</span>
+            description: <span class="hljs-string">"a flag indicating to use secure connections"</span>
+            type: <span class="hljs-string">'boolean'</span>
+          auth:
+            title: <span class="hljs-string">"Authentication"</span>
+            description: <span class="hljs-string">"the smtp authentication settings"</span>
+            type: <span class="hljs-string">'object'</span>
+            mandatoryKeys: <span class="hljs-literal">true</span>
+            keys:
+              username:
+                title: <span class="hljs-string">"Username"</span>
+                description: <span class="hljs-string">"the username to use for smtp authentication"</span>
+                type: <span class="hljs-string">'string'</span>
+              password:
+                title: <span class="hljs-string">"Password"</span>
+                description: <span class="hljs-string">"the password used for smtp authentication"</span>
+                type: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -418,9 +418,9 @@ Authentication
         </td>
         <td class="code highlight">
           <pre class="coffeescript">auth =
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">bind</span>: bind</pre>
+  type: <span class="hljs-string">'object'</span>
+  keys:
+    bind: bind</pre>
         </td>
       </tr>
     
@@ -436,7 +436,7 @@ Application routes
         </td>
         <td class="code highlight">
           <pre class="coffeescript">app =
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span></pre>
+  type: <span class="hljs-string">'object'</span></pre>
         </td>
       </tr>
     
@@ -452,23 +452,23 @@ Spaces
         </td>
         <td class="code highlight">
           <pre class="coffeescript">space =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Spaces"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the server spaces which are an abstraction of the listener"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">entries</span>: [
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Space"</span>
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the server space which is an abstraction of the listener"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-    <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'bind'</span>]
-    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">keys</span>:
-      <span class="hljs-attribute">bind</span>: bind
-      <span class="hljs-attribute">theme</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-        <span class="hljs-attribute">default</span>: <span class="hljs-string">'default'</span>
-      <span class="hljs-attribute">log</span>: log
-      <span class="hljs-attribute">auth</span>: auth
-      <span class="hljs-attribute">app</span>: app
+  title: <span class="hljs-string">"Spaces"</span>
+  description: <span class="hljs-string">"the server spaces which are an abstraction of the listener"</span>
+  type: <span class="hljs-string">'object'</span>
+  entries: [
+    title: <span class="hljs-string">"Space"</span>
+    description: <span class="hljs-string">"the server space which is an abstraction of the listener"</span>
+    type: <span class="hljs-string">'object'</span>
+    mandatoryKeys: [<span class="hljs-string">'bind'</span>]
+    allowedKeys: <span class="hljs-literal">true</span>
+    keys:
+      bind: bind
+      theme:
+        type: <span class="hljs-string">'string'</span>
+        default: <span class="hljs-string">'default'</span>
+      log: log
+      auth: auth
+      app: app
   ]</pre>
         </td>
       </tr>
@@ -486,26 +486,26 @@ Server Settings
         <td class="code highlight">
           <pre class="coffeescript">
 <span class="hljs-built_in">module</span>.exports =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration of servers (connected by client)"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">http</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Webserver"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for the webserver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-      <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">keys</span>:
-        <span class="hljs-attribute">listener</span>: listener
-        <span class="hljs-attribute">log</span>: log
-        <span class="hljs-attribute">heapdump</span>:
-          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write HEAP dumps"</span>
-          <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag defining if HEAP dumps should be written"</span>
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-        <span class="hljs-attribute">auth</span>: auth
-        <span class="hljs-attribute">app</span>: app
-        <span class="hljs-attribute">space</span>: space</pre>
+  title: <span class="hljs-string">"Server"</span>
+  description: <span class="hljs-string">"the configuration of servers (connected by client)"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    http:
+      title: <span class="hljs-string">"Webserver"</span>
+      description: <span class="hljs-string">"the configuration for the webserver"</span>
+      type: <span class="hljs-string">'object'</span>
+      allowedKeys: <span class="hljs-literal">true</span>
+      keys:
+        listener: listener
+        log: log
+        heapdump:
+          title: <span class="hljs-string">"Write HEAP dumps"</span>
+          description: <span class="hljs-string">"a flag defining if HEAP dumps should be written"</span>
+          type: <span class="hljs-string">'boolean'</span>
+        auth: auth
+        app: app
+        space: space</pre>
         </td>
       </tr>
     

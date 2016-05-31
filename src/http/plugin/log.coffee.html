@@ -7,7 +7,7 @@
   <script src="../../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../../";
-    var thisFile = "home/alex/github/node-server/src/http/plugin/log.coffee";
+    var thisFile = "src/http/plugin/log.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
@@ -228,9 +228,9 @@ exports.register = <span class="hljs-function"><span class="hljs-params">(server
           <pre class="coffeescript">  <span class="hljs-keyword">return</span> next()
 
 exports.register.attributes =
-  <span class="hljs-attribute">name</span>: <span class="hljs-string">'log'</span>
-  <span class="hljs-attribute">version</span>: <span class="hljs-string">'1.0.0'</span>
-  <span class="hljs-attribute">multiple</span>: <span class="hljs-literal">true</span></pre>
+  name: <span class="hljs-string">'log'</span>
+  version: <span class="hljs-string">'1.0.0'</span>
+  multiple: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -262,36 +262,36 @@ Helper methods
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.file?
     t = winston.transports
     trans = <span class="hljs-keyword">new</span> (<span class="hljs-keyword">if</span> setup.file.datePattern <span class="hljs-keyword">then</span> t.DailyRotateFile <span class="hljs-keyword">else</span> t.File)
-      <span class="hljs-attribute">level</span>: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
-      <span class="hljs-attribute">showLevel</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">filename</span>: <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../../../var/log/<span class="hljs-subst">#{setup.file.filename}</span>"</span>
-      <span class="hljs-attribute">colorize</span>: <span class="hljs-literal">false</span>
-      <span class="hljs-attribute">json</span>: setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'all'</span>
-      <span class="hljs-attribute">maxsize</span>: setup.file.maxSize
-      <span class="hljs-attribute">maxFiles</span>: setup.file.maxFiles
-      <span class="hljs-attribute">tailable</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">zippedArchive</span>: setup.file.compress
-      <span class="hljs-attribute">datePattern</span>: setup.file.datePattern
-      <span class="hljs-attribute">formatter</span>: formatter[setup.data]
+      level: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
+      showLevel: <span class="hljs-literal">true</span>
+      filename: <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../../../var/log/<span class="hljs-subst">#{setup.file.filename}</span>"</span>
+      colorize: <span class="hljs-literal">false</span>
+      json: setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'all'</span>
+      maxsize: setup.file.maxSize
+      maxFiles: setup.file.maxFiles
+      tailable: <span class="hljs-literal">true</span>
+      zippedArchive: setup.file.compress
+      datePattern: setup.file.datePattern
+      formatter: formatter[setup.data]
   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> setup.http?
     trans = <span class="hljs-keyword">new</span> winston.transports.Http
-      <span class="hljs-attribute">level</span>: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
-      <span class="hljs-attribute">host</span>: setup.http.host
-      <span class="hljs-attribute">port</span>: setup.http.port
-      <span class="hljs-attribute">path</span>: setup.http.path
-      <span class="hljs-attribute">auth</span>: setup.http.auth
-      <span class="hljs-attribute">ssl</span>: setup.http.secure
+      level: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
+      host: setup.http.host
+      port: setup.http.port
+      path: setup.http.path
+      auth: setup.http.auth
+      ssl: setup.http.secure
   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> setup.mail?
     trans = <span class="hljs-keyword">new</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'winston-mail'</span>).Mail
-      <span class="hljs-attribute">level</span>: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
-      <span class="hljs-attribute">to</span>: setup.mail.to
-      <span class="hljs-attribute">from</span>: setup.mail.from
-      <span class="hljs-attribute">host</span>: setup.mail.host
-      <span class="hljs-attribute">port</span>: setup.mail.port
-      <span class="hljs-attribute">auth</span>: setup.mail.auth
-      <span class="hljs-attribute">secure</span>: setup.mail.secure
+      level: <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'error'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'all'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'debug'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'info'</span>
+      to: setup.mail.to
+      from: setup.mail.from
+      host: setup.mail.host
+      port: setup.mail.port
+      auth: setup.mail.auth
+      secure: setup.mail.secure
   logger = <span class="hljs-keyword">new</span> winston.Logger
-    <span class="hljs-attribute">transports</span>: [trans]
+    transports: [trans]
   <span class="hljs-keyword">if</span> setup.file?
     <span class="hljs-keyword">if</span> setup.data <span class="hljs-keyword">is</span> <span class="hljs-string">'extended'</span></pre>
         </td>
@@ -315,7 +315,7 @@ Helper methods
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      logger.error
-        <span class="hljs-attribute">comment</span>: <span class="hljs-string">"
+        comment: <span class="hljs-string">"
 </span></pre>
         </td>
       </tr>
@@ -455,31 +455,31 @@ console.log 3, data</p>
       <span class="hljs-keyword">when</span> code &lt; <span class="hljs-number">500</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'warn'</span>
       <span class="hljs-keyword">else</span> <span class="hljs-string">'error'</span>
     ,
-      <span class="hljs-attribute">client</span>:
-        <span class="hljs-attribute">ip</span>: raw[<span class="hljs-string">'x-forwarded-for'</span>] ? data.info.remoteAddress
-        <span class="hljs-attribute">referrer</span>: data.info.referrer
-        <span class="hljs-attribute">session</span>: data.session
-        <span class="hljs-attribute">agent</span>: data.headers[<span class="hljs-string">'user-agent'</span>]
-        <span class="hljs-attribute">user</span>: <span class="hljs-keyword">if</span> data.auth.isAuthenticated <span class="hljs-keyword">then</span> data.auth.isAuthenticated <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
-      <span class="hljs-attribute">server</span>:
-        <span class="hljs-attribute">port</span>: data.connection.info.port
-        <span class="hljs-attribute">ip</span>: data.connection.info.address
-        <span class="hljs-attribute">hostname</span>: data.info.hostname
-      <span class="hljs-attribute">request</span>:
-        <span class="hljs-attribute">time</span>: <span class="hljs-keyword">new</span> Date data.info.received
-        <span class="hljs-attribute">protocolVersion</span>: <span class="hljs-string">"<span class="hljs-subst">#{data.connection.info.protocol.toUpperCase()}</span> <span class="hljs-subst">#{raw.httpVersion}</span>"</span>
-        <span class="hljs-attribute">method</span>: data.method.toUpperCase()
-        <span class="hljs-attribute">url</span>: <span class="hljs-string">"<span class="hljs-subst">#{data.connection.info.protocol}</span>://<span class="hljs-subst">#{raw.headers.host}</span><span class="hljs-subst">#{raw.url}</span>"</span>
-        <span class="hljs-attribute">path</span>: raw.url
-        <span class="hljs-attribute">pathname</span>: data.path
-        <span class="hljs-attribute">query</span>: data.url.search
-      <span class="hljs-attribute">response</span>:
-        <span class="hljs-attribute">code</span>: data.response.statusCode
-        <span class="hljs-attribute">error</span>: data.response.source.error
-        <span class="hljs-attribute">time</span>: <span class="hljs-keyword">new</span> Date data.info.responded
-        <span class="hljs-attribute">size</span>: data.response.headers[<span class="hljs-string">'content-length'</span>]
-        <span class="hljs-attribute">duration</span>: diff
-        <span class="hljs-attribute">durationString</span>: <span class="hljs-keyword">switch</span>
+      client:
+        ip: raw[<span class="hljs-string">'x-forwarded-for'</span>] ? data.info.remoteAddress
+        referrer: data.info.referrer
+        session: data.session
+        agent: data.headers[<span class="hljs-string">'user-agent'</span>]
+        user: <span class="hljs-keyword">if</span> data.auth.isAuthenticated <span class="hljs-keyword">then</span> data.auth.isAuthenticated <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
+      server:
+        port: data.connection.info.port
+        ip: data.connection.info.address
+        hostname: data.info.hostname
+      request:
+        time: <span class="hljs-keyword">new</span> Date data.info.received
+        protocolVersion: <span class="hljs-string">"<span class="hljs-subst">#{data.connection.info.protocol.toUpperCase()}</span> <span class="hljs-subst">#{raw.httpVersion}</span>"</span>
+        method: data.method.toUpperCase()
+        url: <span class="hljs-string">"<span class="hljs-subst">#{data.connection.info.protocol}</span>://<span class="hljs-subst">#{raw.headers.host}</span><span class="hljs-subst">#{raw.url}</span>"</span>
+        path: raw.url
+        pathname: data.path
+        query: data.url.search
+      response:
+        code: data.response.statusCode
+        error: data.response.source.error
+        time: <span class="hljs-keyword">new</span> Date data.info.responded
+        size: data.response.headers[<span class="hljs-string">'content-length'</span>]
+        duration: diff
+        durationString: <span class="hljs-keyword">switch</span>
           <span class="hljs-keyword">when</span> diff &lt; <span class="hljs-number">1000</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"<span class="hljs-subst">#{diff}</span>ms"</span>
           <span class="hljs-keyword">else</span> <span class="hljs-string">"<span class="hljs-subst">#{Math.round diff/<span class="hljs-number">1000</span>}</span>s"</span></pre>
         </td>
@@ -533,7 +533,7 @@ Formatter
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">error</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  error: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     m = <span class="hljs-keyword">if</span> data.message <span class="hljs-keyword">then</span> data.message <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
     d = data.meta ? <span class="hljs-literal">null</span></pre>
         </td>
@@ -563,7 +563,7 @@ events by priority</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">event</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  event: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     m = <span class="hljs-keyword">if</span> data.message <span class="hljs-keyword">then</span> data.message <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
     d = data.meta ? <span class="hljs-literal">null</span>
     <span class="hljs-string">"<span class="hljs-subst">#{moment().format <span class="hljs-string">'YYYY-MM-DD HH:mm:ss ZZ'</span>}</span> <span class="hljs-subst">#{data.level.toUpperCase()}</span>:
@@ -581,7 +581,7 @@ apache custom access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">common</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  common: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
     <span class="hljs-string">"<span class="hljs-subst">#{d.client.ip}</span> - <span class="hljs-subst">#{d.client.user ? <span class="hljs-string">'-'</span>}</span>
     [<span class="hljs-subst">#{moment(d.request.time).format <span class="hljs-string">'DD/MMM/YY:HH:mm:ss ZZ'</span>}</span>]
@@ -599,7 +599,7 @@ apache custom access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">commonvhost</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  commonvhost: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
     <span class="hljs-string">"<span class="hljs-subst">#{d.server.hostname}</span> <span class="hljs-subst">#{d.client.ip}</span> - <span class="hljs-subst">#{d.client.user ? <span class="hljs-string">'-'</span>}</span>
     [<span class="hljs-subst">#{moment(d.request.time).format <span class="hljs-string">'DD/MMM/YY:HH:mm:ss ZZ'</span>}</span>]
@@ -618,7 +618,7 @@ apache combined access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">combined</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  combined: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
     referrer = <span class="hljs-keyword">if</span> d.client.referrer <span class="hljs-keyword">then</span> <span class="hljs-string">"\"<span class="hljs-subst">#{d.client.referrer}</span>\""</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'-'</span>
     agent = <span class="hljs-keyword">if</span> d.client.agent <span class="hljs-keyword">then</span> <span class="hljs-string">"\"<span class="hljs-subst">#{d.client.agent}</span>\""</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'-'</span>
@@ -640,7 +640,7 @@ apache referrer access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">referrer</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  referrer: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
     <span class="hljs-keyword">return</span> <span class="hljs-string">"<span class="hljs-subst">#{d.client.referrer}</span> -&gt; <span class="hljs-subst">#{d.request.pathname}</span>"</span></pre>
         </td>
@@ -655,7 +655,7 @@ apache referrer access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">extended</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  extended: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     d = data.meta
     <span class="hljs-keyword">return</span> d.comment <span class="hljs-keyword">if</span> d.comment?
     <span class="hljs-string">"<span class="hljs-subst">#{moment(d.request.time).format <span class="hljs-string">'YYYY-MM-DD'</span>}</span> <span class="hljs-subst">#{moment(d.request.time).format <span class="hljs-string">'HH:mm:ss'</span>}</span>
@@ -675,7 +675,7 @@ apache combined access log</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">object</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+          <pre class="coffeescript">  object: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
     m = <span class="hljs-keyword">if</span> data.message <span class="hljs-keyword">then</span> data.message <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
     d = data.meta ? <span class="hljs-literal">null</span>
     m ? JSON.stringify d</pre>

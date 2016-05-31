@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-server/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -189,7 +189,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: async.once (cb) -&gt;</pre>
+          <pre class="coffeescript">  setup: async.once (cb) -&gt;</pre>
         </td>
       </tr>
     
@@ -228,7 +228,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">init</span>: async.once (cb) -&gt;
+          <pre class="coffeescript">  init: async.once (cb) -&gt;
     debug <span class="hljs-string">"initialize server"</span>
     async.parallel [</pre>
         </td>
@@ -244,10 +244,10 @@ Initialization
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      (cb) -&gt; fs.find __dirname,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'dir'</span>
-        <span class="hljs-attribute">mindepth</span>: <span class="hljs-number">1</span>
-        <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">1</span>
-        <span class="hljs-attribute">exclude</span>: <span class="hljs-string">'doc'</span>
+        type: <span class="hljs-string">'dir'</span>
+        mindepth: <span class="hljs-number">1</span>
+        maxdepth: <span class="hljs-number">1</span>
+        exclude: <span class="hljs-string">'doc'</span>
       , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
         types = list?.map (e) -&gt; fspath.basename e, fspath.extname e
         cb err</pre>
