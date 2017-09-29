@@ -14,8 +14,7 @@ describe('start', () => {
 
   const server = new Server()
 
-  it('should start server', () => {
-    expect(server).to.be.an.instanceof(Server)
-  })
+  it('should start server', () => server.start())
+  // it('should start server', () => server.start())
 
 })

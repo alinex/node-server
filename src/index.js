@@ -4,16 +4,20 @@ import fs from 'fs'
 import os from 'os'
 import path from 'path'
 import Debug from 'debug'
+import Hapi from 'hapi'
 
 const debug = Debug('server')
 
 class Server {
-//  constructor() {
-//  }
+  server: Hapi.server
 
-  start(): Promise<void> { // eslint-disable-line
-    debug('Starting server...')
-    return Promise.resolve()
+  constructor() {
+    this.server = new Hapi.Server()
+    this.server.connection({ port: 3000, host: 'localhost' })
+  }
+
+  start(): Promise<void> {
+    return this.server.start()
   }
 
   stop(): Promise<void> { // eslint-disable-line
