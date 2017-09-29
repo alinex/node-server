@@ -1,8 +1,23 @@
 language: node_js
 node_js:
-   - "0.10" # from 2013-03 maintenance till 2016-10
-   - "0.12" # from 2015-02 maintenance till 2017-04
-   - "4.2"  # LTS from 2015-10  maintenance till 2018-04
-   - "5.5"  # current
-after_success:
-   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=JQpwx75nWbvjvhzMJxOduzccxZhPYLMvE node_modules/.bin/builder -c test --coverage --coveralls
+  - "6"  # LTS   from 2016-10 maintenance till 2019-04
+  - "7"  # devel from 2016-10
+  - "8"  # LTS   from 2017-10 maintenance till 2019-12
+#  - "9"  # devel from 2017-10
+os:
+  - linux
+#  - osx   # not possible because of mongodb service
+
+# run with coveralls integration
+script: "npm run-script test-travis"
+after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+
+# Fix the c++ compiler on Ubuntu 14.04
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
