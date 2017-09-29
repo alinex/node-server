@@ -13,7 +13,18 @@ class Server {
 
   constructor() {
     this.server = new Hapi.Server()
-    this.server.connection({ port: 3000, host: 'localhost' })
+  }
+
+  listen(port: number, host: string): Server {
+    this.server.connection({ port, host })
+    this.server.route({
+      method: 'GET',
+      path: '/',
+      handler: (request, reply) => {
+        reply('Hello, world!')
+      },
+    })
+    return this
   }
 
   start(): Promise<void> {
