@@ -8,6 +8,11 @@ import Hapi from 'hapi'
 
 const debug = Debug('server')
 
+type Config = {
+  port: number,
+  host: string,
+}
+
 class Server {
   server: Hapi.server
 
@@ -15,25 +20,28 @@ class Server {
     this.server = new Hapi.Server()
   }
 
-  listen(port: number, host: string): Server {
-    this.server.connection({ port, host })
-    this.server.route({
-      method: 'GET',
-      path: '/',
-      handler: (request, reply) => {
-        reply('Hello, world!')
-      },
-    })
+  // configuration
+
+  config(config: Config): this {
+    if (config.port) this.listen(config.port, config.host)
     return this
   }
 
+  listen(port: number, host: string): Server {
+    this.server.connection({ port, host })
+    return this
+  }
+
+  // use the server
+
   start(): Promise<void> {
+    debug('Starting server...')
     return this.server.start()
   }
 
   stop(): Promise<void> { // eslint-disable-line
     debug('Stopping server...')
-    return Promise.resolve()
+    return this.server.stop()
   }
 }
 

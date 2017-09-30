@@ -42,7 +42,8 @@
     "chalk": "^2.1.0",
     "debug": "^3.1.0",
     "es6-promisify": "^5.0.0",
-    "hapi": "^16.6.2"
+    "hapi": "^16.6.2",
+    "inert": "^4.2.1"
   },
   "devDependencies": {
     "async": "^2.5.0",
