@@ -8,40 +8,52 @@ import Hapi from 'hapi'
 
 const debug = Debug('server')
 
+type Listener = {
+  host?: string,
+  port?: number,
+  tls?: {
+    key: string,
+    cert: string,
+  },
+}
 type Config = {
-  port: number,
-  host: string,
+  listen: Listener,
 }
 
 class Server {
-  server: Hapi.server
+  hapi: Hapi.server
 
   constructor() {
-    this.server = new Hapi.Server()
+    this.hapi = new Hapi.Server()
   }
 
   // configuration
 
-  config(config: Config): this {
-    if (config.port) this.listen(config.port, config.host)
-    return this
+  config(config: Config): Hapi.Server {
+    const app = this.listen(config.listen)
+    return app
   }
 
-  listen(port: number, host: string): Server {
-    this.server.connection({ port, host })
-    return this
+  listen(config: Listener): Hapi.Server {
+    return this.hapi.connection(config)
   }
 
   // use the server
 
   start(): Promise<void> {
     debug('Starting server...')
-    return this.server.start()
+    return this.hapi.start()
+      .then(() => {
+        debug('Server is running')
+      })
   }
 
   stop(): Promise<void> { // eslint-disable-line
     debug('Stopping server...')
-    return this.server.stop()
+    return this.hapi.stop()
+      .then(() => {
+        debug('Server is stopped')
+      })
   }
 }
 

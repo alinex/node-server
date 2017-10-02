@@ -19,8 +19,8 @@ describe('server', () => {
     const server = new Server()
 
     it('should start server', () => {
-      server.listen(3000, 'localhost')
-      server.server.route({
+      const app = server.listen({ port: 3000, host: 'localhost' })
+      app.route({
         method: 'GET',
         path: '/',
         handler: (request, reply) => {
@@ -50,11 +50,10 @@ describe('server', () => {
     const server = new Server()
 
     it('should start server', () => {
-      server.config({
-        port: 3000,
-        host: 'localhost',
+      const app = server.config({
+        listen: { port: 3000 },
       })
-      server.server.route({
+      app.route({
         method: 'GET',
         path: '/',
         handler: (request, reply) => {
@@ -62,6 +61,9 @@ describe('server', () => {
         },
       })
       return server.start()
+        .then(() => {
+          console.log(app.info.uri, app.info.address)
+        })
     })
 
     it('should be working', () => (chai: any)
