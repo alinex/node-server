@@ -5,6 +5,8 @@ import os from 'os'
 import path from 'path'
 import Debug from 'debug'
 import Hapi from 'hapi'
+import Good from 'good'
+import DebugPlugin from './plugins/debug'
 
 const debug = Debug('server')
 
@@ -29,13 +31,33 @@ class Server {
 
   // configuration
 
-  config(config: Config): Hapi.Server {
-    const app = this.listen(config.listen)
-    return app
+  init(): Promise<Hapi.Server> {
+    return this.hapi.register({
+      register: Good,
+      options: {
+        reporters: {
+          console: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{
+              response: '*',
+              log: '*',
+            }],
+          }, {
+            module: 'good-console',
+          }, 'stdout'],
+        },
+      },
+    })
   }
 
-  listen(config: Listener): Hapi.Server {
-    return this.hapi.connection(config)
+  config(config: Config): Promise<Hapi.Server> {
+    const p = this.listen(config.listen)
+    return p
+  }
+
+  listen(config: Listener): Promise<Hapi.Server> {
+    return Promise.resolve(this.hapi.connection(config))
   }
 
   // use the server

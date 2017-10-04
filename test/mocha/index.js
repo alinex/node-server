@@ -18,17 +18,19 @@ describe('server', () => {
 
     const server = new Server()
 
-    it('should start server', () => {
-      const app = server.listen({ port: 3000, host: 'localhost' })
-      app.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, reply) => {
-          reply('Hello, world!')
-        },
+    it('should start server', () => server.listen({ port: 3000, host: 'localhost' })
+      .then((app) => {
+        app.route({
+          method: 'GET',
+          path: '/',
+          handler: (request, reply) => {
+            reply('Hello, world!')
+          },
+        })
+        return Promise.resolve(app)
       })
-      return server.start()
-    })
+      .then(() => server.init())
+      .then(() => server.start()))
 
     it('should be working', () => (chai: any)
       .request('http://localhost:3000').get('/')
@@ -49,22 +51,20 @@ describe('server', () => {
 
     const server = new Server()
 
-    it('should start server', () => {
-      const app = server.config({
-        listen: { port: 3000 },
-      })
-      app.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, reply) => {
-          reply('Hello, world!')
-        },
-      })
-      return server.start()
-        .then(() => {
-          console.log(app.info.uri, app.info.address)
-        })
+    it('should start server', () => server.config({
+      listen: { port: 3000 },
     })
+      .then((app) => {
+        app.route({
+          method: 'GET',
+          path: '/',
+          handler: (request, reply) => {
+            reply('Hello, world!')
+          },
+        })
+        return Promise.resolve(app)
+      })
+      .then(() => server.start()))
 
     it('should be working', () => (chai: any)
       .request('http://localhost:3000').get('/')
