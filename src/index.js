@@ -6,7 +6,7 @@ import path from 'path'
 import Debug from 'debug'
 import Hapi from 'hapi'
 import Good from 'good'
-import DebugPlugin from './plugins/debug'
+import DebugPlugin from './plugin/debug'
 
 const debug = Debug('server')
 
@@ -66,7 +66,7 @@ class Server {
     debug('Starting server...')
     return this.hapi.start()
       .then(() => {
-        debug('Server is running')
+        debug(`Server is listening under ${this.hapi.info.uri}`)
       })
   }
 
