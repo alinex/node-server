@@ -1,6 +1,9 @@
 # Alinex Web Server
 
-The server is a module used in some of my applications to make them serve a website.
+The server is a module used in some of my applications to make them serve a website or service.
+
+It is based on the [hapi](https://hapijs.com) server and wraps it under a thin layer. This allows
+to make it easier to use with ready to use plugins.
 
 
 ## License

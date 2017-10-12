@@ -9,12 +9,11 @@ const register = (app: Hapi.Server) => {
     handler: (request, reply) => {
       reply('Hello, from plugin!')
     },
+    config: {
+      description: 'Only for testing',
+    },
   })
 }
-
-register.attributes = {
-  name: 'helloPlugin',
-  version: '1.0.0',
-}
+register.attributes = { name: 'helloPlugin' }
 
 export default { register }
