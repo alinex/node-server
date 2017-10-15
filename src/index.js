@@ -21,9 +21,6 @@ type Listener = {
     cert: string,
   },
 }
-type Config = {
-  listen: Listener,
-}
 
 class Server {
   hapi: Hapi.server
