@@ -22,7 +22,6 @@ bower_components
 .npm
 /*.tgz
 .yarn-integrity
-tsconfig.json
 
 # Other caching like eslint or repl
 .eslintcache

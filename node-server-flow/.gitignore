@@ -22,7 +22,6 @@ bower_components
 .npm
 /*.tgz
 .yarn-integrity
-tsconfig.json
 
 # Other caching like eslint or repl
 .eslintcache
@@ -32,12 +31,8 @@ tsconfig.json
 node_modules/
 jspm_packages/
 
-# Development folder
-doc
-book.json
-src
-test
-/.*
+# Compiled code
+dist
 
 # Runtime data
 local

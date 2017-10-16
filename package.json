@@ -22,17 +22,13 @@
   },
   "contributors": [],
   "license": "Apache-2.0",
-  "main": "./dist/index.js",
+  "main": "./dist/index",
+  "types": "./dist/index",
   "scripts": {
-    "flowinstall": "node_modules/.bin/flow-typed install --overwrite",
-    "lint": "node_modules/.bin/flow && node_modules/.bin/eslint src --ext .js",
-    "test": "npm run lint -s && npm run unit -s",
-    "unit": "mocha --require babel-core/register --require babel-polyfill test/mocha --recursive -b",
-    "coverage": "nyc --require babel-core/register --require babel-polyfill mocha test/mocha --recursive",
-    "test-travis": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test/mocha --recursive",
-    "build": "rm -r dist; babel src -d dist --require babel-polyfill; cp bin/validator dist; node_modules/.bin/marked-man bin/validator.1.md > dist/validator.1",
-    "demo": "nodemon test/demo/index.js --exec node_modules/.bin/babel-node",
-    "prepublishOnly": "npm run lint -s && npm run build -s"
+    "lint": "eslint src --ext ts --fix",
+    "dev": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index"
   },
   "directories": {
     "lib": "./dist"
@@ -48,39 +44,27 @@
     "inert": "^4.2.1"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.37",
     "async": "^2.5.0",
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-plugin-dynamic-import-node": "^1.1.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^3.0.0",
     "codacy-coverage": "^2.0.3",
     "coveralls": "^3.0.0",
-    "eslint": "^4.8.0",
-    "eslint-config-airbnb": "^16.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-mocha-only": "^0.0.3",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.4.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "flow-bin": "^0.56.0",
-    "flow-typed": "^2.2.0",
+    "eslint-plugin-typescript": "^0.8.0",
     "marked-man": "^0.2.1",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
-    "nyc": "^11.2.1"
+    "nyc": "^11.2.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3",
+    "typescript-eslint-parser": "^8.0.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }
