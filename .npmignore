@@ -23,8 +23,10 @@ bower_components
 /*.tgz
 .yarn-integrity
 tsconfig.json
+*.map
 
 # Other caching like eslint or repl
+tslint.json
 .eslintcache
 .node_repl_history
 

@@ -1,0 +1,19 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+      "tslint:recommended"
+  ],
+  "rules": {
+    "max-line-length": {
+        "options": [120]
+    },
+    "no-console": [true, "log", "warning"],
+    "semicolon": [true, "never"]
+  },
+  "jsRules": {
+    "max-line-length": {
+        "options": [120]
+    }
+  },
+  "rulesDirectory": []
+}

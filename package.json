@@ -25,10 +25,28 @@
   "main": "./dist/index",
   "types": "./dist/index",
   "scripts": {
-    "lint": "eslint src --ext ts --fix",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "mocha -r ts-node/register test/mocha/**.ts",
+    "coverage": "nyc mocha",
     "dev": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
     "build": "tsc",
-    "start": "node dist/index"
+    "start": "node dist/index",
+    "prepublish": "npm run build"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "cache": true,
+    "all": true
   },
   "directories": {
     "lib": "./dist"
@@ -46,23 +64,22 @@
   "devDependencies": {
     "@types/mocha": "^2.2.43",
     "@types/node": "^8.0.37",
+    "@types/chai": "^4.0.4",
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/chai-http": "^3.0.3",
     "async": "^2.5.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^3.0.0",
     "codacy-coverage": "^2.0.3",
     "coveralls": "^3.0.0",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-typescript": "^0.8.0",
     "marked-man": "^0.2.1",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "ts-node": "^3.3.0",
-    "typescript": "^2.5.3",
-    "typescript-eslint-parser": "^8.0.0"
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
   },
   "engines": {
     "node": ">=8"
