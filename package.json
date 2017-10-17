@@ -31,7 +31,7 @@
     "dev": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
     "build": "tsc",
     "start": "node dist/index",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "nyc": {
     "extension": [
