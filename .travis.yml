@@ -10,7 +10,9 @@ os:
 
 # run with coveralls integration
 script: "npm run coverage"
-after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+after_script:
+  - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  - "cat ./coverage/lcov.info | CODACY_PROJECT_TOKEN=6b50c72dfae44e0abd7a3da1367a6d4e ./node_modules/.bin/codacy-coverage"
 
 # Fix the c++ compiler on Ubuntu 14.04
 env:
