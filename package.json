@@ -29,10 +29,9 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "mocha -r ts-node/register test/mocha/**.ts",
     "coverage": "nyc mocha",
-    "dev": "NODE_ENV=development nodemon --exec nyc mocha",
-    "demo": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./test/demo/index.ts",
+    "dev": "NODE_ENV=development DEBUG=test,server* nodemon -e js,json,ts --exec mocha",
+    "demo": "NODE_ENV=development nodemon -e js,json,ts --exec ts-node -- ./test/demo/index.ts",
     "build": "tsc",
-    "start": "node dist/index",
     "prepublishOnly": "npm run build"
   },
   "nyc": {

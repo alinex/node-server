@@ -8,7 +8,8 @@
         "options": [120]
     },
     "no-console": [true, "log", "warning"],
-    "semicolon": [true, "never"]
+    "semicolon": [true, "never"],
+    "object-literal-sort-keys": [false, "never"]
   },
   "jsRules": {
     "max-line-length": {
