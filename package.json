@@ -25,10 +25,12 @@
   "main": "./dist/index",
   "types": "./dist/index",
   "scripts": {
+    "setup": "rm -r ./node_modules && npm install",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "mocha -r ts-node/register test/mocha/**.ts",
     "coverage": "nyc mocha",
-    "dev": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
+    "dev": "NODE_ENV=development nodemon --exec nyc mocha",
+    "demo": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./test/demo/index.ts",
     "build": "tsc",
     "start": "node dist/index",
     "prepublishOnly": "npm run build"
@@ -52,7 +54,7 @@
     "lib": "./dist"
   },
   "dependencies": {
-    "chalk": "^2.1.0",
+    "chalk": "^2.2.0",
     "debug": "^3.1.0",
     "es6-promisify": "^5.0.0",
     "good": "^7.3.0",
@@ -62,11 +64,14 @@
     "inert": "^4.2.1"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.43",
-    "@types/node": "^8.0.37",
     "@types/chai": "^4.0.4",
     "@types/chai-as-promised": "^7.1.0",
     "@types/chai-http": "^3.0.3",
+    "@types/chalk": "^0.4.31",
+    "@types/debug": "0.0.30",
+    "@types/hapi": "^16.1.10",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.44",
     "async": "^2.5.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",

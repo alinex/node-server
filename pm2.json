@@ -1,0 +1,12 @@
+{
+    "apps": [{
+        "exec_mode": "cluster",
+		"instances" : 4,
+        "script": "./dist/index.js",
+        "name": "server-demo",
+        "interpreter": "node",
+        "env": {
+            "NODE_ENV": "dev"
+        }
+    }]
+}
