@@ -3,20 +3,19 @@ import chaiHttp = require("chai-http")
 import * as Debug from "debug"
 import "mocha"
 
-import Server from "../../src/Server"
+import Server from "../wrapper/TServer"
 
 chai.use(chaiHttp)
-// const expect = chai.expect
+const expect = chai.expect
 const debug = Debug("test")
 
 describe("server", () => {
 
-  describe("setup", () => {
-    const server = new Server()
+  describe("listening", () => {
+    let server = new Server({ port: 3000, host: "localhost" })
 
     it("should start server", () => {
-      server.listen({ port: 3000, host: "localhost" })
-      server.start()
+      return server.start()
     })
 
     it("should be working", () => chai
@@ -32,6 +31,16 @@ describe("server", () => {
     )
 
     it("should stop server", () => server.stop())
+
+    it("should add listener manually", () => {
+      server = new Server()
+      server.listen({ port: 3001, host: "localhost" })
+      return server.start()
+      .then(() => {
+        expect(server.handle().info!.uri).to.equal("http://localhost:3001")
+      })
+      .then(() => server.stop())
+    })
   })
 
 })

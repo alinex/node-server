@@ -15,7 +15,7 @@ import IPlugin from "./IPlugin"
 const debug = Debug("server")
 
 class Server {
-  private hapi: Hapi.Server
+  protected hapi: Hapi.Server
 
   constructor(config?: IListener) {
     this.hapi = new Hapi.Server()
