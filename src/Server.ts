@@ -17,8 +17,11 @@ const debug = Debug("server")
 class Server {
   private hapi: Hapi.Server
 
-  constructor() {
+  constructor(config?: IListener) {
     this.hapi = new Hapi.Server()
+    if (config) {
+      this.listen(config)
+    }
   }
 
   // configuration
