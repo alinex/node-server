@@ -9,52 +9,76 @@ import * as Hapi from "hapi"
 // import path from "path"
 
 // import DebugPlugin from "./plugin/debug"
-import IListener from "./IListener"
-import IPlugin from "./IPlugin"
+import { IConfig, IListener, IRoute } from "./setup"
+// import IPlugin from "./IPlugin"
 
 const debug = Debug("server")
 
 class Server {
   protected hapi: Hapi.Server
 
-  constructor(config?: IListener) {
+  private pluginLoader: Array<Promise<void>> = []
+
+  constructor(config?: IConfig) {
     this.hapi = new Hapi.Server()
     if (config) {
-      this.listen(config)
+      const listener = Array.isArray(config.listen) ? config.listen : [config.listen]
+      for (const listen of listener) {
+        this.listen(listen)
+      }
     }
   }
 
   // configuration
 
   public listen(config: IListener): Server {
-    if (!config.labels) {
-      config.labels = "root" // use default
+    if (!config.label) {
+      config.label = "root" // use default
     }
     if (!config.port) {
       config.port = parseInt(process.env.PORT || "80", 10)
     }
-    this.hapi.connection(config)
+    this.hapi.connection({
+      labels: config.label,
+      host: config.host,
+      port: config.port,
+      tls: config.tls,
+    })
     return this
   }
 
-  public plugin(config: IPlugin): Server {
-    const labels = config.labels || "root"
-    this.hapi.select(labels).register({
-      register: config.plugin,
-      options: config.options,
-    }, {
+  public route(config: IRoute): Server {
+    this.hapi.route({
+      path: config.path,
+      method: config.method,
+      vhost: config.vhost,
+      handler: config.handler,
+      config: {
+        description: config.description,
+      },
+    })
+    return this
+  }
+
+//  public plugin(config: IPlugin): Server {
+//    const labels = config.labels || "root"
+//    this.hapi.select(labels).register({
+//      register: config.plugin,
+//      options: config.options,
+//    }, {
 //      select: labels,
 //      routes: {
 //        vhost: config.vhost,
 //        prefix: config.prefix,
 //      },
-    })
-    return this
-  }
+//    })
+//    return this
+//  }
 
   // use the server
 
-  public start(): Promise<Error|null> {
+  public async start(): Promise<Error|null> {
+    await Promise.all(this.pluginLoader)
     debug("Starting server...")
     let p = this.hapi.start()
     // print routing table

@@ -3,10 +3,20 @@
 ## Setup
 
 
+### Complete Setup
+
+The easiest way is to completely setup a server:
+
+    server = new Server(config)
+
+Alternatively all parts may be set up one by one, see the following methods.
+
 ### Instances
 
 The server is class based, so you may create multiple independent servers but you
 may also create only one server listening on multiple ports/ip addresses.
+
+    server = new Server()
 
 ### Listener
 
@@ -15,7 +25,6 @@ specific protocol (HTTP/HTTPS) to the server. The server may listen to multiple
 IP/Ports.
 With a label (default: `root`) it should be easy accessible later.
 
-    server = new Server(config)
     server.listen(config)
 
 ### Routes
@@ -31,7 +40,6 @@ Plugins encapsulate code and path and can be added similar like routes to serve
 below specific prefix paths.
 
     server.plugin()
-
 
 ## Control
 

@@ -12,7 +12,9 @@ const debug = Debug("test")
 describe("server", () => {
 
   describe("listening", () => {
-    let server = new Server({ port: 3000, host: "localhost" })
+    let server = new Server({
+      listen: { port: 3000, host: "localhost" },
+    })
 
     it("should start server", () => {
       return server.start()
