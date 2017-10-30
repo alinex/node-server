@@ -18,7 +18,7 @@ export interface IRoute {
   vhost?: string,
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS",
   path: string,
-  handler: () => void,
+  handler: (request: any, reply: any) => void,
   options?: {},
   description?: string
 }

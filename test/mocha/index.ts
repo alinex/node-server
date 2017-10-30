@@ -11,9 +11,17 @@ const debug = Debug("test")
 
 describe("server", () => {
 
-  describe("listening", () => {
-    let server = new Server({
+  describe("simple", () => {
+    const server = new Server({
       listen: { port: 3000, host: "localhost" },
+    })
+    server.route({
+      method: "GET",
+      path: "/",
+      handler: (_, reply) => {
+        reply("Hello, from TEST!")
+      },
+      description: "Only for testing",
     })
 
     it("should start server", () => {
@@ -24,6 +32,8 @@ describe("server", () => {
       .request("http://localhost:3000").get("/")
       .then((res) => {
         debug(`Returned: ${res.status} - ${res.text}`)
+        expect(res.status).to.equal(200)
+        expect(res.text).to.equal("Hello from TEST!")
         return true
       })
       .catch((err) => {
@@ -33,16 +43,6 @@ describe("server", () => {
     )
 
     it("should stop server", () => server.stop())
-
-    it("should add listener manually", () => {
-      server = new Server()
-      server.listen({ port: 3001, host: "localhost" })
-      return server.start()
-      .then(() => {
-        expect(server.handle().info!.uri).to.equal("http://localhost:3001")
-      })
-      .then(() => server.stop())
-    })
   })
 
 })

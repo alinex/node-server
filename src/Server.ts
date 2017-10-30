@@ -49,9 +49,9 @@ class Server {
 
   public route(config: IRoute): Server {
     this.hapi.route({
-      path: config.path,
-      method: config.method,
       vhost: config.vhost,
+      method: config.method,
+      path: config.path,
       handler: config.handler,
       config: {
         description: config.description,
