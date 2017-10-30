@@ -27,6 +27,14 @@ class Server {
         for (const listen of listener) {
           this.listen(listen)
         }
+      } else {
+        this.listen()
+      }
+      if (config.route) {
+        const routes = Array.isArray(config.route) ? config.route : [config.route]
+        for (const route of routes) {
+          this.route(route)
+        }
       }
     }
   }

@@ -36,4 +36,5 @@ export interface IPlugin {
 
 export interface IConfig {
   listen?: IListener | IListener[]
+  route?: IRoute[]
 }
