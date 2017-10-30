@@ -1,4 +1,5 @@
 import * as Hapi from "hapi"
+// export { Hapi.ServerConnectionInfo as IInfo }
 
 export interface IListener {
   label?: string | string[],
@@ -23,7 +24,7 @@ export interface IRoute {
   description?: string
 }
 
-export default interface IPlugin {
+export interface IPlugin {
   // where to connect
   label?: string[] | string,
   vhost?: number,
@@ -34,5 +35,5 @@ export default interface IPlugin {
 }
 
 export interface IConfig {
-  listen: IListener | IListener[]
+  listen?: IListener | IListener[]
 }

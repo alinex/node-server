@@ -3,43 +3,43 @@ import chaiHttp = require("chai-http")
 import * as Debug from "debug"
 import "mocha"
 
-import Server from "../wrapper/TServer"
+import Server from "../../src/Server"
+import { IRoute } from "../../src/setup"
+// import Server from "../wrapper/TServer"
 
 chai.use(chaiHttp)
 const expect = chai.expect
 const debug = Debug("test")
 
+const testRoute: IRoute = {
+  method: "GET",
+  path: "/",
+  handler: (_, reply) => {
+    reply("Hello from TEST!")
+  },
+  description: "welcome for testing",
+}
+
 describe("listen", () => {
 
-  let server = new Server({
-    listen: { port: 3000, host: "localhost" },
-  })
-
-  it("should start server", () => {
+  it("should listen to default", () => {
+    const server = new Server()
+    server.listen()
+    server.route(testRoute)
     return server.start()
-  })
-
-  it("should be working", () => chai
-    .request("http://localhost:3000").get("/")
-    .then((res) => {
-      debug(`Returned: ${res.status} - ${res.text}`)
-      return true
-    })
-    .catch((err) => {
-      debug(`Error: ${err.message}`)
-      return true
-    }),
-  )
-
-  it("should stop server", () => server.stop())
-
-  it("should add listener manually", () => {
-    server = new Server()
-    server.listen({ port: 3001, host: "localhost" })
-    return server.start()
-    .then(() => {
-      expect(server.handle().info!.uri).to.equal("http://localhost:3001")
-    })
+    .then(() => chai
+      .request(server.info().uri).get("/")
+      .then((res) => {
+        debug(`Returned: ${res.status} - ${res.text}`)
+        expect(res.status).to.equal(200)
+        expect(res.text).to.equal("Hello from TEST!")
+      })
+      .catch((err) => {
+        debug(`Error: ${err.message}`)
+        throw err
+      }),
+    )
     .then(() => server.stop())
   })
+
 })

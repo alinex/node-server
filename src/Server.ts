@@ -22,21 +22,23 @@ class Server {
   constructor(config?: IConfig) {
     this.hapi = new Hapi.Server()
     if (config) {
-      const listener = Array.isArray(config.listen) ? config.listen : [config.listen]
-      for (const listen of listener) {
-        this.listen(listen)
+      if (config.listen) {
+        const listener = Array.isArray(config.listen) ? config.listen : [config.listen]
+        for (const listen of listener) {
+          this.listen(listen)
+        }
       }
     }
   }
 
   // configuration
 
-  public listen(config: IListener): Server {
+  public listen(config: IListener = {}): Server {
     if (!config.label) {
       config.label = "root" // use default
     }
     if (!config.port) {
-      config.port = parseInt(process.env.PORT || "80", 10)
+      config.port = parseInt(process.env.PORT || "1974", 10)
     }
     this.hapi.connection({
       labels: config.label,
@@ -76,6 +78,10 @@ class Server {
 //  }
 
   // use the server
+
+  public info(): Hapi.ServerConnectionInfo | null {
+    return this.hapi.info
+  }
 
   public async start(): Promise<Error|null> {
     await Promise.all(this.pluginLoader)
