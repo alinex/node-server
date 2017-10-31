@@ -9,7 +9,7 @@ import * as Hapi from "hapi"
 // import path from "path"
 
 // import DebugPlugin from "./plugin/debug"
-import { IConfig, IListener, IRoute } from "./setup"
+import { IConfig, IListener, IPlugin, IRoute } from "./setup"
 // import IPlugin from "./IPlugin"
 
 const debug = Debug("server")
@@ -70,20 +70,23 @@ class Server {
     return this
   }
 
-//  public plugin(config: IPlugin): Server {
-//    const labels = config.labels || "root"
-//    this.hapi.select(labels).register({
-//      register: config.plugin,
-//      options: config.options,
-//    }, {
-//      select: labels,
-//      routes: {
-//        vhost: config.vhost,
-//        prefix: config.prefix,
-//      },
-//    })
-//    return this
-//  }
+  public plugin(config: IPlugin): Server {
+    if (!config.label) {
+      config.label = "root" // use default
+    }
+//    this.hapi.select(config.label).register({
+    this.hapi.register({
+      register: config.plugin,
+      options: config.options,
+    }, {
+      select: config.label,
+      routes: {
+        vhost: config.vhost,
+        prefix: config.prefix,
+      },
+    })
+    return this
+  }
 
   // use the server
 

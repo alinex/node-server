@@ -1,10 +1,11 @@
 import * as chai from "chai"
 import chaiHttp = require("chai-http")
 import * as Debug from "debug"
+import * as Hapi from "hapi"
 import "mocha"
 
 import Server from "../../src/Server"
-import { IRoute } from "../../src/setup"
+import { IPlugin, IRoute } from "../../src/setup"
 // import Server from "../wrapper/TServer"
 
 chai.use(chaiHttp)
@@ -20,29 +21,28 @@ const testRoute: IRoute = {
   description: "welcome for testing",
 }
 
-describe("listen", () => {
+const testPlugin: IPlugin = {
+  plugin: (app: Hapi.Server, _: any, next: () => void) => {
+    app.route({
+      vhost: testRoute.vhost,
+      method: testRoute.method,
+      path: testRoute.path,
+      handler: testRoute.handler,
+      config: {
+        description: testRoute.description,
+      },
+    })
+    next()
+  },
+}
+testPlugin.plugin.attributes = { name: "test" }
 
-  it("should listen to default", async () => {
+describe("plugin", () => {
+
+  it("should add simple plugin", () => {
     const server = new Server()
     server.listen()
-    server.route(testRoute)
-    await server.start()
-    try {
-      const res = await chai.request(server.info()!.uri).get("/xxx")
-      debug(`Returned: ${res.status} - ${res.text}`)
-      expect(res.status).to.equal(200)
-      expect(res.text).to.equal("Hello from TEST!")
-      await server.stop()
-    } catch (err) {
-      await server.stop()
-      throw err
-    }
-  })
-
-  it("should listen to specific port", () => {
-    const server = new Server()
-    server.listen({ host: "localhost", port: 3000 })
-    server.route(testRoute)
+    server.plugin(testPlugin)
     return server.start()
     .then(() => chai
       .request(server.info()!.uri).get("/")

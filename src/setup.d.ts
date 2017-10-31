@@ -27,10 +27,26 @@ export interface IRoute {
 export interface IPlugin {
   // where to connect
   label?: string[] | string,
-  vhost?: number,
-  prefix?: number,
+  vhost?: string,
+  prefix?: string,
   // what to do
-  plugin: Hapi.PluginFunction<object>,
+  plugin: {
+    ( app: Hapi.Server,
+      options: any,
+      next: () => void,
+    ): void,
+    attributes?: {
+      name: string,
+    },
+  }
+//  export interface PluginFunction<OptionsPassedToPlugin> {
+//      (server: Server, options: OptionsPassedToPlugin, next: (err?: Error) => void): void;
+//      /**
+//       * Note attributes is NOT optional but this type is easier to use.
+//       */
+//      attributes?: PluginAttributes;
+//  }
+
   options?: Hapi.PluginRegistrationOptions,
 }
 
