@@ -28,7 +28,7 @@ describe("listen", () => {
     server.route(testRoute)
     await server.start()
     try {
-      const res = await chai.request(server.info()!.uri).get("/xxx")
+      const res = await chai.request(server.info()!.uri).get("/")
       debug(`Returned: ${res.status} - ${res.text}`)
       expect(res.status).to.equal(200)
       expect(res.text).to.equal("Hello from TEST!")
@@ -39,24 +39,21 @@ describe("listen", () => {
     }
   })
 
-  it("should listen to specific port", () => {
+  it("should listen to specific port", async () => {
     const server = new Server()
     server.listen({ host: "localhost", port: 3000 })
     server.route(testRoute)
-    return server.start()
-    .then(() => chai
-      .request(server.info()!.uri).get("/")
-      .then((res) => {
-        debug(`Returned: ${res.status} - ${res.text}`)
-        expect(res.status).to.equal(200)
-        expect(res.text).to.equal("Hello from TEST!")
-      })
-      .catch((err) => {
-        debug(`Error: ${err.message}`)
-        throw err
-      }),
-    )
-    .then(() => server.stop())
+    await server.start()
+    try {
+      const res = await chai.request(server.info()!.uri).get("/")
+      debug(`Returned: ${res.status} - ${res.text}`)
+      expect(res.status).to.equal(200)
+      expect(res.text).to.equal("Hello from TEST!")
+      await server.stop()
+    } catch (err) {
+      await server.stop()
+      throw err
+    }
   })
 
 })

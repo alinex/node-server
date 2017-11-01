@@ -83,7 +83,7 @@
     "nyc": "^11.2.1",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "^2.6.1"
   },
   "engines": {
     "node": ">=8"
